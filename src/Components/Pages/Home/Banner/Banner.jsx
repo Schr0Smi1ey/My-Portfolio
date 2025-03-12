@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import profile from "../../../../assets/Home/Profile/profile.jpg";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
 const Hero = () => {
@@ -30,6 +30,14 @@ const Hero = () => {
           Junior Full-Stack Developer
         </motion.p>
         <div className="mt-6 flex space-x-4">
+          <a
+            href="https://www.facebook.com/share/19zK3X1Ro6/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-aos="zoom-in"
+          >
+            <FaFacebook className="text-3xl hover:text-primary transition-all" />
+          </a>
           <a
             href="https://www.linkedin.com/in/sarafat-karim"
             target="_blank"

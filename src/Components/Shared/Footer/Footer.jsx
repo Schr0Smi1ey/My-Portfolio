@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FiGithub, FiLinkedin, FiTwitter, FiArrowUp } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { FaFacebook } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -43,11 +44,15 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4">Follow Me</h3>
             <div className="flex gap-4">
               {[
-                { icon: <FiGithub />, url: "https://github.com/Schr0Smi1ey" },
+                {
+                  icon: <FaFacebook></FaFacebook>,
+                  url: "https://www.facebook.com/share/19zK3X1Ro6/",
+                },
                 {
                   icon: <FiLinkedin />,
                   url: "https://www.linkedin.com/in/sarafat-karim-0a91b7182/",
                 },
+                { icon: <FiGithub />, url: "https://github.com/Schr0Smi1ey" },
                 {
                   icon: <FiTwitter />,
                   url: "https://twitter.com/sarafat_karim",
