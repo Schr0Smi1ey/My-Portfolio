@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import profile from "../../../../assets/Home/Profile/profile.jpg";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Hero = () => {
   useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 500, once: true });
   }, []);
 
   return (
@@ -27,7 +29,32 @@ const Hero = () => {
         >
           Junior Full-Stack Developer
         </motion.p>
-
+        <div className="mt-6 flex space-x-4">
+          <a
+            href="https://www.linkedin.com/in/sarafat-karim"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-aos="zoom-in"
+          >
+            <FaLinkedin className="text-3xl hover:text-primary transition-all" />
+          </a>
+          <a
+            href="https://github.com/Schr0Smi1ey"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-aos="zoom-in"
+          >
+            <FaGithub className="text-3xl hover:text-primary transition" />
+          </a>
+          <a
+            href="https://twitter.com/sarafat_karim"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-aos="zoom-in"
+          >
+            <FaXTwitter className="text-3xl hover:text-primary transition" />
+          </a>
+        </div>
         <motion.div
           data-aos="fade-up"
           data-aos-delay="600"

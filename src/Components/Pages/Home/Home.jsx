@@ -31,6 +31,11 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
 import { BokehPass } from "three/examples/jsm/postprocessing/BokehPass";
 import Banner from "./Banner/Banner";
+import AboutMe from "./AboutMe/AboutMe";
+import Education from "./Education/Education";
+import Skills from "./Skills/Skills";
+import Projects from "./Projects/Projects";
+import ContactInfo from "./ContactInfo/ContactInfo";
 
 function PostProcessing() {
   const { gl, scene, camera, size } = useThree();
@@ -344,6 +349,11 @@ const Home = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-16 relative z-10 py-12 md:py-20">
         {/* Introduction Section */}
         <Banner></Banner>
+        <AboutMe></AboutMe>
+        <Education></Education>
+        <Skills></Skills>
+        <Projects></Projects>
+        <ContactInfo></ContactInfo>
       </div>
 
       {/* Global Floating Particles */}

@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "name": "Gadget Pulse",
+    "image": "https://via.placeholder.com/300",
+    "description": "A responsive e-commerce platform for mobile and electronics shops, built with Tailwind CSS and DaisyUI.",
+    "techStack": ["React.js", "Tailwind CSS", "DaisyUI"],
+    "liveLink": "https://gadgetpulse.vercel.app",
+    "githubLink": "https://github.com/sarafat-karim/gadget-pulse",
+    "challenges": "Implementing dynamic filtering and ensuring seamless responsiveness.",
+    "futurePlans": "Adding payment gateway and user authentication."
+  },
+  {
+    "id": 2,
+    "name": "Peddy - Pet Adoption Platform",
+    "image": "https://via.placeholder.com/300",
+    "description": "A platform to connect pet adopters with pet owners, providing detailed pet profiles and adoption requests.",
+    "techStack": ["React.js", "Firebase", "Tailwind CSS"],
+    "liveLink": "https://peddy.vercel.app",
+    "githubLink": "https://github.com/sarafat-karim/peddy",
+    "challenges": "Managing real-time data updates and user authentication.",
+    "futurePlans": "Integrating a chat system for adopters and pet owners."
+  },
+  {
+    "id": 3,
+    "name": "FitForge - Fitness Tracker",
+    "image": "https://via.placeholder.com/300",
+    "description": "A fitness tracking website that helps users log workouts and track progress.",
+    "techStack": ["React.js", "MongoDB", "Node.js", "Express.js"],
+    "liveLink": "https://fitforge.vercel.app",
+    "githubLink": "https://github.com/sarafat-karim/fitforge",
+    "challenges": "Creating an efficient database schema and handling user data securely.",
+    "futurePlans": "Adding AI-powered workout recommendations and social features."
+  }
+]
