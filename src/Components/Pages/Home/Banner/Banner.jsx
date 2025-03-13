@@ -17,7 +17,7 @@ const Banner = () => {
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"
-          className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight"
+          className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight"
         >
           Hi, I'm <span className="text-primary">Sarafat Karim</span>
         </motion.h1>
@@ -70,11 +70,11 @@ const Banner = () => {
         >
           <a
             download
-            className="bg-primary text-white px-6 py-3 rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary/90 hover:scale-105"
+            className="bg-primary text-white px-4 py-[6px] rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary/90 hover:scale-105"
           >
             Download Resume
           </a>
-          <a className="border-2 border-primary text-primary px-6 py-3 rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary hover:text-white hover:scale-105">
+          <a className="border-2 border-primary text-primary px-4 py-[6px] rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary hover:text-white hover:scale-105">
             Contact Me
           </a>
         </motion.div>

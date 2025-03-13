@@ -139,9 +139,11 @@ const Skills = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
               className=" dark:bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
-              data-aos="fade-up"
             >
-              <h3 className="text-2xl font-semibold text-primary mb-6">
+              <h3
+                data-aos="fade-up"
+                className="text-2xl font-semibold text-primary mb-6"
+              >
                 {category.title}
               </h3>
               <div className="space-y-6">
@@ -150,13 +152,16 @@ const Skills = () => {
                     key={skillIndex}
                     className="space-y-2 shadow-md p-4 rounded-lg"
                   >
-                    <div className="flex items-center gap-4">
+                    <div data-aos="fade-up" className="flex items-center gap-4">
                       {skill.icon && skill.icon}
                       <span className="text-gray-700 dark:text-gray-300 text-lg font-medium">
                         {skill.name}
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                    <div
+                      data-aos="fade-up"
+                      className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"
+                    >
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
@@ -164,7 +169,10 @@ const Skills = () => {
                         className="h-2.5 rounded-full bg-gradient-to-r from-primary to-black"
                       />
                     </div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p
+                      data-aos="fade-up"
+                      className="text-sm text-gray-500 dark:text-gray-400"
+                    >
                       Proficiency: {skill.level}%
                     </p>
                   </div>

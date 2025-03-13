@@ -23,10 +23,10 @@ const Header = () => {
         >
           <NavLink
             to={getLinkPath(item)}
-            className="text-gray-300 hover:text-primary text-lg font-semibold transition-colors duration-300 relative group"
+            className="text-gray-300 hover:text-primary text-sm font-semibold transition-colors duration-300 relative group"
           >
             {item}
-            <span className="absolute bottom-[-5px] left-0 w-0 h-[3px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute bottom-[-3px] left-0 w-0 h-[1.5px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
         </motion.div>
       ))}
@@ -63,7 +63,7 @@ const Header = () => {
         whileTap={{ scale: 0.9 }}
         className="text-gray-300 hover:text-primary transition-colors"
       >
-        <FaLinkedin className="w-7 h-7" />
+        <FaLinkedin className="w-5 h-5" />
       </motion.a>
       <motion.a
         href="https://github.com/Schr0Smi1ey"
@@ -73,19 +73,19 @@ const Header = () => {
         whileTap={{ scale: 0.9 }}
         className="text-gray-300 hover:text-primary transition-colors"
       >
-        <FiGithub className="w-7 h-7" />
+        <FiGithub className="w-5 h-5" />
       </motion.a>
     </div>
   );
 
   return (
     <motion.header
-      className="fixed w-full py-2 top-0 z-50 bg-black shadow-lg "
+      className="fixed w-full py-1 top-0 z-50 bg-black shadow-lg "
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
     >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-10 py-1">
         <div className="flex justify-between items-center">
           <motion.div
             whileHover={{ scale: 1.05 }}
@@ -93,7 +93,7 @@ const Header = () => {
           >
             <Link
               to="/"
-              className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-white bg-clip-text text-transparent"
+              className="text-xl font-bold bg-gradient-to-r from-primary to-white bg-clip-text text-transparent"
             >
               Sarafat Karim
             </Link>
