@@ -4,7 +4,20 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { FaExternalLinkAlt, FaGithub, FaArrowLeft } from "react-icons/fa";
+import {
+  FaExternalLinkAlt,
+  FaGithub,
+  FaArrowLeft,
+  FaCode,
+  FaPalette,
+  FaMobileAlt,
+  FaDatabase,
+  FaTools,
+  FaLightbulb,
+  FaRocket,
+} from "react-icons/fa";
+import { DiReact, DiNodejsSmall } from "react-icons/di";
+import { SiFirebase, SiTailwindcss } from "react-icons/si";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -24,169 +37,216 @@ const ProjectDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    AOS.init({ duration: 500});
+    AOS.init({ duration: 500 });
   }, []);
 
   if (!project) {
     return (
-      <div className="text-center py-20 text-2xl text-gray-600">Loading...</div>
+      <div className="text-center py-32 text-2xl text-gray-600">Loading...</div>
     );
   }
 
-  return (
-    <section className="min-h-screen py-16 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto">
-        {/* Back Button */}
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center space-x-2 mb-6 text-primary hover:underline"
-        >
-          <FaArrowLeft />
-          <span>Back</span>
-        </button>
+  const categoryIcons = {
+    frontend: <DiReact className="text-3xl mr-2 text-blue-500" />,
+    backend: <DiNodejsSmall className="text-3xl mr-2 text-green-500" />,
+    authentication: <SiFirebase className="text-3xl mr-2 text-orange-500" />,
+    utilities: <FaTools className="text-3xl mr-2 text-purple-500" />,
+    deployment: <FaRocket className="text-3xl mr-2 text-red-500" />,
+    styling: <SiTailwindcss className="text-3xl mr-2 text-cyan-500" />,
+  };
 
+  return (
+    <section className="min-h-screen background py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
+          <div className="inline-block mb-6">
+            <FaRocket className="text-5xl text-primary animate-bounce" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white bg-clip-text">
             {project.name}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mt-3">
+          <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
             {project.description}
           </p>
         </motion.div>
 
         {/* Project Image */}
-        <motion.div data-aos="zoom-in" className="flex justify-center mb-12">
-          <img
+        <motion.div data-aos="zoom-in" className="flex justify-center mb-16">
+          <motion.img
             src={project.image}
             alt={project.name}
-            className="w-full md:w-3/4 lg:w-2/3 rounded-lg shadow-xl border-4 border-primary"
+            className="w-full md:w-3/4 lg:w-2/3 rounded-2xl shadow-2xl border-8 border-white dark:border-gray-800"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300 }}
           />
         </motion.div>
 
         {/* Tech Stack */}
-        <motion.div data-aos="fade-up" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 dark:text-white mb-6">
+        <motion.div data-aos="fade-up" className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center flex items-center justify-center">
+            <FaCode className="mr-3 text-primary" />
             Tech Stack
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {Object.entries(project.techStack).map(([category, stack]) => (
-              <div
+              <motion.div
                 key={category}
-                className="p-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg"
+                whileHover={{ y: -5 }}
+                className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl hover:shadow-2xl transition-all"
               >
-                <h3 className="text-xl font-semibold text-primary">
-                  {category}
-                </h3>
-                <ul className="text-gray-700 dark:text-gray-300 mt-2">
+                <div className="flex items-center mb-4">
+                  {categoryIcons[category.toLowerCase()]}
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white capitalize">
+                    {category}
+                  </h3>
+                </div>
+                <ul className="space-y-2">
                   {stack.map((tech, index) => (
-                    <li key={index} className="text-sm">
-                      • {tech}
+                    <li
+                      key={index}
+                      className="flex items-center text-gray-700 dark:text-gray-300"
+                    >
+                      <span className="w-2 h-2 bg-primary rounded-full mr-2" />
+                      {tech}
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Features */}
-        <motion.div data-aos="fade-up" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 dark:text-white mb-6">
-            Features
-          </h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300">
-            {project.features.map((feature, index) => (
-              <li
-                key={index}
-                className="bg-white dark:bg-gray-800 p-4 shadow-md rounded-lg"
-              >
-                <h3 className="text-xl font-semibold text-primary">
-                  {feature.title}
-                </h3>
-                <p className="text-md">{feature.description}</p>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
+        {/* Challenges & Future Plans */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          {/* Features */}
+          <motion.div
+            data-aos="fade-right"
+            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
+              <FaPalette className="mr-3 text-primary" />
+              Key Features
+            </h2>
+            <div className="space-y-6">
+              {project.features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ x: 5 }}
+                  className="pl-4 border-l-4 border-primary"
+                >
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mt-2">
+                    {feature.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+          {/* Challenges */}
+          <motion.div
+            data-aos="fade-right"
+            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <FaTools className="mr-3 text-primary" />
+              Challenges
+            </h2>
+            <div className="space-y-6">
+              {project.challenges.map((challenge, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ x: 5 }}
+                  className="pl-4 border-l-4 border-primary"
+                >
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {challenge.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mt-2">
+                    {challenge.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
-        {/* Challenges */}
-        <motion.div data-aos="fade-up" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 dark:text-white mb-6">
-            Challenges
-          </h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300">
-            {project.challenges.map((challenge, index) => (
-              <li
-                key={index}
-                className="bg-white dark:bg-gray-800 p-4 shadow-md rounded-lg"
-              >
-                <h3 className="text-xl font-semibold text-primary">
-                  {challenge.title}
-                </h3>
-                <p className="text-md">{challenge.description}</p>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
+          {/* Future Plans */}
+          <motion.div
+            data-aos="fade-left"
+            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl"
+          >
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+              <FaRocket className="mr-3 text-primary" />
+              Future Plans
+            </h2>
+            <div className="space-y-6">
+              {project.futurePlans.map((plan, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ x: 5 }}
+                  className="pl-4 border-l-4 border-primary"
+                >
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {plan.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mt-2">
+                    {plan.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
 
-        {/* Future Plans */}
-        <motion.div data-aos="fade-up" className="mb-12">
-          <h2 className="text-3xl font-semibold text-gray-900 dark:text-white mb-6">
-            Future Plans
-          </h2>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300">
-            {project.futurePlans.map((plan, index) => (
-              <li
-                key={index}
-                className="bg-white dark:bg-gray-800 p-4 shadow-md rounded-lg"
-              >
-                <h3 className="text-xl font-semibold text-primary">
-                  {plan.title}
-                </h3>
-                <p className="text-md">{plan.description}</p>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Links */}
+        {/* Action Buttons */}
         <motion.div
-          data-aos="fade-up"
-          className="flex flex-wrap justify-center gap-6"
+          data-aos="zoom-in"
+          className="mt-16 flex flex-wrap justify-center gap-6"
         >
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href={project.liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 bg-primary text-white px-6 py-3 rounded-lg shadow-lg hover:bg-primary/90 transition"
+            className="flex items-center gap-2 bg-gradient-to-r from-primary to-blue-600 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
           >
             <FaExternalLinkAlt />
-            <span>Live Project</span>
-          </a>
-          <a
+            <span>Live Demo</span>
+          </motion.a>
+
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href={project.frontendCode}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg transition"
+            className="flex items-center gap-2 bg-gradient-to-r from-gray-800 to-gray-900 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
           >
             <FaGithub />
             <span>Frontend Code</span>
-          </a>
-          <a
-            href={project.backendCode}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center space-x-2 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg transition"
-          >
-            <FaGithub />
-            <span>Backend Code</span>
-          </a>
+          </motion.a>
+
+          {project.backendCode && (
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href={project.backendCode}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
+            >
+              <FaGithub />
+              <span>Backend Code</span>
+            </motion.a>
+          )}
         </motion.div>
       </div>
     </section>

@@ -6,7 +6,7 @@ import { FaFacebook } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="relative bg-black py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
-      <div className="container text-white mx-auto">
+      <div className="container max-w-3xl text-white mx-auto">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center"
           initial="hidden"
