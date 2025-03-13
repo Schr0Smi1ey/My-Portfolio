@@ -9,7 +9,7 @@ const Education = () => {
   }, []);
 
   return (
-    <section id="education" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="education" className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         {/* Section Title */}
         <h2
@@ -20,8 +20,15 @@ const Education = () => {
         </h2>
 
         {/* Education Timeline */}
-        <div className="relative border-l-4 border-primary pl-8 space-y-12">
+        <div className="relative pl-8 space-y-12">
           {/* University */}
+          <motion.div
+            initial={{ height: 0 }}
+            whileInView={{ height: "100%" }}
+            transition={{ duration: 1.5 }}
+            className="absolute left-0 top-0 w-2 bg-gradient-to-b from-primary to-black"
+          />
+
           <div data-aos="fade-up" className="relative">
             {/* Timeline Dot */}
             <div className="absolute w-6 h-6 bg-primary rounded-full -left-3.5 top-2 flex items-center justify-center">
@@ -56,7 +63,7 @@ const Education = () => {
               </div>
             </div>
           </div>
-          <div data-aos="fade-up" className="relative">
+          <div data-aos="fade-up" data-aos-delay="500" className="relative">
             {/* Timeline Dot */}
             <div className="absolute w-6 h-6 bg-primary rounded-full -left-3.5 top-2 flex items-center justify-center">
               <div className="w-3 h-3 bg-white rounded-full"></div>

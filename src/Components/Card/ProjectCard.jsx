@@ -14,13 +14,13 @@ const ProjectCard = ({ project }) => {
   return (
     <div
       data-aos="fade-up"
-      className="bg-white flex flex-col md:flex-row justify-between items-center gap-6 dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden p-6"
+      className="bg-white flex flex-col lg:flex-row justify-between items-center gap-6 dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden p-6"
     >
       {/* Project Image */}
       <div
         data-aos="zoom-in"
         data-aos-delay="200"
-        className="w-full md:w-[40%]"
+        className="w-full lg:w-[40%]"
       >
         <img
           src={project.image}
@@ -33,7 +33,7 @@ const ProjectCard = ({ project }) => {
       <div
         data-aos="fade-left"
         data-aos-delay="400"
-        className="w-full md:w-2/3"
+        className="w-full lg:w-2/3"
       >
         <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
           {project.name}

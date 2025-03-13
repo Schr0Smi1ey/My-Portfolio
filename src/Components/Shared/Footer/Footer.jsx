@@ -8,18 +8,18 @@ const Footer = () => {
     <footer className="relative bg-black py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
       <div className="container text-white mx-auto">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center"
           initial="hidden"
           animate="visible"
         >
           <motion.div className="flex flex-col items-center md:items-start">
-            <h3 className="text-xl  font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               {["/", "/Development-Stack", "/Projects"].map((path, index) => (
                 <li key={index}>
                   <Link
                     to={path}
-                    className="hover:text-primary flex transition-colors text-lg font-medium relative"
+                    className="hover:text-primary flex justify-center md:justify-start transition-colors text-lg font-medium relative"
                   >
                     <span className="relative z-10">
                       {path === "/"
@@ -74,7 +74,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          <motion.div className="flex flex-col items-center md:items-end">
+          {/* <motion.div className="flex flex-col items-center md:items-end">
             <h3 className="text-xl font-semibold mb-4">Contact Me</h3>
             <ul className="space-y-2">
               <li>
@@ -94,7 +94,7 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
 

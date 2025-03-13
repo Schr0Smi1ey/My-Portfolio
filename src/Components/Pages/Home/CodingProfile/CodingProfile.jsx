@@ -8,7 +8,7 @@ import codechef from "../../../../assets/Home/CodingProfile/CodeChef.png";
 
 const CodingProfile = () => {
   useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 500 });
   }, []);
 
   const problemsSolved = {
@@ -19,7 +19,7 @@ const CodingProfile = () => {
 
   return (
     <section className="py-20 bg-gradient-to-r from-primaryto-purple-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-5xl mx-auto px-6 text-center">
+      <div className="container mx-auto px-6 text-center">
         {/* Section Title */}
         <h2
           className="text-4xl font-bold text-gray-900 dark:text-white"

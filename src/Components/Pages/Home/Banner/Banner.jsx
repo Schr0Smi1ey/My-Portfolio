@@ -13,11 +13,11 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative flex flex-col md:flex-row items-center justify-between px-4 md:px-8 transition-all duration-500">
-      <div className="w-full md:w-1/2 text-left space-y-6">
+    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 md:p-8 mb-5 md:mb-10 transition-all duration-500">
+      <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"
-          className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight"
+          className="text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight"
         >
           Hi, I'm <span className="text-primary">Sarafat Karim</span>
         </motion.h1>
@@ -29,7 +29,7 @@ const Hero = () => {
         >
           Junior Full-Stack Developer
         </motion.p>
-        <div className="mt-6 flex space-x-4">
+        <div className="mt-6 flex justify-center md:justify-start space-x-4">
           <a
             href="https://www.facebook.com/share/19zK3X1Ro6/"
             target="_blank"
@@ -66,7 +66,7 @@ const Hero = () => {
         <motion.div
           data-aos="fade-up"
           data-aos-delay="600"
-          className="flex space-x-4"
+          className="flex justify-center md:justify-start space-x-4"
         >
           <a
             download

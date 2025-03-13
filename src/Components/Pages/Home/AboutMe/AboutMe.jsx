@@ -9,7 +9,10 @@ const About = () => {
   }, []);
 
   return (
-    <section id="about" className="py-16 bg-white dark:bg-gray-900">
+    <section
+      id="about"
+      className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg"
+    >
       <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center">
         <div data-aos="fade-up">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
