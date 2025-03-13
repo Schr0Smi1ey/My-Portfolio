@@ -34,7 +34,7 @@ import Banner from "./Banner/Banner";
 import AboutMe from "./AboutMe/AboutMe";
 import Education from "./Education/Education";
 import Skills from "./Skills/Skills";
-import Projects from "./Projects/Projects";
+import FeaturedProjects from "./FeaturedProjects/FeaturedProjects";
 import ContactInfo from "./ContactInfo/ContactInfo";
 
 function PostProcessing() {
@@ -352,7 +352,7 @@ const Home = () => {
         <AboutMe></AboutMe>
         <Education></Education>
         <Skills></Skills>
-        <Projects></Projects>
+        <FeaturedProjects></FeaturedProjects>
         <ContactInfo></ContactInfo>
       </div>
 

@@ -1,35 +1,240 @@
 [
   {
     "id": 1,
-    "name": "Gadget Pulse",
-    "image": "https://via.placeholder.com/300",
-    "description": "A responsive e-commerce platform for mobile and electronics shops, built with Tailwind CSS and DaisyUI.",
-    "techStack": ["React.js", "Tailwind CSS", "DaisyUI"],
-    "liveLink": "https://gadgetpulse.vercel.app",
-    "githubLink": "https://github.com/sarafat-karim/gadget-pulse",
-    "challenges": "Implementing dynamic filtering and ensuring seamless responsiveness.",
-    "futurePlans": "Adding payment gateway and user authentication."
+    "name": "VisaEase - Hassle-Free Visa Assistance",
+    "image": "https://i.ibb.co.com/KpmZq3XW/VisaEase.png",
+    "description": "A seamless visa application platform designed to simplify the visa process with a modern UI and robust features.",
+    "techStack": {
+      "frontend": ["React.js", "Tailwind CSS", "DaisyUI"],
+      "backend": ["Node.js", "Express.js", "MongoDB"],
+      "authentication": ["Firebase"],
+      "deployment": ["Firebase Hosting", "Vercel"]
+    },
+    "status": "Full-Stack Project",
+    "liveLink": "https://visaease-bb42d.web.app/",
+    "frontendCode": "https://github.com/Schr0Smi1ey/VisaEase-Frontend.git",
+    "backendCode": "https://github.com/Schr0Smi1ey/VisaEase-Backend.git",
+    "features": [
+      {
+        "title": "User Authentication",
+        "description": "Secure login and registration via Email/Password or Google Sign-In with Firebase."
+      },
+      {
+        "title": "Visa Management",
+        "description": "Add, update, and delete visa details with form validation and real-time updates."
+      },
+      {
+        "title": "Visa Application",
+        "description": "Submit and track visa applications with real-time updates."
+      },
+      {
+        "title": "Search and Filter",
+        "description": "Search visas by country or type and filter results dynamically."
+      },
+      {
+        "title": "Real-Time Database Operations",
+        "description": "Manage visas and applications with MongoDB and receive real-time notifications."
+      },
+      {
+        "title": "Protected Routes",
+        "description": "Restricts access to private pages, ensuring only authorized users can manage visas."
+      },
+      {
+        "title": "Responsive Design",
+        "description": "Optimized for all devices with dark/light theme toggle."
+      },
+      {
+        "title": "Enhanced User Experience",
+        "description": "Smooth navigation with animations and tooltips for improved interactivity."
+      }
+    ],
+    "challenges": [
+      {
+        "title": "Form Validation",
+        "description": "Implementing dynamic form validation with real-time feedback."
+      },
+      {
+        "title": "Search and Filter",
+        "description": "Developing efficient search and filtering for visas."
+      },
+      {
+        "title": "Theme Toggle",
+        "description": "Implementing a dark/light theme switcher."
+      }
+    ],
+    "futurePlans": [
+      {
+        "title": "Payment Integration",
+        "description": "Adding a payment gateway for visa application fees."
+      },
+      {
+        "title": "Multi-Language Support",
+        "description": "Enabling multi-language functionality."
+      },
+      {
+        "title": "Automated Document Verification",
+        "description": "Implementing AI-based document verification."
+      }
+    ]
   },
   {
     "id": 2,
-    "name": "Peddy - Pet Adoption Platform",
-    "image": "https://via.placeholder.com/300",
-    "description": "A platform to connect pet adopters with pet owners, providing detailed pet profiles and adoption requests.",
-    "techStack": ["React.js", "Firebase", "Tailwind CSS"],
-    "liveLink": "https://peddy.vercel.app",
-    "githubLink": "https://github.com/sarafat-karim/peddy",
-    "challenges": "Managing real-time data updates and user authentication.",
-    "futurePlans": "Integrating a chat system for adopters and pet owners."
+    "name": "Artifact Hub - Explore Timeless Treasures",
+    "image": "https://i.ibb.co.com/svNqcr3X/Artifact-Hub.png",
+    "description": "A digital platform for history enthusiasts to discover, learn, and share knowledge about historical artifacts from different eras.",
+    "techStack": {
+      "frontend": ["React.js", "Tailwind CSS"],
+      "backend": ["Node.js", "Express.js", "MongoDB"],
+      "authentication": ["Firebase"],
+      "deployment": ["Firebase Hosting", "Vercel"]
+    },
+    "status": "Full-Stack Project",
+    "liveLink": "https://artifacts-hub-schr0smi1ey.web.app/",
+    "frontendCode": "https://github.com/sarafat-karim/artifact-hub",
+    "backendCode": "https://github.com/Schr0Smi1ey/Artifact-Hub-Server.git",
+    "features": [
+      {
+        "title": "User Authentication",
+        "description": "Secure login and registration via Email/Password or Google Sign-In with Firebase."
+      },
+      {
+        "title": "Artifact Management",
+        "description": "Add, update, and delete artifacts with form validation and real-time updates."
+      },
+      {
+        "title": "Artifact Details",
+        "description": "View comprehensive information about each artifact, including historical context and discovery details."
+      },
+      {
+        "title": "Like Artifacts",
+        "description": "Toggle like functionality to express interest in artifacts and track liked items."
+      },
+      {
+        "title": "Search and Filter",
+        "description": "Search artifacts by name and filter results dynamically."
+      },
+      {
+        "title": "Real-Time CRUD Operations",
+        "description": "Manage artifacts with MongoDB and receive real-time notifications for all actions."
+      },
+      {
+        "title": "Protected Routes",
+        "description": "Restricts access to private pages, ensuring only authorized users can manage artifacts."
+      },
+      {
+        "title": "Responsive Design",
+        "description": "Optimized for all devices with a clean and intuitive user interface."
+      },
+      {
+        "title": "Enhanced User Experience",
+        "description": "Smooth navigation with animations and tooltips for improved interactivity."
+      }
+    ],
+    "challenges": [
+      {
+        "title": "Organizing Historical Data",
+        "description": "Managing large amounts of historical data while maintaining an intuitive user interface."
+      },
+      {
+        "title": "Like Toggle Functionality",
+        "description": "Implementing a toggle-like feature that updates the database in real-time."
+      },
+      {
+        "title": "Search and Filter",
+        "description": "Developing efficient search and filtering for artifacts."
+      }
+    ],
+    "futurePlans": [
+      {
+        "title": "Interactive 3D Views",
+        "description": "Adding interactive 3D views of artifacts for a more immersive experience."
+      },
+      {
+        "title": "Discussion Forum",
+        "description": "Creating a discussion forum for history enthusiasts to share knowledge and insights."
+      },
+      {
+        "title": "Multi-Language Support",
+        "description": "Enabling multi-language functionality to cater to a global audience."
+      }
+    ]
   },
   {
     "id": 3,
-    "name": "FitForge - Fitness Tracker",
-    "image": "https://via.placeholder.com/300",
-    "description": "A fitness tracking website that helps users log workouts and track progress.",
-    "techStack": ["React.js", "MongoDB", "Node.js", "Express.js"],
-    "liveLink": "https://fitforge.vercel.app",
-    "githubLink": "https://github.com/sarafat-karim/fitforge",
-    "challenges": "Creating an efficient database schema and handling user data securely.",
-    "futurePlans": "Adding AI-powered workout recommendations and social features."
+    "name": "FitForge - Your Ultimate Fitness Companion",
+    "image": "https://i.ibb.co.com/1tKBzmg0/iask-ai-image-15.png",
+    "description": "A fitness tracking website that enables users to log workouts, track progress, and stay motivated on their fitness journey.",
+    "techStack": {
+      "frontend": ["React.js", "Tailwind CSS"],
+      "backend": ["Node.js", "Express.js", "MongoDB"],
+      "authentication": ["Firebase"],
+      "deployment": ["Firebase Hosting", "Vercel"]
+    },
+    "status": "Full-Stack Project",
+    "liveLink": "https://fitforge-44b27.web.app/",
+    "frontendCode": "https://github.com/Schr0Smi1ey/FitForge-Client-Side.git",
+    "backendCode": "https://github.com/Schr0Smi1ey/FitForge-Server-Side.git",
+    "features": [
+      {
+        "title": "User Authentication",
+        "description": "Secure login and registration via Email/Password or Google Sign-In with Firebase."
+      },
+      {
+        "title": "Workout Tracking",
+        "description": "Log and track workouts with detailed metrics such as duration, calories burned, and progress over time."
+      },
+      {
+        "title": "Goal Setting",
+        "description": "Set and track fitness goals, including weight loss, muscle gain, and endurance improvement."
+      },
+      {
+        "title": "Progress Visualization",
+        "description": "View progress through charts and graphs to stay motivated and monitor achievements."
+      },
+      {
+        "title": "Community Engagement",
+        "description": "Join a vibrant fitness community, share achievements, and participate in challenges."
+      },
+      {
+        "title": "Real-Time Updates",
+        "description": "Get real-time updates on workout progress and community activities."
+      },
+      {
+        "title": "Responsive Design",
+        "description": "Optimized for all devices with a clean and intuitive user interface."
+      },
+      {
+        "title": "Enhanced User Experience",
+        "description": "Smooth navigation with animations and tooltips for improved interactivity."
+      }
+    ],
+    "challenges": [
+      {
+        "title": "User Authentication",
+        "description": "Building a secure and efficient user authentication system with personalized workout tracking."
+      },
+      {
+        "title": "Data Visualization",
+        "description": "Implementing dynamic charts and graphs to visualize user progress."
+      },
+      {
+        "title": "Community Features",
+        "description": "Developing interactive community features to engage users and foster motivation."
+      }
+    ],
+    "futurePlans": [
+      {
+        "title": "AI-Powered Recommendations",
+        "description": "Implementing AI-powered workout recommendations based on user progress and preferences."
+      },
+      {
+        "title": "Social Features",
+        "description": "Adding social features such as friend connections, group challenges, and leaderboards."
+      },
+      {
+        "title": "Wearable Integration",
+        "description": "Integrating with wearable devices to sync workout data automatically."
+      }
+    ]
   }
 ]

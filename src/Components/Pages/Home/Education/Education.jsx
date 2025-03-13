@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 
 const Education = () => {
   useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 500});
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -6,8 +6,8 @@ import { FaEnvelope, FaPhone, FaWhatsapp } from "react-icons/fa";
 
 const ContactInfo = () => {
   // Initialize AOS
-  React.useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+  useEffect(() => {
+    AOS.init({ duration: 500 });
   }, []);
 
   return (

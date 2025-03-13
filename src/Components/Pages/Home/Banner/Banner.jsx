@@ -9,11 +9,11 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Hero = () => {
   useEffect(() => {
-    AOS.init({ duration: 500, once: true });
+    AOS.init({ duration: 500 });
   }, []);
 
   return (
-    <section className="relative flex flex-col md:flex-row items-center justify-between px-8 md:px-16 lg:px-24 transition-all duration-500">
+    <section className="relative flex flex-col md:flex-row items-center justify-between px-4 md:px-8 transition-all duration-500">
       <div className="w-full md:w-1/2 text-left space-y-6">
         <motion.h1
           data-aos="fade-right"

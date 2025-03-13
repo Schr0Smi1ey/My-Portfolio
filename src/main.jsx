@@ -7,6 +7,7 @@ import ErrorPage from "./Components/Shared/ErrorPage/ErrorPage";
 import Root from "./Components/Layout/Root";
 import Home from "./Components/Pages/Home/Home";
 import ProjectDetails from "./Components/DetailsPage/ProjectDetails";
+import Projects from "./Components/Pages/Projects/Projects";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/project-details/:id",
         element: <ProjectDetails></ProjectDetails>,
+      },
+      {
+        path: "/projects",
+        element: <Projects></Projects>,
       },
     ],
   },
