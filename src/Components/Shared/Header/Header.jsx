@@ -26,7 +26,7 @@ const Header = () => {
             className="text-gray-300 hover:text-primary text-sm font-semibold transition-colors duration-300 relative group"
           >
             {item}
-            <span className="absolute bottom-[-3px] left-0 w-0 h-[1.5px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
+            <span className="absolute bottom-[-4px] left-0 w-0 h-[1.5px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
           </NavLink>
         </motion.div>
       ))}
@@ -34,7 +34,7 @@ const Header = () => {
   );
 
   const mobileNavOptions = (
-    <div className="flex flex-col space-y-6 p-4 md:p-6">
+    <div className="flex items-center justify-between flex-wrap gap-6 px-2 py-4">
       {navItems.map((item) => (
         <motion.div
           key={item}
@@ -42,19 +42,19 @@ const Header = () => {
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsMenuOpen(false)}
         >
-          <Link
+          <NavLink
             to={getLinkPath(item)}
             className="text-gray-300 hover:text-primary text-lg md:text-xl"
           >
             {item}
-          </Link>
+          </NavLink>
         </motion.div>
       ))}
     </div>
   );
 
   const socialLinks = (
-    <div className="flex space-x-4 md:space-x-6 items-center">
+    <div className="flex space-x-8 md:space-x-6 items-center">
       <motion.a
         href="https://www.linkedin.com/in/sarafat-karim/"
         target="_blank"
@@ -89,7 +89,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-2"
+            className="flex items-center md:space-x-2"
           >
             <Link
               to="/"
@@ -132,6 +132,7 @@ const Header = () => {
             className="lg:hidden mt-2 md:mt-4 border-t border-slate-700"
           >
             {mobileNavOptions}
+            <div className="border-t mb-4 border-slate-700"></div>
             <div className="flex justify-center pb-4">{socialLinks}</div>
           </motion.div>
         )}

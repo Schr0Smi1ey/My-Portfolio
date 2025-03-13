@@ -14,7 +14,7 @@ const ProjectCard = ({ project }) => {
   return (
     <div
       data-aos="fade-up"
-      className="flex flex-col lg:flex-row justify-between items-center gap-6 dark:bg-gray-900 shadow-xl border-2 border-primary transition-all rounded-lg overflow-hidden p-6"
+      className="flex flex-col lg:flex-row justify-between items-center gap-6 dark:bg-gray-900 shadow-xl transition-all rounded-lg overflow-hidden p-3 py-5 md:p-6"
     >
       {/* Project Image */}
       <div
@@ -25,7 +25,7 @@ const ProjectCard = ({ project }) => {
         <img
           src={project.image}
           alt={project.name}
-          className="w-full object-cover rounded-md border-2 border-primary shadow-md hover:scale-105 transition-transform duration-300"
+          className="w-full object-cover rounded-md shadow-md hover:scale-105 transition-transform duration-300"
         />
       </div>
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ProjectCard from "../../Card/ProjectCard";
+import { Helmet } from "react-helmet";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -19,7 +20,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <section className="min-h-screen py-32 px-6 md:px-8 background bg-gray-50 dark:bg-gray-900">
+    <section className="min-h-screen py-32 px-6 md:px-8 background bg-gray-50 overflow-hidden dark:bg-gray-900">
       <Helmet>
         <title>Schr0Smi1ey | Projects</title>
       </Helmet>

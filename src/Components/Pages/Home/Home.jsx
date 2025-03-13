@@ -5,6 +5,7 @@ import CodingProfile from "./CodingProfile/CodingProfile";
 import Skills from "./Skills/Skills";
 import FeaturedProjects from "./FeaturedProjects/FeaturedProjects";
 import ContactInfo from "./ContactInfo/ContactInfo";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   return (

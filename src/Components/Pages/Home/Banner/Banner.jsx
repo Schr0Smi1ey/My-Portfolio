@@ -90,7 +90,7 @@ const Banner = () => {
           <img
             src={profile}
             alt="Sarafat Karim"
-            className="w-[80%] mx-auto object-cover rounded-full border-4 border-white shadow-2xl transition-transform duration-300 hover:scale-105"
+            className="w-[80%] mx-auto object-cover rounded-full border-4 border-primary shadow-2xl transition-transform duration-300 hover:scale-105"
           />
         </motion.div>
       </div>

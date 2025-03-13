@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import NotAvailable from "../../../assets/Blog/Not_Available.png";
+import { Helmet } from "react-helmet";
 
 const Blogs = () => {
   useEffect(() => {
@@ -12,7 +13,7 @@ const Blogs = () => {
   }, []);
 
   return (
-    <div className="p-4 md:p-8  shadow-lg flex flex-col items-center justify-center background">
+    <div className="p-4 md:p-8 shadow-lg flex flex-col items-center justify-center background">
       <Helmet>
         <title>Schr0Smi1ey | Blogs</title>
       </Helmet>

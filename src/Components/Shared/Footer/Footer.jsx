@@ -19,7 +19,7 @@ const Footer = () => {
                 <li key={index}>
                   <Link
                     to={path}
-                    className="hover:text-primary flex justify-center md:justify-start transition-colors text-lg font-medium relative"
+                    className="hover:text-primary flex justify-center md:justify-start transition-colors text-base text-gray-400 relative"
                   >
                     <span className="relative z-10">
                       {path === "/"
@@ -63,11 +63,11 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary"
+                  className="p-2 md:p-3 text-gray-400 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary"
                   whileHover="hover"
                   whileTap="tap"
                 >
-                  <span className="text-2xl block">{social.icon}</span>
+                  <span className="text-xl block">{social.icon}</span>
                   <span className="sr-only">{social.icon.type.name}</span>
                 </motion.a>
               ))}

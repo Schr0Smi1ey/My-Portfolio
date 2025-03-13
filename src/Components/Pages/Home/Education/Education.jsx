@@ -8,14 +8,14 @@ const educationData = [
     institution: "Khulna University",
     degree: "Bachelor’s in Computer Science & Engineering",
     years: "2023 - 2027",
-    gpa: "3.945/4.0",
+    gpa: "3.945 / 4.0",
     progress: (3.945 / 4) * 100,
   },
   {
     institution: "Comilla Ibn Taimiya High School & College",
     degree: "Higher Secondary Certificate (HSC)",
     years: "2019 - 2021",
-    gpa: "5.00/5.00",
+    gpa: "5.00 / 5.00",
     progress: 100,
   },
 ];
@@ -28,9 +28,9 @@ const Education = () => {
   return (
     <section
       id="education"
-      className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg"
+      className="p-3 py-6 md:p-8 my-10 md:my-14 shadow-lg"
     >
-      <div className="container mx-auto px-6 md:px-12 lg:px-24">
+      <div className="container mx-auto px-4 md:px-10 lg:px-20">
         <h2
           data-aos="fade-up"
           className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-16"
@@ -47,7 +47,7 @@ const Education = () => {
           {educationData.map((edu, index) => (
             <div key={index} data-aos-delay={index * 200} className="relative">
               <div className="absolute w-6 h-6 bg-primary rounded-full -left-3.5 top-2 flex items-center justify-center" />
-              <div className="dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="dark:bg-gray-800 p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <h3
                   data-aos="fade-up"
                   className="text-2xl font-semibold text-gray-900 dark:text-white mb-2"

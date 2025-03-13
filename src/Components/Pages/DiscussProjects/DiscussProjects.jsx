@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { IoMail } from "react-icons/io5";
+import { FaLinkedin } from "react-icons/fa";
+import { Helmet } from "react-helmet";
 
 const DiscussProjects = () => {
   useEffect(() => {
@@ -36,14 +39,15 @@ const DiscussProjects = () => {
         </p>
 
         {/* Contact Options */}
-        <div className="mt-8 flex flex-col md:flex-row justify-center gap-6">
+        <div className="mt-8 flex flex-row items-center justify-center gap-4">
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             href="mailto:radiantremel444@gmail.com"
-            className="px-3 py-1 bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary/90 transition"
+            className="px-3 py-1 flex items-center bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary/90 transition"
             data-aos="fade-up"
           >
+            <IoMail className="inline-block text-xl mr-2" />
             Email Me
           </motion.a>
           <motion.a
@@ -52,10 +56,11 @@ const DiscussProjects = () => {
             href="https://www.linkedin.com/in/sarafat-karim"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1 border-2 border-primary text-primary text-lg font-medium rounded-lg shadow-md hover:bg-primary hover:text-white transition"
+            className="px-3 py-1 flex items-center border-2 border-primary text-primary text-lg font-medium rounded-lg shadow-md hover:bg-primary hover:text-white transition"
             data-aos="fade-up"
           >
-            Connect on LinkedIn
+            <FaLinkedin className="inline-block text-xl mr-2"></FaLinkedin>
+            LinkedIn
           </motion.a>
         </div>
 

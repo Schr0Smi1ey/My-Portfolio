@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import { DiReact, DiNodejsSmall } from "react-icons/di";
 import { SiFirebase, SiTailwindcss } from "react-icons/si";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -34,6 +34,7 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     AOS.init({ duration: 500 });
+    window.scrollTo(0, 0);
   }, []);
 
   if (!project) {
@@ -52,11 +53,11 @@ const ProjectDetails = () => {
   };
 
   return (
-    <section className="min-h-screen background py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+    <section className="min-h-screen background py-32 overflow-hidden">
       <Helmet>
         <title>Schr0Smi1ey | Project Details | {id}</title>
       </Helmet>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
@@ -80,7 +81,7 @@ const ProjectDetails = () => {
           <motion.img
             src={project.image}
             alt={project.name}
-            className="w-full md:w-3/4 lg:w-2/3 rounded-2xl shadow-2xl border-8 border-white dark:border-gray-800"
+            className="w-full md:w-3/4 lg:w-1/2 rounded-2xl shadow-2xl border-2 border-primary dark:border-gray-800"
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
           />
@@ -97,7 +98,7 @@ const ProjectDetails = () => {
               <motion.div
                 key={category}
                 whileHover={{ y: -5 }}
-                className="p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl hover:shadow-2xl transition-all"
+                className="p-4 md:p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl hover:shadow-2xl transition-all"
               >
                 <div className="flex items-center mb-4">
                   {categoryIcons[category.toLowerCase()]}
@@ -109,7 +110,7 @@ const ProjectDetails = () => {
                   {stack.map((tech, index) => (
                     <li
                       key={index}
-                      className="flex items-center text-gray-700 dark:text-gray-300"
+                      className="flex items-center ml-4 text-gray-700 dark:text-gray-300"
                     >
                       <span className="w-2 h-2 bg-primary rounded-full mr-2" />
                       {tech}

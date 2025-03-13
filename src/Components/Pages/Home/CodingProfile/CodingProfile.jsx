@@ -12,13 +12,13 @@ const CodingProfile = () => {
   }, []);
 
   const problemsSolved = {
-    codeforces: 250,
-    leetcode: 400,
-    codechef: 150,
+    codeforces: 670,
+    leetcode: 258,
+    codechef: 207,
   };
 
   return (
-    <section className="p-4 py-6 md:p-8 my-8 my-10 md:my-14 shadow-lg">
+    <section className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg">
       <div className="container mx-auto px-6 text-center">
         {/* Section Title */}
         <h2
@@ -50,8 +50,10 @@ const CodingProfile = () => {
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
               Codeforces
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mt-2">
-              Pupil (Max 1290)
+            <p className="text-green-700 font-semibold dark:text-gray-300 mt-2">
+              {/* <span className="text-green-500">Pupil</span> (Max 1290) */}
+              1241 <span className="font-light text-black">(max.</span> pupil,
+              1290<span className="font-light text-black">)</span>
             </p>
             <p className="mt-4 text-gray-500 text-sm">
               Problems Solved:{" "}
