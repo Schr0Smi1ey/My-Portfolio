@@ -35,10 +35,10 @@ const ProjectCard = ({ project }) => {
         data-aos-delay="400"
         className="w-full lg:w-2/3"
       >
-        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+        <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
           {project.name}
         </h2>
-        <p className="text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">
+        <p className="text-gray-600 text-sm md:text-base dark:text-gray-300 mt-2 line-clamp-2">
           {project.description}
         </p>
 
@@ -49,7 +49,7 @@ const ProjectCard = ({ project }) => {
             .map((tech, index) => (
               <span
                 key={index}
-                className="px-3 py-1 text-sm bg-primary/20 text-primary font-medium rounded-full"
+                className="px-3 py-1 text-sm bg-primary/20 text-primary rounded-full"
               >
                 {tech}
               </span>
@@ -61,7 +61,7 @@ const ProjectCard = ({ project }) => {
           {/* View Details Button */}
           <button
             onClick={() => navigate(`/project-details/${project.id}`)}
-            className="px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary/90 hover:scale-105 transition-transform duration-300"
+            className="px-4 py-1 md:py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary/90 hover:scale-105 transition-transform duration-300"
           >
             View Details
           </button>

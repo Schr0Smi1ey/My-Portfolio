@@ -4,7 +4,7 @@ import Footer from "../Shared/Footer/Footer";
 
 const Root = () => {
   return (
-    <div className="mx-auto  ">
+    <div className="overflow-x-hidden">
       <Header></Header>
       <Outlet className=""></Outlet>
       <Footer></Footer>

@@ -28,9 +28,9 @@ const Education = () => {
   return (
     <section
       id="education"
-      className="p-3 py-6 md:p-8 my-10 md:my-14 shadow-lg"
+      className="p-3 py-6 lg:p-6 my-10 md:my-14 shadow-lg"
     >
-      <div className="container mx-auto px-4 md:px-10 lg:px-20">
+      <div className="container mx-auto px-4 lg:px-20">
         <h2
           data-aos="fade-up"
           className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-16"

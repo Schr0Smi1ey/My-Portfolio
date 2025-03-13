@@ -13,6 +13,9 @@ import {
   FaGithub,
   FaTerminal,
 } from "react-icons/fa";
+import c from "../../../../assets/Home/Skills/C.png";
+import cpp from "../../../../assets/Home/Skills/C++.png";
+import python from "../../../../assets/Home/Skills/python.png";
 
 const Skills = () => {
   useEffect(() => {
@@ -23,9 +26,21 @@ const Skills = () => {
     {
       title: "Languages",
       skills: [
-        { name: "C", level: 90, color: "text-blue-600" },
-        { name: "C++", level: 85, color: "text-blue-700" },
-        { name: "Python", level: 80, color: "text-yellow-600" },
+        {
+          name: "C",
+          level: 90,
+          icon: <img src={c} className="w-7 h-7" alt="C" />,
+        },
+        {
+          name: "C++",
+          level: 85,
+          icon: <img src={cpp} className="w-7 h-7" alt="C++" />,
+        },
+        {
+          name: "Python",
+          level: 80,
+          icon: <img src={python} className="w-7 h-7" alt="Python" />,
+        },
       ],
     },
     {
@@ -118,7 +133,7 @@ const Skills = () => {
 
   return (
     <section id="skills" className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto md:px-3 lg:px-6">
         {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: -50 }}

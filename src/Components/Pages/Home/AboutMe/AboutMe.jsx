@@ -9,8 +9,8 @@ const AboutMe = () => {
   }, []);
 
   return (
-    <section id="about" className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg">
-      <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center">
+    <section id="about" className="p-4 lg:p-6 py-6 my-10 md:my-14 shadow-lg">
+      <div className="container mx-auto flex flex-col md:flex-row items-center">
         <div>
           <h2
             data-aos="fade-up"
