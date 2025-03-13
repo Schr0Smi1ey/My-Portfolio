@@ -36,6 +36,7 @@ import Education from "./Education/Education";
 import Skills from "./Skills/Skills";
 import FeaturedProjects from "./FeaturedProjects/FeaturedProjects";
 import ContactInfo from "./ContactInfo/ContactInfo";
+import CodingProfile from "./CodingProfile/CodingProfile";
 
 function PostProcessing() {
   const { gl, scene, camera, size } = useThree();
@@ -304,7 +305,7 @@ const Home = () => {
   const particlesInit = async (engine) => await loadFull(engine);
 
   return (
-    <div className="bg-gradient-to-br from-navy-900 to-navy-800 relative overflow-hidden pt-10">
+    <div className="background relative overflow-hidden pt-10">
       {/* 3D Model Background */}
       {/* <ThreeDModel /> */}
 
@@ -351,6 +352,7 @@ const Home = () => {
         <Banner></Banner>
         <AboutMe></AboutMe>
         <Education></Education>
+        <CodingProfile></CodingProfile>
         <Skills></Skills>
         <FeaturedProjects></FeaturedProjects>
         <ContactInfo></ContactInfo>

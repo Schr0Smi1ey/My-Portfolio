@@ -2,10 +2,10 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { motion } from "framer-motion";
 const Education = () => {
   useEffect(() => {
-    AOS.init({ duration: 500});
+    AOS.init({ duration: 500 });
   }, []);
 
   return (
@@ -42,14 +42,16 @@ const Education = () => {
 
               {/* Progress Bar */}
               <div className="space-y-2">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   Current CGPA: 3.945/4.0
                 </p>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
-                  <div
-                    className="bg-primary h-2.5 rounded-full"
-                    style={{ width: "98.6%" }} // 3.945/4.0 = 98.6%
-                  ></div>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${(3.945 / 4) * 100}%` }}
+                    transition={{ duration: 1 }}
+                    className="h-2.5 rounded-full bg-gradient-to-r from-primary to-black"
+                  />
                 </div>
               </div>
             </div>
@@ -74,14 +76,16 @@ const Education = () => {
 
               {/* Progress Bar */}
               <div className="space-y-2">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   GPA: 5.00/5.00
                 </p>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
-                  <div
-                    className="bg-primary h-2.5 rounded-full"
-                    style={{ width: "100%" }} // 5.00/5.00 = 100%
-                  ></div>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${100}%` }}
+                    transition={{ duration: 1 }}
+                    className="h-2.5 rounded-full bg-gradient-to-r from-primary to-black"
+                  />
                 </div>
               </div>
             </div>

@@ -7,7 +7,12 @@ import { motion } from "framer-motion";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navItems = ["Home", "Development Stack", "Projects", "Contact Me"];
+  const navItems = [
+    "Home",
+    "Development Stack",
+    "Projects",
+    "Discuss Projects",
+  ];
   const getLinkPath = (item) => {
     if (item === "Home") return "/";
     return `/${item.toLowerCase().replace(" ", "-")}`;

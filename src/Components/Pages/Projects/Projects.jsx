@@ -19,7 +19,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <section className="min-h-screen py-32 px-6 md:px-12 lg:px-24 bg-gray-50 dark:bg-gray-900">
+    <section className="min-h-screen py-32 px-6 md:px-8 background bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
