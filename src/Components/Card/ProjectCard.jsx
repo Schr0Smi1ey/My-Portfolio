@@ -14,7 +14,7 @@ const ProjectCard = ({ project }) => {
   return (
     <div
       data-aos="fade-up"
-      className="bg-white flex flex-col lg:flex-row justify-between items-center gap-6 dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden p-6"
+      className="flex flex-col lg:flex-row justify-between items-center gap-6 dark:bg-gray-900 shadow-xl border-2 border-primary transition-all rounded-lg overflow-hidden p-6"
     >
       {/* Project Image */}
       <div

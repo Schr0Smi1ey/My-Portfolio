@@ -13,7 +13,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 md:p-8 mb-5 md:mb-10 transition-all duration-500">
+    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 mb-5 md:mb-10 transition-all duration-500">
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"
@@ -90,7 +90,7 @@ const Hero = () => {
           <img
             src={profile}
             alt="Sarafat Karim"
-            className="w-64 h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 object-cover rounded-full border-4 border-white shadow-2xl transition-transform duration-300 hover:scale-105"
+            className="w-[80%] mx-auto object-cover rounded-full border-4 border-white shadow-2xl transition-transform duration-300 hover:scale-105"
           />
         </motion.div>
       </div>

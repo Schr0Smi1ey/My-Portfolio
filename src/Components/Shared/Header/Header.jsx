@@ -1,18 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FiGithub, FiLinkedin, FiMenu, FiX } from "react-icons/fi";
 import { FaLinkedin } from "react-icons/fa";
 import { useState } from "react";
 import { motion } from "framer-motion";
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navItems = [
-    "Home",
-    "Development Stack",
-    "Projects",
-    "Discuss Projects",
-  ];
+  const navItems = ["Home", "Projects", "Blogs", "Discuss Projects"];
   const getLinkPath = (item) => {
     if (item === "Home") return "/";
     return `/${item.toLowerCase().replace(" ", "-")}`;
@@ -27,13 +21,13 @@ const Header = () => {
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400 }}
         >
-          <Link
+          <NavLink
             to={getLinkPath(item)}
             className="text-gray-300 hover:text-primary text-lg font-semibold transition-colors duration-300 relative group"
           >
             {item}
-            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
-          </Link>
+            <span className="absolute bottom-[-5px] left-0 w-0 h-[3px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
+          </NavLink>
         </motion.div>
       ))}
     </div>

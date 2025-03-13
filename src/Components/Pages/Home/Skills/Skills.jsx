@@ -13,7 +13,6 @@ import {
   FaGithub,
   FaTerminal,
 } from "react-icons/fa";
-import { img } from "framer-motion/m";
 
 const Skills = () => {
   useEffect(() => {
@@ -118,7 +117,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 bg-gray-100 dark:bg-gray-800">
+    <section id="skills" className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         {/* Section Title */}
         <motion.h2
@@ -139,7 +138,7 @@ const Skills = () => {
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className=" dark:bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
               data-aos="fade-up"
             >
               <h3 className="text-2xl font-semibold text-primary mb-6">
@@ -147,7 +146,10 @@ const Skills = () => {
               </h3>
               <div className="space-y-6">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="space-y-2">
+                  <div
+                    key={skillIndex}
+                    className="space-y-2 shadow-md p-4 rounded-lg"
+                  >
                     <div className="flex items-center gap-4">
                       {skill.icon && skill.icon}
                       <span className="text-gray-700 dark:text-gray-300 text-lg font-medium">

@@ -10,10 +10,7 @@ const ContactInfo = () => {
   }, []);
 
   return (
-    <section
-      id="contact"
-      className="py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800"
-    >
+    <section id="contact" className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
       <div className="container mx-auto  px-6 md:px-12 lg:px-24">
         {/* Section Title */}
         <motion.h2
@@ -32,8 +29,8 @@ const ContactInfo = () => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 group"
+            transition={{ duration: 0.5 }}
+            className="relative bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 group"
             data-aos="fade-up"
           >
             {/* Floating Gradient Overlay */}
@@ -62,8 +59,8 @@ const ContactInfo = () => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 group"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="relative bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 group"
             data-aos="fade-up"
           >
             {/* Floating Gradient Overlay */}
@@ -92,15 +89,15 @@ const ContactInfo = () => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 group"
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="relative bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 group"
             data-aos="fade-up"
           >
             {/* Floating Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-2xl"></div>
 
             {/* Icon */}
-            <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-xl shadow-lg mx-auto mb-6">
+            <div className="flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl shadow-lg mx-auto mb-6">
               <FaWhatsapp className="text-3xl" />
             </div>
 

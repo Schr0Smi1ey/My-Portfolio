@@ -18,7 +18,7 @@ const CodingProfile = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-r from-primaryto-purple-50 dark:from-gray-900 dark:to-gray-800">
+    <section className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
       <div className="container mx-auto px-6 text-center">
         {/* Section Title */}
         <h2
@@ -40,7 +40,7 @@ const CodingProfile = () => {
           {/* Codeforces */}
           <div
             data-aos="fade-up"
-            className="bg-white dark:bg-gray-800 p-4 py-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2"
+            className=" dark:bg-gray-800 p-4 py-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2"
           >
             <img
               src={codeforces}
@@ -73,7 +73,7 @@ const CodingProfile = () => {
           <div
             data-aos="fade-up"
             data-aos-delay="200"
-            className="bg-white dark:bg-gray-800 p-4 py-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2"
+            className=" dark:bg-gray-800 p-4 py-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2"
           >
             <img
               src={leetcode}
@@ -106,7 +106,7 @@ const CodingProfile = () => {
           <div
             data-aos="fade-up"
             data-aos-delay="400"
-            className="bg-white dark:bg-gray-800 p-4 py-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2"
+            className=" dark:bg-gray-800 p-4 py-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-2"
           >
             <img
               src={codechef}
