@@ -5,7 +5,7 @@ const ErrorPage = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <Helmet>
-        <title>FitForge | ErroPage</title>
+        <title>Schr0Smi1ey | ErroPage</title>
       </Helmet>
       <div className="text-center">
         <h1 className="text-6xl font-bold text-red-500">404</h1>

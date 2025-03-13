@@ -1,27 +1,23 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import {
   FaExternalLinkAlt,
   FaGithub,
-  FaArrowLeft,
   FaCode,
   FaPalette,
-  FaMobileAlt,
-  FaDatabase,
   FaTools,
-  FaLightbulb,
   FaRocket,
 } from "react-icons/fa";
 import { DiReact, DiNodejsSmall } from "react-icons/di";
 import { SiFirebase, SiTailwindcss } from "react-icons/si";
+import { Helmet } from "react-helmet-async";
 
 const ProjectDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [project, setProject] = useState(null);
 
   useEffect(() => {
@@ -57,6 +53,9 @@ const ProjectDetails = () => {
 
   return (
     <section className="min-h-screen background py-32 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+      <Helmet>
+        <title>Schr0Smi1ey | Project Details | {id}</title>
+      </Helmet>
       <div className="container mx-auto">
         {/* Header Section */}
         <motion.div

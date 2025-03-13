@@ -11,6 +11,9 @@ const DiscussProjects = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center background px-6 md:px-12 lg:px-24 py-20">
+      <Helmet>
+        <title>Schr0Smi1ey | Discuss Projects</title>
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 70 }}

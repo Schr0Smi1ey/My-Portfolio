@@ -13,6 +13,9 @@ const Blogs = () => {
 
   return (
     <div className="p-4 md:p-8  shadow-lg flex flex-col items-center justify-center background">
+      <Helmet>
+        <title>Schr0Smi1ey | Blogs</title>
+      </Helmet>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 70 }}
