@@ -18,7 +18,7 @@ const CodingProfile = () => {
   };
 
   return (
-    <section className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
+    <section className="p-4 py-6 md:p-8 my-8 my-10 md:my-14 shadow-lg">
       <div className="container mx-auto px-6 text-center">
         {/* Section Title */}
         <h2

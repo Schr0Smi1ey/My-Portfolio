@@ -10,7 +10,10 @@ const ContactInfo = () => {
   }, []);
 
   return (
-    <section id="contact" className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
+    <section
+      id="contact"
+      className="p-4 py-6 md:p-8 mb-10 md:mb-14 shadow-lg"
+    >
       <div className="container mx-auto  px-6 md:px-12 lg:px-24">
         {/* Section Title */}
         <motion.h2

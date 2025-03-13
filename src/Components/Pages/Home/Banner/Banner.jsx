@@ -7,13 +7,13 @@ import profile from "../../../../assets/Home/Profile/profile.jpg";
 import { FaLinkedin, FaGithub, FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 
-const Hero = () => {
+const Banner = () => {
   useEffect(() => {
     AOS.init({ duration: 500 });
   }, []);
 
   return (
-    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 mb-5 md:mb-10 transition-all duration-500">
+    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-5 mb-10 md:mb-14 transition-all duration-500">
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"
@@ -98,4 +98,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Banner;

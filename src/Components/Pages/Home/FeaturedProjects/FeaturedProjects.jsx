@@ -22,7 +22,10 @@ const FeaturedProjects = () => {
   }, []);
 
   return (
-    <section id="projects" className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-xl">
+    <section
+      id="projects"
+      className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-xl"
+    >
       <div className="container mx-auto px-6 md:px-8">
         {/* Section Title */}
         <motion.h2

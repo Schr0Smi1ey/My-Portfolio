@@ -9,7 +9,10 @@ const Education = () => {
   }, []);
 
   return (
-    <section id="education" className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
+    <section
+      id="education"
+      className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg"
+    >
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         {/* Section Title */}
         <h2

@@ -1,47 +1,71 @@
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const DiscussProjects = () => {
   useEffect(() => {
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ duration: 500 });
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <section className="min-h-screen flex items-center justify-center background px-6 md:px-12 lg:px-24 py-20">
-      <div data-aos="fade-up" className="max-w-4xl mx-auto text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 70 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-4xl mx-auto text-center"
+      >
         {/* Heading */}
-        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
+        <h1
+          className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white"
+          data-aos="fade-up"
+        >
           Let's Discuss Your Next Project!
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300 mt-4">
+        <p
+          className="text-lg text-gray-600 dark:text-gray-300 mt-4"
+          data-aos="fade-up"
+        >
           Have an idea? Need a developer? Let’s collaborate and bring your
           vision to life.
         </p>
 
         {/* Contact Options */}
         <div className="mt-8 flex flex-col md:flex-row justify-center gap-6">
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href="mailto:radiantremel444@gmail.com"
-            className="px-6 py-3 bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary/90 transition"
+            className="px-3 py-1 bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary/90 transition"
+            data-aos="fade-up"
           >
             Email Me
-          </a>
-          <a
+          </motion.a>
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             href="https://www.linkedin.com/in/sarafat-karim"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 border-2 border-primary text-primary text-lg font-medium rounded-lg shadow-md hover:bg-primary hover:text-white transition"
+            className="px-3 py-1 border-2 border-primary text-primary text-lg font-medium rounded-lg shadow-md hover:bg-primary hover:text-white transition"
+            data-aos="fade-up"
           >
             Connect on LinkedIn
-          </a>
+          </motion.a>
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white p-8 sm:p-10 md:p-12 rounded-lg shadow-lg mt-12 text-left max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="bg-white p-8 sm:p-10 md:p-12 rounded-lg shadow-lg my-12 text-left max-w-4xl mx-auto"
+        >
           <form className="space-y-6">
             {/* Name Input */}
-            <div>
+            <div data-aos="fade-right">
               <label
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
@@ -58,7 +82,7 @@ const DiscussProjects = () => {
             </div>
 
             {/* Email Input */}
-            <div>
+            <div data-aos="fade-left">
               <label
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
@@ -75,7 +99,7 @@ const DiscussProjects = () => {
             </div>
 
             {/* Project Details Textarea */}
-            <div>
+            <div data-aos="fade-up">
               <label
                 htmlFor="projectDetails"
                 className="block text-sm font-medium text-gray-700"
@@ -93,16 +117,19 @@ const DiscussProjects = () => {
 
             {/* Submit Button */}
             <div>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 type="submit"
                 className="w-full bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                data-aos="fade-up"
               >
                 Send Message
-              </button>
+              </motion.button>
             </div>
           </form>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

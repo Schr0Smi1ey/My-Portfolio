@@ -117,8 +117,8 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="p-4 py-6 md:p-8 my-8 md:my-10 shadow-lg">
-      <div className="container mx-auto px-6 md:px-12 lg:px-24">
+    <section id="skills" className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg">
+      <div className="container mx-auto px-6">
         {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
