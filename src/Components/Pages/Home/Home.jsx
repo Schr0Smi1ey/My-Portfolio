@@ -6,8 +6,12 @@ import Skills from "./Skills/Skills";
 import FeaturedProjects from "./FeaturedProjects/FeaturedProjects";
 import ContactInfo from "./ContactInfo/ContactInfo";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="background relative overflow-hidden pt-10">
       <Helmet>

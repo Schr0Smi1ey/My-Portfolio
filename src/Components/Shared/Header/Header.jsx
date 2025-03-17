@@ -85,7 +85,7 @@ const Header = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
     >
-      <nav className="container mx-auto px-4 lg:px-10 py-1">
+      <nav className="container mx-auto px-4 lg:px-14 py-1">
         <div className="flex justify-between items-center">
           <motion.div
             whileHover={{ scale: 1.05 }}

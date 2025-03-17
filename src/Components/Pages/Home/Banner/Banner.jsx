@@ -6,14 +6,27 @@ import "aos/dist/aos.css";
 import profile from "../../../../assets/Home/Profile/profile.jpg";
 import { FaLinkedin, FaGithub, FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const Banner = () => {
   useEffect(() => {
     AOS.init({ duration: 500 });
   }, []);
-
+  const handleResumeButton = () => {
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "Resume is still cooking!",
+      text: "I am still working on my resume. Please check back later.",
+      showConfirmButton: false,
+      timer: 3500,
+    });
+  };
+  const handleContactButton = () => {
+    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+  };
   return (
-    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-5 mb-10 md:mb-14 transition-all duration-500">
+    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-10 md:mb-14 transition-all duration-500">
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"
@@ -70,11 +83,16 @@ const Banner = () => {
         >
           <a
             download
-            className="bg-primary text-white px-4 py-[6px] rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary/90 hover:scale-105"
+            href="/Data/Sarafat-Resume.pdf"
+            // onClick={handleResumeButton}
+            className="bg-primary cursor-pointer text-white px-4 py-[6px] rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary/90 hover:scale-105"
           >
             Download Resume
           </a>
-          <a className="border-2 border-primary text-primary px-4 py-[6px] rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary hover:text-white hover:scale-105">
+          <a
+            onClick={handleContactButton}
+            className="border-2 border-primary cursor-pointer text-primary px-4 py-[6px] rounded-lg shadow-lg transition-transform duration-300 hover:bg-primary hover:text-white hover:scale-105"
+          >
             Contact Me
           </a>
         </motion.div>

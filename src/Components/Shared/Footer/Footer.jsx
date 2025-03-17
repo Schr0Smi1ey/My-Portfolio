@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { FiGithub, FiLinkedin, FiTwitter, FiArrowUp } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiArrowUp } from "react-icons/fi";
+import { FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { FaFacebook } from "react-icons/fa";
 
@@ -15,28 +16,32 @@ const Footer = () => {
           <motion.div className="flex flex-col items-center md:items-start">
             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {["/", "/Development-Stack", "/Projects"].map((path, index) => (
-                <li key={index}>
-                  <Link
-                    to={path}
-                    className="hover:text-primary flex justify-center md:justify-start transition-colors text-base text-gray-400 relative"
-                  >
-                    <span className="relative z-10">
-                      {path === "/"
-                        ? "Home"
-                        : path === "/Development-Stack"
-                        ? "Development Stack"
-                        : "Projects"}
-                    </span>
-                    <motion.span
-                      className="absolute bottom-0 left-0 w-full h-[2px] bg-primary origin-left scale-x-0"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    />
-                  </Link>
-                </li>
-              ))}
+              {["/", "/projects", "/blogs", "/discuss-projects"].map(
+                (path, index) => (
+                  <li key={index}>
+                    <Link
+                      to={path}
+                      className="hover:text-primary flex justify-center md:justify-start transition-colors text-base text-gray-400 relative"
+                    >
+                      <span className="relative z-10">
+                        {path === "/"
+                          ? "Home"
+                          : path === "/projects"
+                          ? "Projects"
+                          : path === "/blogs"
+                          ? "Blogs"
+                          : "Discuss Projects"}
+                      </span>
+                      <motion.span
+                        className="absolute bottom-0 left-0 w-full h-[2px] bg-primary origin-left scale-x-0"
+                        initial={{ scaleX: 0 }}
+                        whileHover={{ scaleX: 1 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      />
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </motion.div>
 
@@ -54,7 +59,7 @@ const Footer = () => {
                 },
                 { icon: <FiGithub />, url: "https://github.com/Schr0Smi1ey" },
                 {
-                  icon: <FiTwitter />,
+                  icon: <FaXTwitter />,
                   url: "https://twitter.com/sarafat_karim",
                 },
               ].map((social, index) => (
