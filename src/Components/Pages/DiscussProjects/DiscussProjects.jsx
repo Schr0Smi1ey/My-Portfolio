@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -6,30 +6,91 @@ import { IoMail } from "react-icons/io5";
 import { FaLinkedin } from "react-icons/fa";
 import { Helmet } from "react-helmet";
 import UseCustomAxios from "../../../Hooks/UseCustomAxios";
-
+import { AuthContext } from "../../../Contexts/AuthContext/AuthProvider";
+import axios from "axios";
+import Lottie from "lottie-react";
+// import Sending from "../../../assets/Animation/Send-Message.json";
+import Sending from "../../../assets/Animation/Send-Message-1.json";
+import SendSuccess from "../../../assets/Animation/Send-Success.json";
+import SendFailed from "../../../assets/Animation/Send-Failed.json";
 const DiscussProjects = () => {
+  const { Toast } = useContext(AuthContext);
+  const [sendingMessage, setSendingMessage] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
     AOS.init({ duration: 500 });
     window.scrollTo(0, 0);
   }, []);
+
   const CustomAxios = UseCustomAxios();
+
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    const form = document.forms[0];
+    const form = new FormData(e.target);
     const formData = {
-      name: form.name.value,
-      email: form.email.value,
-      projectDetails: form.projectDetails.value,
-      date: new Date().toISOString(),
+      name: form.get("name"),
+      email: form.get("email"),
+      projectDetails: form.get("projectDetails"),
+      file: form.get("file"),
     };
-    const res = await CustomAxios.post("/messages", formData);
-    if (res.status === 200) {
-      form.reset();
-      alert("Message sent successfully");
-    } else {
-      alert("Message not sent. Please try again later.");
+
+    if (formData.file && formData.file.size > 20 * 1024 * 1024) {
+      Toast("File size should be less than 20MB", "error");
+      return;
+    }
+
+    try {
+      setSendingMessage(true);
+      let fileUrl = null;
+
+      if (formData.file) {
+        const fileData = new FormData();
+        fileData.append("file", formData.file);
+        fileData.append(
+          "upload_preset",
+          import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
+        );
+        // fileData.append("use_filename", "true");
+        try {
+          const cloudinaryResponse = await axios.post(
+            `https://api.cloudinary.com/v1_1/${
+              import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+            }/upload`,
+            fileData
+          );
+          fileUrl = cloudinaryResponse.data.secure_url;
+        } catch (error) {
+          setFailed(true);
+        }
+      }
+      const messageData = {
+        name: formData.name,
+        email: formData.email,
+        projectDetails: formData.projectDetails,
+        fileUrl: fileUrl,
+        date: new Date().toISOString(),
+      };
+
+      if (fileUrl) {
+        const res = await CustomAxios.post("/messages", messageData);
+
+        if (res.status === 200) {
+          e.target.reset();
+          setSent(true);
+        } else {
+          setFailed(true);
+        }
+      } else {
+        setFailed(true);
+      }
+    } catch (error) {
+      setFailed(true);
+    } finally {
+      setSendingMessage(false);
     }
   };
+
   return (
     <div className="overflow-hidden min-h-screen flex items-center justify-center background px-6 lg:px-24 py-20">
       <section className="container mx-auto">
@@ -58,7 +119,7 @@ const DiscussProjects = () => {
           </p>
 
           {/* Contact Options */}
-          <div className="mt-8 flex flex-row items-center justify-center gap-4">
+          <div className="mt-8 flex flex-row items-center justify-center flex-wrap gap-4">
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -90,7 +151,11 @@ const DiscussProjects = () => {
             transition={{ duration: 0.8 }}
             className="bg-white p-8 sm:p-10 md:p-12 rounded-lg shadow-lg my-12 text-left max-w-4xl mx-auto"
           >
-            <form className="space-y-6" onSubmit={handleSendMessage}>
+            <form
+              className="space-y-6"
+              onSubmit={handleSendMessage}
+              encType="multipart/form-data"
+            >
               {/* Name Input */}
               <div data-aos="fade-right">
                 <label
@@ -139,6 +204,24 @@ const DiscussProjects = () => {
                 ></textarea>
               </div>
 
+              {/* File Upload Input */}
+              <div data-aos="fade-up">
+                <label
+                  htmlFor="file"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Upload File
+                </label>
+                <input
+                  type="file"
+                  name="file"
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                />
+                <p className="text-sm text-gray-500 mt-1 ml-1">
+                  <span className="text-red-500">Max file size: 20MB.</span>
+                </p>
+              </div>
+
               {/* Submit Button */}
               <div>
                 <motion.button
@@ -147,12 +230,42 @@ const DiscussProjects = () => {
                   type="submit"
                   className="w-full bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   data-aos="fade-up"
+                  disabled={sendingMessage}
                 >
-                  Send Message
+                  {sendingMessage ? "Sending..." : "Send Message"}
                 </motion.button>
               </div>
             </form>
           </motion.div>
+          {(sendingMessage || sent || failed) && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="w-full h-full flex items-center justify-center">
+                {sendingMessage && (
+                  <Lottie
+                    animationData={Sending}
+                    loop={true}
+                    style={{ width: "50%", height: "50%" }}
+                  />
+                )}
+                {sent && (
+                  <Lottie
+                    animationData={SendSuccess}
+                    loop={false}
+                    style={{ width: "50%", height: "50%" }}
+                    onComplete={() => setSent(false)} // Reset sent state after animation completes
+                  />
+                )}
+                {failed && (
+                  <Lottie
+                    animationData={SendFailed}
+                    loop={false}
+                    style={{ width: "50%", height: "50%" }}
+                    onComplete={() => setFailed(false)} // Reset failed state after animation completes
+                  />
+                )}
+              </div>
+            </div>
+          )}
         </motion.div>
       </section>
     </div>

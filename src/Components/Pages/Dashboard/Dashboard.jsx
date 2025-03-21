@@ -35,7 +35,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   useEffect(() => {
     Aos.init({ duration: 500 });
-    navigate("/dashboard/Messages");
+    // navigate("/dashboard/Messages");
   }, []);
 
   const showSignOutModal = (event) => {
@@ -48,7 +48,6 @@ const Dashboard = () => {
   const handleSignOut = () => {
     signOutUser()
       .then((res) => {
-        console.log(res);
         Toast("Logged Out Successfully", "warning");
         navigate("/");
       })
@@ -106,7 +105,7 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <div
-        className={`bg-black w-64 min-h-screen p-6 fixed lg:static transition-transform duration-300 z-50
+        className={`bg-black dark:border-r-[1px] dark:border-gray-600 w-64 min-h-screen p-6 fixed lg:static transition-transform duration-300 z-50
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
         <button

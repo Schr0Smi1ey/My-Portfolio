@@ -2,17 +2,23 @@
 import { Link, NavLink } from "react-router-dom";
 import { FiGithub, FiMenu, FiX } from "react-icons/fi";
 import { FaLinkedin } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import useAdmin from "../../../Hooks/UseAdmin";
+import { AuthContext } from "../../../Contexts/AuthContext/AuthProvider";
+import { Moon, Sun } from "lucide-react";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAdmin] = useAdmin();
-
+  const { theme, toggleTheme } = useContext(AuthContext);
   const navItems = ["Home", "Projects", "Blogs", "Discuss Projects"];
   const getLinkPath = (item) => {
     if (item === "Home") return "/";
     return `/${item.toLowerCase().replace(" ", "-")}`;
+  };
+  const handleToggleTheme = () => {
+    toggleTheme();
+    setIsMenuOpen(false);
   };
   const navOptions = (
     <div className="hidden lg:flex space-x-4 xl:space-x-8 items-center ">
@@ -68,6 +74,21 @@ const Header = () => {
           </NavLink>
         </motion.div>
       ))}
+      {isAdmin && (
+        <motion.div
+          key={"Dashboard"}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400 }}
+        >
+          <NavLink
+            to={getLinkPath("Dashboard")}
+            className="text-gray-300 hover:text-primary text-lg md:text-xl"
+          >
+            Dashboard
+          </NavLink>
+        </motion.div>
+      )}
     </div>
   );
 
@@ -93,6 +114,18 @@ const Header = () => {
       >
         <FiGithub className="w-5 h-5" />
       </motion.a>
+      <button
+        onClick={handleToggleTheme}
+        className="relative w-16 h-7 flex items-center bg-gray-300 dark:bg-gray-700 rounded-full p-1 transition-colors duration-300"
+      >
+        <div
+          className={`absolute left-1 w-6 h-6 bg-white dark:bg-yellow-400 rounded-full shadow-md transform transition-transform duration-300 ${
+            theme === "dark" ? "translate-x-8" : "translate-x-0"
+          }`}
+        ></div>
+        <Sun className="absolute left-2 w-4 h-3 text-yellow-500 dark:hidden" />
+        <Moon className="absolute right-2 w-4 h-3 text-gray-900 hidden dark:block" />
+      </button>
     </div>
   );
 

@@ -7,7 +7,6 @@ import { AuthContext } from "../Contexts/AuthContext/AuthProvider";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
-  console.log(loading);
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -16,7 +15,6 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  console.log(user);
   if (user) {
     return children;
   }

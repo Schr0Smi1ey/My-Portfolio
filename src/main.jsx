@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider } from "react-router-dom";
+import { Navigate, RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./Components/Shared/ErrorPage/ErrorPage";
 import Root from "./Components/Layout/Root";
@@ -48,16 +48,6 @@ const router = createBrowserRouter([
         element: <DiscussProjects></DiscussProjects>,
       },
       {
-        path: "/dashboard",
-        element: (
-          <PrivateRoute>
-            <AdminRoute>
-              <Dashboard></Dashboard>
-            </AdminRoute>
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "/signup-karim",
         element: <SignUp></SignUp>,
       },
@@ -77,6 +67,10 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        index: true,
+        element: <Navigate to="messages" replace />,
+      },
       {
         path: "messages",
         element: <Messages></Messages>,
