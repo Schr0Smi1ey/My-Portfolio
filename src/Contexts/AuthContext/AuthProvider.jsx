@@ -55,17 +55,29 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    setLoading(true);
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && user.emailVerified) {
+      setLoading(true); // Start loading
+      if (user) {
         setUser(user);
-        const currentUser = { email: user.email };
-        await CustomAxios.post("/jwt", currentUser, { withCredentials: true });
       } else {
         setUser(null);
-        await CustomAxios.post("/logout", {}, { withCredentials: true });
       }
-      setLoading(false);
+
+      try {
+        if (user?.email) {
+          const currentUser = { email: user.email };
+          await CustomAxios.post("/jwt", currentUser, {
+            withCredentials: true,
+          });
+          setLoading(false);
+        } else {
+          await CustomAxios.post("/logout", {}, { withCredentials: true });
+          setLoading(false);
+        }
+      } catch (error) {
+        Toast(error.message, "error");
+        // setLoading(false);
+      }
     });
 
     return () => unsubscribe();
@@ -86,7 +98,6 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     await signOut(auth);
     setUser(null);
-    setLoading(false);
   };
 
   const signInUser = async (email, password) => {
@@ -121,7 +132,6 @@ const AuthProvider = ({ children }) => {
       photoURL: photoURL,
     });
     setUser({ ...auth.currentUser, displayName: name, photoURL: photoURL });
-    setLoading(false);
   };
 
   const authInfo = {

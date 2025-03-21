@@ -20,7 +20,7 @@ const UseSecureAxios = () => {
       (error) => {
         if (error.response.status === 401 || error.response.status === 403) {
           signOutUser()
-            .then(() => navigate("/login"))
+            .then(() => navigate("/login-karim", { replace: true }))
             .catch((err) => Toast(err.message, "error"));
         }
         return Promise.reject(error);

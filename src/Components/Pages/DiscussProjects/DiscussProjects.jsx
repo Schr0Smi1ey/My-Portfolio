@@ -12,7 +12,7 @@ import Lottie from "lottie-react";
 // import Sending from "../../../assets/Animation/Send-Message.json";
 import Sending from "../../../assets/Animation/Send-Message-1.json";
 import SendSuccess from "../../../assets/Animation/Send-Success.json";
-import SendFailed from "../../../assets/Animation/Send-Failed.json";
+import SendFailed from "../../../assets/Animation/Failed.json";
 const DiscussProjects = () => {
   const { Toast } = useContext(AuthContext);
   const [sendingMessage, setSendingMessage] = useState(false);
@@ -42,9 +42,11 @@ const DiscussProjects = () => {
 
     try {
       setSendingMessage(true);
-      let fileUrl = null;
-
-      if (formData.file) {
+      let fileUrl = null,
+        fileName = "DownloadedFile",
+        public_id = null;
+      console.log(formData.file);
+      if (formData.file.size > 0) {
         const fileData = new FormData();
         fileData.append("file", formData.file);
         fileData.append(
@@ -59,7 +61,10 @@ const DiscussProjects = () => {
             }/upload`,
             fileData
           );
+          console.log(cloudinaryResponse);
           fileUrl = cloudinaryResponse.data.secure_url;
+          fileName = cloudinaryResponse.data.original_filename;
+          public_id = cloudinaryResponse.data.public_id;
         } catch (error) {
           setFailed(true);
         }
@@ -69,18 +74,16 @@ const DiscussProjects = () => {
         email: formData.email,
         projectDetails: formData.projectDetails,
         fileUrl: fileUrl,
+        fileName,
+        public_id,
         date: new Date().toISOString(),
       };
 
-      if (fileUrl) {
-        const res = await CustomAxios.post("/messages", messageData);
+      const res = await CustomAxios.post("/messages", messageData);
 
-        if (res.status === 200) {
-          e.target.reset();
-          setSent(true);
-        } else {
-          setFailed(true);
-        }
+      if (res.status === 200) {
+        e.target.reset();
+        setSent(true);
       } else {
         setFailed(true);
       }
@@ -167,6 +170,7 @@ const DiscussProjects = () => {
                 <input
                   type="text"
                   name="name"
+                  required
                   placeholder="John Doe"
                   className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
                 />
@@ -183,6 +187,7 @@ const DiscussProjects = () => {
                 <input
                   type="email"
                   name="email"
+                  required
                   placeholder="john.doe@example.com"
                   className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
                 />
@@ -199,6 +204,7 @@ const DiscussProjects = () => {
                 <textarea
                   name="projectDetails"
                   rows="4"
+                  required
                   placeholder="Tell me about your project..."
                   className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
                 ></textarea>
@@ -252,7 +258,7 @@ const DiscussProjects = () => {
                     animationData={SendSuccess}
                     loop={false}
                     style={{ width: "50%", height: "50%" }}
-                    onComplete={() => setSent(false)} // Reset sent state after animation completes
+                    onComplete={() => setSent(false)}
                   />
                 )}
                 {failed && (
@@ -260,7 +266,7 @@ const DiscussProjects = () => {
                     animationData={SendFailed}
                     loop={false}
                     style={{ width: "50%", height: "50%" }}
-                    onComplete={() => setFailed(false)} // Reset failed state after animation completes
+                    onComplete={() => setFailed(false)}
                   />
                 )}
               </div>

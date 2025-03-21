@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { FaEye, FaDownload } from "react-icons/fa";
+import { FaEye, FaDownload, FaTrash } from "react-icons/fa";
 import Modal from "react-modal"; // For the modal
 import UseSecureAxios from "../../../../Hooks/UseSecureAxios";
 import downloadFile from "./downloadFile";
+import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import deletingFile from "../../../../assets/Animation/Deleting.json";
+import deletedFile from "../../../../assets/Animation/Deleted.json";
+import failedFile from "../../../../assets/Animation/Failed.json";
+import Lottie from "lottie-react";
 Modal.setAppElement("#root");
 
 const Messages = () => {
@@ -10,19 +16,46 @@ const Messages = () => {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const secureAxios = UseSecureAxios();
+  const [deleting, setDeleting] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [failed, setFailed] = useState(false);
+  // using tanstack/react-query
+  const { data, isFetching, refetch } = useQuery({
+    queryKey: ["messages"],
+    queryFn: async () => {
+      const res = await secureAxios.get("/messages");
+      setMessages(res.data);
+      return res.data;
+    },
+  });
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await secureAxios.get("/messages");
-        setMessages(response.data);
-      } catch (error) {
-        console.error("Error fetching messages:", error);
+  const handleDelete = (id, public_id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FF4500",
+      cancelButtonColor: "#32CD32",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        setDeleting(true);
+        const res1 = await secureAxios.delete(`/delete-message/${id}`);
+        const res2 = await secureAxios.delete(
+          `/delete-cloudinary/${public_id}`
+        );
+        if (res1.status === 200 && res2.status === 200) {
+          setDeleting(false);
+          setDeleted(true);
+          refetch();
+        } else {
+          setDeleting(false);
+          setFailed(true);
+        }
       }
-    };
-    fetchMessages();
-  }, []);
-
+    });
+  };
   const openModal = (message) => {
     setSelectedMessage(message);
     setIsModalOpen(true);
@@ -55,6 +88,9 @@ const Messages = () => {
               <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                 File
               </th>
+              <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Action
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -83,7 +119,10 @@ const Messages = () => {
                   {message.fileUrl ? (
                     <button
                       onClick={() =>
-                        downloadFile(message.fileUrl, "downloaded_file")
+                        downloadFile(
+                          message.fileUrl,
+                          message.fileName || "downloaded_file"
+                        )
                       }
                       className="text-blue-500 mx-auto hover:text-blue-700 flex justify-center text-center"
                     >
@@ -94,12 +133,48 @@ const Messages = () => {
                     "No file"
                   )}
                 </td>
+                <td className="whitespace-nowrap text-sm text-red-600">
+                  <button
+                    onClick={() => handleDelete(message._id, message.public_id)}
+                    className="flex justify-center mx-auto"
+                  >
+                    <FaTrash className="text-xl"></FaTrash>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
+      {(deleting || deleted || failed) && (
+        <div className="fixed inset-0 w-full h-full flex items-center justify-center z-50">
+          <div className="w-full h-full flex items-center justify-center">
+            {deleting && (
+              <Lottie
+                animationData={deletingFile}
+                loop={true}
+                style={{ width: "45%", height: "45%", margin: "0 auto" }}
+              ></Lottie>
+            )}
+            {deleted && (
+              <Lottie
+                animationData={deletedFile}
+                loop={false}
+                style={{ width: "45%", height: "45%", margin: "0 auto" }}
+                onComplete={() => setDeleted(false)}
+              />
+            )}
+            {failed && (
+              <Lottie
+                animationData={failedFile}
+                loop={false}
+                style={{ width: "45%", height: "45%", margin: "0 auto" }}
+                onComplete={() => setFailed(false)}
+              />
+            )}
+          </div>
+        </div>
+      )}
       {/* Modal to view project details */}
       <Modal
         isOpen={isModalOpen}

@@ -114,7 +114,7 @@ const Header = () => {
       >
         <FiGithub className="w-5 h-5" />
       </motion.a>
-      <button
+      {/* <button
         onClick={handleToggleTheme}
         className="relative w-16 h-7 flex items-center bg-gray-300 dark:bg-gray-700 rounded-full p-1 transition-colors duration-300"
       >
@@ -125,7 +125,7 @@ const Header = () => {
         ></div>
         <Sun className="absolute left-2 w-4 h-3 text-yellow-500 dark:hidden" />
         <Moon className="absolute right-2 w-4 h-3 text-gray-900 hidden dark:block" />
-      </button>
+      </button> */}
     </div>
   );
 

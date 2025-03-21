@@ -5,8 +5,7 @@ import { IoLogOut } from "react-icons/io5";
 import { FaMessage } from "react-icons/fa6";
 import { GiDiscussion } from "react-icons/gi";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { GridLoader, PuffLoader } from "react-spinners";
-import { useQuery } from "@tanstack/react-query";
+import { PuffLoader } from "react-spinners";
 import { Helmet } from "react-helmet";
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -29,13 +28,12 @@ const generalMenuItems = [
   },
 ];
 const Dashboard = () => {
-  const { signOutUser, Toast, setLoading, loading, theme, toggleTheme } =
+  const { signOutUser, Toast, loading, theme, toggleTheme } =
     useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     Aos.init({ duration: 500 });
-    // navigate("/dashboard/Messages");
   }, []);
 
   const showSignOutModal = (event) => {
@@ -53,10 +51,8 @@ const Dashboard = () => {
       })
       .catch((error) => {
         Toast(error.message, "error");
-      })
-      .finally(() => {
-        setLoading(false);
       });
+
     hideSignOutModal();
   };
 
@@ -139,7 +135,9 @@ const Dashboard = () => {
                     className="flex items-center gap-3 w-fit hover:text-primary transition-colors duration-300 relative group"
                   >
                     {icon}
-                    <span className="capitalize">{name}</span>
+                    <span className="capitalize lg:text-sm xl:text-base">
+                      {name}
+                    </span>
                     <span className="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
                   </NavLink>
                 </motion.div>
@@ -215,7 +213,7 @@ const Dashboard = () => {
         <div className="container mx-auto p-4">
           {loading ? (
             <div className="flex items-center justify-center min-h-screen">
-              <GridLoader color="#198068" size={40} />
+              <PuffLoader color="#198068" size={40} />
             </div>
           ) : (
             <Outlet />
