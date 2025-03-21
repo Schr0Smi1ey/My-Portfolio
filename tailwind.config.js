@@ -5,6 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/react-tsparticles/**/*.js",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {

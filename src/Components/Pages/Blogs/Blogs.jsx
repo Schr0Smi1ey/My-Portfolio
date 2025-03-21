@@ -42,7 +42,7 @@ const Blogs = () => {
 
           {/* Description */}
           <p className="text-gray-600 text-lg mt-2" data-aos="fade-up">
-            We're working on adding new content. Stay tuned!
+            I am working on adding new content. Stay tuned!
           </p>
 
           {/* Button */}

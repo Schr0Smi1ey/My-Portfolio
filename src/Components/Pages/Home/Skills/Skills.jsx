@@ -107,6 +107,17 @@ const Skills = () => {
             ></img>
           ),
         },
+        {
+          name: "Firebase",
+          level: 70,
+          icon: (
+            <img
+              src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg"
+              alt="Firebase"
+              className="w-8 h-8"
+            />
+          ),
+        },
       ],
     },
     {

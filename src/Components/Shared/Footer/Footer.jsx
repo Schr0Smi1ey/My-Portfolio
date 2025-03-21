@@ -15,15 +15,20 @@ const Footer = () => {
         >
           <motion.div className="flex flex-col items-center md:items-start">
             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <ul className="flex items-center flex-wrap justify-between gap-4">
               {["/", "/projects", "/blogs", "/discuss-projects"].map(
                 (path, index) => (
-                  <li key={index}>
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
                     <Link
                       to={path}
-                      className="hover:text-primary flex justify-center md:justify-start transition-colors text-base text-gray-400 relative"
+                      className="text-gray-300 hover:text-primary text-sm transition-colors duration-300 relative group"
                     >
-                      <span className="relative z-10">
+                      <span>
                         {path === "/"
                           ? "Home"
                           : path === "/projects"
@@ -32,14 +37,9 @@ const Footer = () => {
                           ? "Blogs"
                           : "Discuss Projects"}
                       </span>
-                      <motion.span
-                        className="absolute bottom-0 left-0 w-full h-[2px] bg-primary origin-left scale-x-0"
-                        initial={{ scaleX: 0 }}
-                        whileHover={{ scaleX: 1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      />
+                      <span className="absolute bottom-[-4px] left-0 w-0 h-[1.5px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
                     </Link>
-                  </li>
+                  </motion.div>
                 )
               )}
             </ul>
@@ -68,7 +68,7 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 md:p-3 text-gray-400 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary"
+                  className="p-2 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary"
                   whileHover="hover"
                   whileTap="tap"
                 >
@@ -78,28 +78,6 @@ const Footer = () => {
               ))}
             </div>
           </motion.div>
-
-          {/* <motion.div className="flex flex-col items-center md:items-end">
-            <h3 className="text-xl font-semibold mb-4">Contact Me</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href="mailto:radiantremel444@gmail.com"
-                  className="hover:text-primary transition-colors text-lg font-medium"
-                >
-                  radiantremel444@gmail.com
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:01719430433"
-                  className="hover:text-primary transition-colors text-lg font-medium"
-                >
-                  +880 1719-430433
-                </a>
-              </li>
-            </ul>
-          </motion.div> */}
         </motion.div>
       </div>
 
@@ -135,11 +113,11 @@ const Footer = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="text-center text-slate-400 text-sm mt-12"
+        className="text-center text-slate-400 text-sm mt-4"
       >
-        <div className="inline-block px-6 py-3 rounded-xl bg-white/5 backdrop-blur-sm border border-primary/10">
+        <div className="inline-block px-6 py-2 rounded-xl bg-white/5 backdrop-blur-sm border border-primary/10">
           <p>
-            Copyright © 2024 - All rights reserved by{" "}
+            Copyright {new Date().getFullYear()} - All rights reserved by{" "}
             <span className="bg-gradient-to-r from-primary to-white bg-clip-text text-transparent font-medium">
               Sarafat Karim
             </span>

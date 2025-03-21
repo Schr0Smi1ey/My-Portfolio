@@ -5,13 +5,31 @@ import "aos/dist/aos.css";
 import { IoMail } from "react-icons/io5";
 import { FaLinkedin } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import UseCustomAxios from "../../../Hooks/UseCustomAxios";
 
 const DiscussProjects = () => {
   useEffect(() => {
     AOS.init({ duration: 500 });
     window.scrollTo(0, 0);
   }, []);
-
+  const CustomAxios = UseCustomAxios();
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    const form = document.forms[0];
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      projectDetails: form.projectDetails.value,
+      date: new Date().toISOString(),
+    };
+    const res = await CustomAxios.post("/messages", formData);
+    if (res.status === 200) {
+      form.reset();
+      alert("Message sent successfully");
+    } else {
+      alert("Message not sent. Please try again later.");
+    }
+  };
   return (
     <div className="overflow-hidden min-h-screen flex items-center justify-center background px-6 lg:px-24 py-20">
       <section className="container mx-auto">
@@ -72,7 +90,7 @@ const DiscussProjects = () => {
             transition={{ duration: 0.8 }}
             className="bg-white p-8 sm:p-10 md:p-12 rounded-lg shadow-lg my-12 text-left max-w-4xl mx-auto"
           >
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSendMessage}>
               {/* Name Input */}
               <div data-aos="fade-right">
                 <label
@@ -83,7 +101,6 @@ const DiscussProjects = () => {
                 </label>
                 <input
                   type="text"
-                  id="name"
                   name="name"
                   placeholder="John Doe"
                   className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
@@ -100,7 +117,6 @@ const DiscussProjects = () => {
                 </label>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   placeholder="john.doe@example.com"
                   className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
@@ -116,7 +132,6 @@ const DiscussProjects = () => {
                   Project Details
                 </label>
                 <textarea
-                  id="projectDetails"
                   name="projectDetails"
                   rows="4"
                   placeholder="Tell me about your project..."
