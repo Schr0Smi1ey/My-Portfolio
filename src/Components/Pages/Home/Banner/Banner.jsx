@@ -12,21 +12,21 @@ const Banner = () => {
   useEffect(() => {
     AOS.init({ duration: 500 });
   }, []);
-  const handleResumeButton = () => {
-    Swal.fire({
-      position: "center",
-      icon: "error",
-      title: "Resume is still cooking!",
-      text: "I am still working on my resume. Please check back later.",
-      showConfirmButton: false,
-      timer: 3500,
-    });
-  };
+  // const handleResumeButton = () => {
+  //   Swal.fire({
+  //     position: "center",
+  //     icon: "error",
+  //     title: "Resume is still cooking!",
+  //     text: "I am still working on my resume. Please check back later.",
+  //     showConfirmButton: false,
+  //     timer: 3500,
+  //   });
+  // };
   const handleContactButton = () => {
     document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <section className="relative flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-10 md:mb-14 transition-all duration-500">
+    <section className="relative container mx-auto dark:text-white flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-10 md:mb-14 transition-all duration-500">
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"

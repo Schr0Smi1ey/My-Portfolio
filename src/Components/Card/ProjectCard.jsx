@@ -13,8 +13,8 @@ const ProjectCard = ({ project }) => {
 
   return (
     <div
-      data-aos="fade-up"
-      className="flex flex-col lg:flex-row justify-between items-center gap-6 dark:bg-gray-900 shadow-xl transition-all rounded-lg overflow-hidden p-3 py-5 md:p-6"
+      data-aos="flip-right"
+      className="flex flex-col lg:flex-row justify-between items-center gap-6 dark:border-[1px] dark:border-white/40 shadow-xl transition-all rounded-lg overflow-hidden p-3 py-5 md:p-6"
     >
       {/* Project Image */}
       <div
@@ -35,10 +35,8 @@ const ProjectCard = ({ project }) => {
         data-aos-delay="400"
         className="w-full lg:w-2/3"
       >
-        <h2 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
-          {project.name}
-        </h2>
-        <p className="text-gray-600 text-sm md:text-base dark:text-gray-300 mt-2 line-clamp-2">
+        <h2 className="text-xl md:text-2xl font-semibold">{project.name}</h2>
+        <p className="text-gray-600 text-sm md:text-base dark:text-gray-400 mt-2 line-clamp-2">
           {project.description}
         </p>
 

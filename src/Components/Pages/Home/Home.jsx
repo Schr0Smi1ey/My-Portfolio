@@ -13,7 +13,7 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="background relative overflow-hidden pt-10">
+    <div className="background dark:bg-black dark:bg-none dark:text-white relative overflow-hidden pt-10">
       <Helmet>
         <title>Schr0Smi1ey | Home</title>
       </Helmet>

@@ -13,6 +13,8 @@ export default {
         // primary: "#66785F",
         // primary: "#3D8D7A",
         primary: "#198068",
+        bgPrimary1: "#eff6ff",
+        bgPrimary2: "#f3e8ff",
         // primary: "#ffffff",
       },
     },

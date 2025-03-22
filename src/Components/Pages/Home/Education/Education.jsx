@@ -35,19 +35,20 @@ const Education = () => {
           data-aos="fade-up"
           className="text-4xl font-bold text-gray-900 dark:text-white text-center mb-16"
         >
-          Educational Qualification
+          🎓 Educational Qualification
         </h2>
+
         <div className="relative pl-8 space-y-12">
           <motion.div
             initial={{ height: 0 }}
             whileInView={{ height: "100%" }}
             transition={{ duration: 1 }}
-            className="absolute left-0 top-0 w-2 bg-gradient-to-b from-primary to-black"
+            className="absolute left-0 top-0 w-2 bg-gradient-to-b from-primary to-black dark:to-white/70"
           />
           {educationData.map((edu, index) => (
             <div key={index} data-aos-delay={index * 200} className="relative">
               <div className="absolute w-6 h-6 bg-primary rounded-full -left-3.5 top-2 flex items-center justify-center" />
-              <div className="dark:bg-gray-800 p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="dark:bg-black dark:text-white p-5 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <h3
                   data-aos="fade-up"
                   className="text-2xl font-semibold text-gray-900 dark:text-white mb-2"
@@ -56,7 +57,7 @@ const Education = () => {
                 </h3>
                 <p
                   data-aos="fade-up"
-                  className="text-lg text-gray-600 dark:text-gray-400 mb-2"
+                  className="text-lg text-gray-600 dark:text-gray-200 mb-2"
                 >
                   {edu.degree}
                 </p>
@@ -75,7 +76,7 @@ const Education = () => {
                       initial={{ width: 0 }}
                       whileInView={{ width: `${edu.progress}%` }}
                       transition={{ duration: 1 }}
-                      className="h-2.5 rounded-full bg-gradient-to-r from-primary to-black"
+                      className="h-2.5 rounded-full bg-gradient-to-r from-primary to-black dark:to-white/70"
                     />
                   </div>
                 </div>

@@ -143,18 +143,29 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg">
+    <section
+      id="skills"
+      className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg dark:text-white"
+    >
       <div className="container mx-auto md:px-3 lg:px-6">
-        {/* Section Title */}
         <motion.h2
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center"
+          className="text-4xl font-bold mb-4 text-center"
           data-aos="fade-up"
         >
-          Skills
+          🛠️ Skills & Expertise
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+          className="text-lg text-gray-600 dark:text-gray-400 text-center mb-12"
+          data-aos="fade-up"
+        >
+          Turning ideas into reality, one line of code at a time 💻✨
+        </motion.p>
 
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -164,7 +175,7 @@ const Skills = () => {
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1 }}
-              className=" dark:bg-gray-900 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              className="p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
               <h3
                 data-aos="fade-up"
@@ -172,7 +183,7 @@ const Skills = () => {
               >
                 {category.title}
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-6 dark:border-[1px] dark:border-white/40 rounded-xl">
                 {category.skills.map((skill, skillIndex) => (
                   <div
                     key={skillIndex}
@@ -192,7 +203,7 @@ const Skills = () => {
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
                         transition={{ duration: 1 }}
-                        className="h-2.5 rounded-full bg-gradient-to-r from-primary to-black"
+                        className="h-2.5 rounded-full bg-gradient-to-r from-primary to-black dark:to-white/70"
                       />
                     </div>
                     <p

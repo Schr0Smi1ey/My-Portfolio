@@ -14,7 +14,7 @@ const AboutMe = () => {
         <div>
           <h2
             data-aos="fade-up"
-            className="text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4"
           >
             About Me
           </h2>
@@ -30,7 +30,7 @@ const AboutMe = () => {
           </p>
           <p
             data-aos="fade-up"
-            className="text-lg text-gray-600 dark:text-gray-400 mb-4"
+            className="text-lg text-gray-600 dark:text-gray-300 mb-4"
           >
             I specialize in creating responsive and interactive web applications
             using the MERN Stack. Beyond coding, I love engaging in competitive
@@ -39,7 +39,7 @@ const AboutMe = () => {
           </p>
           <p
             data-aos="fade-up"
-            className="text-lg text-gray-600 dark:text-gray-400 mb-4"
+            className="text-lg text-gray-600 dark:text-gray-300 mb-4"
           >
             When I’m not coding, you’ll probably find me playing cricket, my
             favorite sport! I also enjoy football, online games, and exploring

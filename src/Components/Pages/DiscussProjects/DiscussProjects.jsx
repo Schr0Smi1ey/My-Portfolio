@@ -45,7 +45,6 @@ const DiscussProjects = () => {
       let fileUrl = null,
         fileName = "DownloadedFile",
         public_id = null;
-      console.log(formData.file);
       if (formData.file.size > 0) {
         const fileData = new FormData();
         fileData.append("file", formData.file);
@@ -61,7 +60,6 @@ const DiscussProjects = () => {
             }/upload`,
             fileData
           );
-          console.log(cloudinaryResponse);
           fileUrl = cloudinaryResponse.data.secure_url;
           fileName = cloudinaryResponse.data.original_filename;
           public_id = cloudinaryResponse.data.public_id;
@@ -95,7 +93,7 @@ const DiscussProjects = () => {
   };
 
   return (
-    <div className="overflow-hidden min-h-screen flex items-center justify-center background px-6 lg:px-24 py-20">
+    <div className="overflow-hidden min-h-screen flex items-center justify-center background dark:bg-black dark:bg-none dark:text-white px-6 lg:px-24 py-20">
       <section className="container mx-auto">
         <Helmet>
           <title>Schr0Smi1ey | Discuss Projects</title>
@@ -114,7 +112,7 @@ const DiscussProjects = () => {
             Let's Discuss Your Next Project!
           </h1>
           <p
-            className="text-lg text-gray-600 dark:text-gray-300 mt-4"
+            className="text-lg text-gray-600 dark:text-gray-400 mt-4"
             data-aos="fade-up"
           >
             Have an idea? Need a developer? Let’s collaborate and bring your
@@ -152,7 +150,7 @@ const DiscussProjects = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="bg-white p-8 sm:p-10 md:p-12 rounded-lg shadow-lg my-12 text-left max-w-4xl mx-auto"
+            className="bg-white dark:bg-black dark:border-[1px] dark:border-white/40 p-8 sm:p-10 md:p-12 rounded-lg shadow-lg my-12 text-left max-w-4xl mx-auto"
           >
             <form
               className="space-y-6"
@@ -163,7 +161,7 @@ const DiscussProjects = () => {
               <div data-aos="fade-right">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Your Name
                 </label>
@@ -172,7 +170,7 @@ const DiscussProjects = () => {
                   name="name"
                   required
                   placeholder="John Doe"
-                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full dark:bg-black dark:text-gray-300 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
                 />
               </div>
 
@@ -180,7 +178,7 @@ const DiscussProjects = () => {
               <div data-aos="fade-left">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Your Email
                 </label>
@@ -189,7 +187,7 @@ const DiscussProjects = () => {
                   name="email"
                   required
                   placeholder="john.doe@example.com"
-                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full dark:bg-black dark:text-gray-300 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
                 />
               </div>
 
@@ -197,7 +195,7 @@ const DiscussProjects = () => {
               <div data-aos="fade-up">
                 <label
                   htmlFor="projectDetails"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                   Project Details
                 </label>
@@ -206,7 +204,7 @@ const DiscussProjects = () => {
                   rows="4"
                   required
                   placeholder="Tell me about your project..."
-                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full dark:bg-black dark:text-gray-300 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
                 ></textarea>
               </div>
 

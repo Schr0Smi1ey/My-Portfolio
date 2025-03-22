@@ -68,7 +68,7 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary"
+                  className="p-2 hover:scale-110 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary"
                   whileHover="hover"
                   whileTap="tap"
                 >

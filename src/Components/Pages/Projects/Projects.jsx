@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ProjectCard from "../../Card/ProjectCard";
 import { Helmet } from "react-helmet";
+import { PuffLoader } from "react-spinners";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -20,22 +21,19 @@ const Projects = () => {
   }, []);
 
   return (
-    <section className="min-h-screen py-32 px-6 md:px-8 background bg-gray-50 overflow-hidden dark:bg-gray-900">
+    <section className="min-h-screen py-32 px-6 md:px-8 background overflow-hidden dark:bg-black dark:bg-none dark:text-white">
       <Helmet>
         <title>Schr0Smi1ey | Projects</title>
       </Helmet>
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1
-            data-aos="fade-right"
-            className="text-4xl font-bold text-gray-900 dark:text-white"
-          >
+          <h1 data-aos="fade-right" className="text-4xl font-bold mb-4">
             My Projects
           </h1>
           <p
             data-aos="fade-left"
-            className="text-lg text-gray-600 dark:text-gray-300 mt-2 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-400 mt-2 max-w-2xl mx-auto"
           >
             A collection of my best work, showcasing my skills in full-stack
             development, problem-solving, and user experience.
@@ -44,12 +42,9 @@ const Projects = () => {
 
         {/* Projects Grid */}
         {projects.length === 0 ? (
-          <p
-            data-aos="fade-up"
-            className="text-center text-lg text-gray-600 dark:text-gray-300"
-          >
-            Loading projects...
-          </p>
+          <div className="flex items-center justify-center min-h-screen">
+            <PuffLoader color="#198068" size={40} />
+          </div>
         ) : (
           <div className="grid grid-cols-1 max-w-7xl mx-auto gap-6">
             {projects.map((project, index) => (

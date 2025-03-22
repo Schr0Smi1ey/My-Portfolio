@@ -13,7 +13,7 @@ const Blogs = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center background px-6 lg:px-24 py-20">
+    <div className="min-h-screen flex items-center justify-center background dark:bg-black dark:bg-none dark:text-white px-6 lg:px-24 py-20">
       <div className="p-4 md:p-8 shadow-lg flex flex-col items-center justify-center">
         <Helmet>
           <title>Schr0Smi1ey | Blogs</title>
@@ -41,7 +41,10 @@ const Blogs = () => {
           </h1>
 
           {/* Description */}
-          <p className="text-gray-600 text-lg mt-2" data-aos="fade-up">
+          <p
+            className="text-gray-600 dark:text-gray-400 text-lg mt-2"
+            data-aos="fade-up"
+          >
             I am working on adding new content. Stay tuned!
           </p>
 
