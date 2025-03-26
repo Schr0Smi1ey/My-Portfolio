@@ -53,7 +53,7 @@ const ProjectDetails = () => {
   };
 
   return (
-    <section className="min-h-screen background py-32 overflow-hidden">
+    <section className="min-h-screen background py-32 dark:bg-black dark:bg-none dark:text-white overflow-hidden">
       <Helmet>
         <title>Schr0Smi1ey | Project Details | {id}</title>
       </Helmet>
@@ -68,10 +68,10 @@ const ProjectDetails = () => {
           <div className="inline-block mb-6">
             <FaRocket className="text-5xl text-primary animate-bounce" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white bg-clip-text">
+          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text">
             {project.name}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
             {project.description}
           </p>
         </motion.div>
@@ -98,7 +98,7 @@ const ProjectDetails = () => {
               <motion.div
                 key={category}
                 whileHover={{ y: -5 }}
-                className="p-4 md:p-6 bg-white dark:bg-gray-800 shadow-xl rounded-xl hover:shadow-2xl transition-all"
+                className="p-4 md:p-6 bg-white dark:bg-black dark:border-[1px] dark:border-white/40 shadow-xl rounded-xl hover:shadow-2xl transition-all"
               >
                 <div className="flex items-center mb-4">
                   {categoryIcons[category.toLowerCase()]}
@@ -127,7 +127,7 @@ const ProjectDetails = () => {
           {/* Features */}
           <motion.div
             data-aos="fade-right"
-            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl"
+            className="bg-white dark:bg-black dark:border-[1px] dark:border-white/40 p-8 rounded-2xl shadow-xl"
           >
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 flex items-center">
               <FaPalette className="mr-3 text-primary" />
@@ -153,7 +153,7 @@ const ProjectDetails = () => {
           {/* Challenges */}
           <motion.div
             data-aos="fade-right"
-            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl"
+            className="bg-white dark:bg-black dark:border-[1px] dark:border-white/40 p-8 rounded-2xl shadow-xl"
           >
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
               <FaTools className="mr-3 text-primary" />
@@ -180,7 +180,7 @@ const ProjectDetails = () => {
           {/* Future Plans */}
           <motion.div
             data-aos="fade-left"
-            className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl"
+            className="bg-white dark:bg-black dark:border-[1px] dark:border-white/40 p-8 rounded-2xl shadow-xl"
           >
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
               <FaRocket className="mr-3 text-primary" />

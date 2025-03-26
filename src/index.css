@@ -10,7 +10,10 @@ body {
 }
 
 .background {
-  background: linear-gradient(to right, #eff6ff, #f3e8ff);
+  /* background: linear-gradient(to right, #eff6ff, #f3e8ff); */
+  /* background: linear-gradient(to right, #d4b0e8, #b7a1ce); */
+  background: whitesmoke;
+  /* background: linear-gradient(to right, #8ba9d0, #6e87a7); */
 }
 
 a.active {

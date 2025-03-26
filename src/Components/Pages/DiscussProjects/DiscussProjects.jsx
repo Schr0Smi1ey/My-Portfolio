@@ -93,7 +93,7 @@ const DiscussProjects = () => {
   };
 
   return (
-    <div className="overflow-hidden min-h-screen flex items-center justify-center background dark:bg-black dark:bg-none dark:text-white px-6 lg:px-24 py-20">
+    <div className="overflow-hidden z-50 min-h-screen flex items-center justify-center background dark:bg-black dark:bg-none dark:text-white px-6 lg:px-24 py-20">
       <section className="container mx-auto">
         <Helmet>
           <title>Schr0Smi1ey | Discuss Projects</title>
@@ -124,7 +124,7 @@ const DiscussProjects = () => {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="mailto:radiantremel444@gmail.com"
+              href="mailto:Sarafatkarim555@gmail.com"
               className="px-3 py-1 flex items-center bg-primary text-white text-lg font-medium rounded-lg shadow-md hover:bg-primary/90 transition"
               data-aos="fade-up"
             >
@@ -150,7 +150,7 @@ const DiscussProjects = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="bg-white dark:bg-black dark:border-[1px] dark:border-white/40 p-8 sm:p-10 md:p-12 rounded-lg shadow-lg my-12 text-left max-w-4xl mx-auto"
+            className=" dark:bg-black dark:border-[1px] dark:border-white/40 p-8 sm:p-10 md:p-12 rounded-lg shadow-xl my-12 text-left max-w-4xl mx-auto"
           >
             <form
               className="space-y-6"
@@ -170,7 +170,7 @@ const DiscussProjects = () => {
                   name="name"
                   required
                   placeholder="John Doe"
-                  className="mt-1 block w-full dark:bg-black dark:text-gray-300 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent text-black dark:bg-black dark:text-gray-300 px-4 py-3 border border-black dark:border-white/40 rounded-md shadow-sm focus:ring-primary focus:border-primary"
                 />
               </div>
 
@@ -187,7 +187,7 @@ const DiscussProjects = () => {
                   name="email"
                   required
                   placeholder="john.doe@example.com"
-                  className="mt-1 block w-full dark:bg-black dark:text-gray-300 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent dark:bg-black dark:text-gray-300 px-4 py-3 border border-black rounded-md dark:border-white/40 shadow-sm focus:ring-primary focus:border-primary"
                 />
               </div>
 
@@ -204,7 +204,7 @@ const DiscussProjects = () => {
                   rows="4"
                   required
                   placeholder="Tell me about your project..."
-                  className="mt-1 block w-full dark:bg-black dark:text-gray-300 px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent dark:bg-black dark:text-gray-300 px-4 py-3 border border-black rounded-md dark:border-white/40 shadow-sm focus:ring-primary focus:border-primary"
                 ></textarea>
               </div>
 
@@ -219,10 +219,10 @@ const DiscussProjects = () => {
                 <input
                   type="file"
                   name="file"
-                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent px-4 py-3 border border-black rounded-md dark:border-white/40 shadow-sm focus:ring-primary focus:border-primary"
                 />
                 <p className="text-sm text-gray-500 mt-1 ml-1">
-                  <span className="text-red-500">Max file size: 20MB.</span>
+                  <span className="text-red-600">Max file size: 20MB.</span>
                 </p>
               </div>
 
@@ -232,7 +232,7 @@ const DiscussProjects = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   type="submit"
-                  className="w-full bg-primary text-white px-6 py-3 rounded-md hover:bg-primary/90 transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  className="w-full bg-primary/90 text-white px-6 py-3 rounded-md hover:bg-primary transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                   data-aos="fade-up"
                   disabled={sendingMessage}
                 >

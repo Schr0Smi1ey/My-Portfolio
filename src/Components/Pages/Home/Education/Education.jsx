@@ -7,7 +7,7 @@ const educationData = [
   {
     institution: "Khulna University",
     degree: "Bachelor’s in Computer Science & Engineering",
-    years: "2023 - 2027",
+    years: "2023 - Present",
     gpa: "3.945 / 4.0",
     progress: (3.945 / 4) * 100,
   },

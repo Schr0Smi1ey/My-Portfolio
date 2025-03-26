@@ -17,13 +17,13 @@ const CustomCursor = () => {
 
   return (
     <div
-      className="bg-primary"
+      className="bg-primary hidden lg:flex"
       style={{
         position: "fixed",
         top: 0,
         left: 0,
-        width: "20px",
-        height: "20px",
+        width: "18px",
+        height: "18px",
         borderRadius: "50%",
         pointerEvents: "none",
         zIndex: 9999,

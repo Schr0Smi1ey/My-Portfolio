@@ -24,26 +24,6 @@ const Skills = () => {
 
   const skillCategories = [
     {
-      title: "Languages",
-      skills: [
-        {
-          name: "C",
-          level: 90,
-          icon: <img src={c} className="w-7 h-7" alt="C" />,
-        },
-        {
-          name: "C++",
-          level: 85,
-          icon: <img src={cpp} className="w-7 h-7" alt="C++" />,
-        },
-        {
-          name: "Python",
-          level: 80,
-          icon: <img src={python} className="w-7 h-7" alt="Python" />,
-        },
-      ],
-    },
-    {
       title: "Frontend Development",
       skills: [
         {
@@ -117,6 +97,26 @@ const Skills = () => {
               className="w-8 h-8"
             />
           ),
+        },
+      ],
+    },
+    {
+      title: "Languages",
+      skills: [
+        {
+          name: "C",
+          level: 90,
+          icon: <img src={c} className="w-7 h-7" alt="C" />,
+        },
+        {
+          name: "C++",
+          level: 85,
+          icon: <img src={cpp} className="w-7 h-7" alt="C++" />,
+        },
+        {
+          name: "Python",
+          level: 80,
+          icon: <img src={python} className="w-7 h-7" alt="Python" />,
         },
       ],
     },

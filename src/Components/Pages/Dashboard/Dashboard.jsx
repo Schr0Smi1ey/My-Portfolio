@@ -12,6 +12,7 @@ import "aos/dist/aos.css";
 import { Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../../Contexts/AuthContext/AuthProvider";
+import CustomCursor from "../../Element/CustomCursor";
 
 const adminMenuItems = [
   { name: "Messages", icon: <FaMessage /> },
@@ -67,6 +68,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex min-h-screen dark:bg-black dark:text-white">
+      <CustomCursor />
       <Helmet>
         <title>Schr0Smi1ey | Dashboard</title>
       </Helmet>

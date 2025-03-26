@@ -90,43 +90,47 @@ const CodingProfile = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 justify-center items-center">
           {problemSolvingPlatforms.map((platform, index) => (
-            <motion.div
-              key={platform.id}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{
-                type: "spring",
-                stiffness: 400,
-                bounce: 0.25,
-              }}
-              className="relative p-4 py-6 rounded-xl shadow-xl dark:border-[1px] dark:border-white/40 hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 group"
+            <div
+              key={index}
+              className="relative p-4 py-6 rounded-xl shadow-xl dark:border-[1px] dark:border-white/40 hover:shadow-2xl"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-2xl"></div>
-              <img
-                src={platform.img}
-                alt={platform.alt}
-                className="w-20 h-20 mx-auto mb-4"
-              />
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                {platform.title}
-              </h3>
-              {platform.rating.html}
+              <motion.div
+                key={platform.id}
+                whileHover={{ scale: 1.05 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  bounce: 0.25,
+                }}
+                className="p-2 transition-shadow duration-300 transform group"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-2xl"></div>
+                <img
+                  src={platform.img}
+                  alt={platform.alt}
+                  className="w-20 h-20 mx-auto mb-4"
+                />
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {platform.title}
+                </h3>
+                {platform.rating.html}
 
-              <p className="mt-4 text-gray-500 dark:text-gray-300 text-sm">
-                Problems Solved:{" "}
-                <span className="font-semibold text-primary">
-                  {platform.problemsSolved}
-                </span>
-              </p>
+                <p className="mt-4 text-gray-500 dark:text-gray-300 text-sm">
+                  Problems Solved:{" "}
+                  <span className="font-semibold text-primary">
+                    {platform.problemsSolved}
+                  </span>
+                </p>
+              </motion.div>
               <a
                 href={platform.profileUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-6 px-6 py-2 text-sm font-medium bg-primary text-white rounded-full shadow-md hover:bg-primary transition"
+                className="z-10 inline-block cursor-pointer mt-6 px-6 py-2 text-sm font-medium bg-primary text-white rounded-full shadow-md hover:bg-primary transition"
               >
                 View Profile
               </a>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

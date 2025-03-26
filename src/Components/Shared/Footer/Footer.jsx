@@ -6,8 +6,8 @@ import { FaFacebook } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-black py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
-      <div className="container max-w-3xl text-white mx-auto">
+    <footer className="relative background dark:bg-none dark:bg-black dark:text-white py-16 px-4 md:px-8 lg:px-16 overflow-hidden">
+      <div className="container max-w-3xl mx-auto">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-8 text-center"
           initial="hidden"
@@ -26,7 +26,7 @@ const Footer = () => {
                   >
                     <Link
                       to={path}
-                      className="text-gray-300 hover:text-primary text-sm transition-colors duration-300 relative group"
+                      className="hover:text-primary text-sm transition-colors duration-300 relative group"
                     >
                       <span>
                         {path === "/"
@@ -115,10 +115,10 @@ const Footer = () => {
         transition={{ delay: 0.5 }}
         className="text-center text-slate-400 text-sm mt-4"
       >
-        <div className="inline-block px-6 py-2 rounded-xl bg-white/5 backdrop-blur-sm border border-primary/10">
+        <div className="inline-block px-6 py-2 rounded-xl bg-white/5 backdrop-blur-sm text-primary border border-primary/50">
           <p>
             Copyright {new Date().getFullYear()} - All rights reserved by{" "}
-            <span className="bg-gradient-to-r from-primary to-white bg-clip-text text-transparent font-medium">
+            <span className="bg-gradient-to-r from-primary to-black dark:to-white bg-clip-text text-transparent font-medium">
               Sarafat Karim
             </span>
           </p>

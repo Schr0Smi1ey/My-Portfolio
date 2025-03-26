@@ -26,7 +26,11 @@ const Banner = () => {
     document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <section className="relative container mx-auto dark:text-white flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-10 md:mb-14 transition-all duration-500">
+    <section
+      id="particles-js"
+      className="relative container mx-auto dark:text-white flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-10 md:mb-14 transition-all duration-500"
+    >
+      
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"

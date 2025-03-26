@@ -6,7 +6,6 @@ import { AuthContext } from "../Contexts/AuthContext/AuthProvider";
 const useAdmin = () => {
   const secureAxios = UseSecureAxios();
   const { user, loading } = useContext(AuthContext);
-  if (loading || !user) return [false, true];
   const { data: isAdmin, isFetching: isAdminLoading } = useQuery({
     queryKey: ["isAdmin", user?.email],
     queryFn: async () => {
@@ -15,10 +14,10 @@ const useAdmin = () => {
       });
       return res.data?.isAdmin;
     },
-    enabled: !!user?.email,
+    enabled: !!user?.email && !loading,
   });
 
-  return [isAdmin, isAdminLoading];
+  return [isAdmin ?? false, isAdminLoading || loading];
 };
 
 export default useAdmin;
