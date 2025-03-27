@@ -28,7 +28,7 @@ const FeaturedProjects = () => {
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center"
+          className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center"
           data-aos="fade-up"
         >
           🌟 Featured Projects

@@ -17,18 +17,9 @@ const CustomCursor = () => {
 
   return (
     <div
-      className="bg-primary hidden lg:flex"
+      className="hidden lg:block fixed w-4 h-4 bg-primary rounded-full pointer-events-none z-[10000] transition-transform duration-100"
       style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "18px",
-        height: "18px",
-        borderRadius: "50%",
-        pointerEvents: "none",
-        zIndex: 9999,
         transform: `translate(${cursorPosition.x}px, ${cursorPosition.y}px)`,
-        transition: "transform 0.1s linear",
       }}
     />
   );

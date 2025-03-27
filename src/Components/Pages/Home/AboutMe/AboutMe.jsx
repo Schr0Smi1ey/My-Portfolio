@@ -14,9 +14,9 @@ const AboutMe = () => {
         <div>
           <h2
             data-aos="fade-up"
-            className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
           >
-            About Me
+            📌 About Me
           </h2>
           <p
             data-aos="fade-up"

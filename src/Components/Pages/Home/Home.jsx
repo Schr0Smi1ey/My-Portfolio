@@ -7,6 +7,7 @@ import FeaturedProjects from "./FeaturedProjects/FeaturedProjects";
 import ContactInfo from "./ContactInfo/ContactInfo";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
+import Certifications from "./Certifications/Certifications";
 
 const Home = () => {
   useEffect(() => {
@@ -24,6 +25,7 @@ const Home = () => {
         <CodingProfile />
         <Skills />
         <FeaturedProjects />
+        <Certifications></Certifications>
         <ContactInfo />
       </div>
     </div>

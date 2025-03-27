@@ -216,7 +216,7 @@ const ProjectDetails = () => {
             href={project.liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-gradient-to-r from-primary to-blue-600 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
+            className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
           >
             <FaExternalLinkAlt />
             <span>Live Demo</span>
@@ -228,9 +228,9 @@ const ProjectDetails = () => {
             href={project.frontendCode}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-gradient-to-r from-gray-800 to-gray-900 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
+            className="flex items-center gap-2 bg-gradient-to-r from-rose-500 to-pink-600 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
           >
-            <FaGithub />
+            <FaGithub className="flex items-center text-xl" />
             <span>Frontend Code</span>
           </motion.a>
 
@@ -241,9 +241,9 @@ const ProjectDetails = () => {
               href={project.backendCode}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              className="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all"
             >
-              <FaGithub />
+              <FaGithub className="flex items-center text-xl" />
               <span>Backend Code</span>
             </motion.a>
           )}

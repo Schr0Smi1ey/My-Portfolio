@@ -77,8 +77,8 @@ const CodingProfile = () => {
   return (
     <section className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg dark:text-white">
       <div className="container mx-auto px-2 md:px-6 text-center">
-        <h2 className="text-4xl font-bold" data-aos="fade-up">
-          🚀 Coding Profile
+        <h2 className="text-3xl md:text-4xl font-bold" data-aos="fade-up">
+          💻 Coding Profile
         </h2>
         <p
           className="text-lg text-gray-600 dark:text-gray-300 mt-3"
