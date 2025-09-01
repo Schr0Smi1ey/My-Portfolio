@@ -27,7 +27,7 @@ const Projects = () => {
       </Helmet>
       <div className="container mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center text-gray-900 dark:text-white mb-12">
           <h1 data-aos="fade-right" className="text-4xl font-bold mb-4">
             My Projects
           </h1>

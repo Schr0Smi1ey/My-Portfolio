@@ -14,7 +14,7 @@ const Blogs = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center background dark:bg-black dark:bg-none dark:text-white px-6 lg:px-24 py-20">
-      <div className="p-4 md:p-8 shadow-lg flex flex-col items-center justify-center">
+      <div className="p-4 md:p-8 shadow-lg flex flex-col items-center justify-center text-gray-900 dark:text-white">
         <Helmet>
           <title>Schr0Smi1ey | Blogs</title>
         </Helmet>

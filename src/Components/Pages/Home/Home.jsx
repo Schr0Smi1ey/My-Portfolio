@@ -26,6 +26,7 @@ const Home = () => {
         <Skills />
         <FeaturedProjects />
         <Certifications></Certifications>
+        {/* <MasonryGallery></MasonryGallery> */}
         <ContactInfo />
       </div>
     </div>

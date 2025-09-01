@@ -30,7 +30,6 @@ const Banner = () => {
       id="particles-js"
       className="relative container mx-auto dark:text-white flex flex-col-reverse md:flex-row items-center justify-between gap-8 p-4 py-8 md:py-14 mb-10 md:mb-14 transition-all duration-500"
     >
-      
       <div className="text-center md:text-left space-y-6">
         <motion.h1
           data-aos="fade-right"
@@ -53,7 +52,7 @@ const Banner = () => {
             rel="noopener noreferrer"
             data-aos="zoom-in"
           >
-            <FaFacebook className="text-3xl hover:text-primary transition-all" />
+            <FaFacebook className="text-3xl text-gray-900 dark:text-white dark:hover:text-primary hover:text-primary transition-all" />
           </a>
           <a
             href="https://www.linkedin.com/in/sarafat-karim"
@@ -61,7 +60,7 @@ const Banner = () => {
             rel="noopener noreferrer"
             data-aos="zoom-in"
           >
-            <FaLinkedin className="text-3xl hover:text-primary transition-all" />
+            <FaLinkedin className="text-3xl text-gray-900 dark:text-white dark:hover:text-primary hover:text-primary transition-all" />
           </a>
           <a
             href="https://github.com/Schr0Smi1ey"
@@ -69,7 +68,7 @@ const Banner = () => {
             rel="noopener noreferrer"
             data-aos="zoom-in"
           >
-            <FaGithub className="text-3xl hover:text-primary transition" />
+            <FaGithub className="text-3xl text-gray-900 dark:text-white dark:hover:text-primary hover:text-primary transition" />
           </a>
           <a
             href="https://twitter.com/sarafat_karim"
@@ -77,7 +76,7 @@ const Banner = () => {
             rel="noopener noreferrer"
             data-aos="zoom-in"
           >
-            <FaXTwitter className="text-3xl hover:text-primary transition" />
+            <FaXTwitter className="text-3xl text-gray-900 dark:text-white dark:hover:text-primary hover:text-primary transition" />
           </a>
         </div>
         <motion.div

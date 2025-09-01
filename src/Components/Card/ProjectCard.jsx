@@ -35,7 +35,9 @@ const ProjectCard = ({ project }) => {
         data-aos-delay="400"
         className="w-full lg:w-2/3"
       >
-        <h2 className="text-xl md:text-2xl font-semibold">{project.name}</h2>
+        <h2 className="text-xl text-gray-900 dark:text-white md:text-2xl font-semibold">
+          {project.name}
+        </h2>
         <p className="text-gray-600 text-sm md:text-base dark:text-gray-400 mt-2 line-clamp-2">
           {project.description}
         </p>

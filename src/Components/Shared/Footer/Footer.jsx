@@ -14,7 +14,9 @@ const Footer = () => {
           animate="visible"
         >
           <motion.div className="flex flex-col items-center md:items-start">
-            <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              Quick Links
+            </h3>
             <ul className="flex items-center flex-wrap justify-between gap-4">
               {["/", "/projects", "/blogs", "/discuss-projects"].map(
                 (path, index) => (
@@ -26,7 +28,7 @@ const Footer = () => {
                   >
                     <Link
                       to={path}
-                      className="hover:text-primary text-sm transition-colors duration-300 relative group"
+                      className="hover:text-primary text-gray-900 dark:text-white text-sm transition-colors duration-300 relative group"
                     >
                       <span>
                         {path === "/"
@@ -37,7 +39,7 @@ const Footer = () => {
                           ? "Blogs"
                           : "Discuss Projects"}
                       </span>
-                      <span className="absolute bottom-[-4px] left-0 w-0 h-[1.5px] bg-gradient-to-r from-primary to-white transition-all duration-300 group-hover:w-full"></span>
+                      <span className="absolute bottom-[-4px] left-0 w-0 h-[1.5px] bg-gradient-to-r from-primary to-black dark:white transition-all duration-300 group-hover:w-full"></span>
                     </Link>
                   </motion.div>
                 )
@@ -46,7 +48,9 @@ const Footer = () => {
           </motion.div>
 
           <motion.div className="flex flex-col items-center">
-            <h3 className="text-xl font-semibold mb-4">Follow Me</h3>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+              Follow Me
+            </h3>
             <div className="flex gap-4">
               {[
                 {
@@ -68,7 +72,7 @@ const Footer = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 hover:scale-110 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary"
+                  className="p-2 hover:scale-110 rounded-full bg-white/5 backdrop-blur-sm border border-primary/20 hover:text-primary text-gray-900 dark:text-white"
                   whileHover="hover"
                   whileTap="tap"
                 >
