@@ -180,13 +180,13 @@ const Messages = () => {
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Project Details"
-        className="bg-white p-3 rounded-lg shadow-lg mx-auto"
+        className="bg-white border-2 border-white dark:bg-black p-3 rounded-lg shadow-lg mx-auto"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
       >
         {selectedMessage ? (
           <div>
-            <h2 className="text-xl font-bold mb-4">Project Details</h2>
-            <p className="text-gray-700">{selectedMessage.projectDetails}</p>
+            <h2 className="text-xl text-black dark:text-white font-bold mb-4">Project Details</h2>
+            <p className="text-gray-700 dark:text-white/70">{selectedMessage.projectDetails}</p>
           </div>
         ) : (
           <p>Loading...</p>

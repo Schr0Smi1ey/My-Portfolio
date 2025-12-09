@@ -76,19 +76,19 @@ const DiscussProjects = () => {
           "upload_preset",
           import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
         );
+        fileData.append("resource_type", "auto");
 
         const cloudinaryResponse = await axios.post(
           `https://api.cloudinary.com/v1_1/${
             import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
           }/upload`,
-          fileData
+          fileData,
         );
-
         fileUrl = cloudinaryResponse.data.secure_url;
         fileName = cloudinaryResponse.data.original_filename;
         public_id = cloudinaryResponse.data.public_id;
       }
-
+      
       const messageData = {
         name,
         email,
@@ -98,9 +98,7 @@ const DiscussProjects = () => {
         public_id,
         date: new Date().toISOString(),
       };
-      console.log(messageData);
       const res = await CustomAxios.post("/messages", messageData);
-      console.log(res);
       if (res.status === 200 || res.status === 201) {
         e.target.reset();
         setSelectedFile(null);
@@ -192,7 +190,7 @@ const DiscussProjects = () => {
                   name="name"
                   placeholder="Sarafat Karim"
                   required
-                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black border-black dark:border-white/40 rounded-md"
+                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black dark:text-white border-black dark:border-white/40 rounded-md"
                 />
               </div>
 
@@ -206,7 +204,7 @@ const DiscussProjects = () => {
                   name="email"
                   placeholder="karim-example@gmail.com"
                   required
-                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black border-black dark:border-white/40 rounded-md"
+                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black dark:text-white border-black dark:border-white/40 rounded-md"
                 />
               </div>
 
@@ -220,7 +218,7 @@ const DiscussProjects = () => {
                   rows="4"
                   placeholder="about your project"
                   required
-                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black border-black dark:border-white/40 rounded-md"
+                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black dark:text-white border-black dark:border-white/40 rounded-md"
                 />
               </div>
 
@@ -233,9 +231,17 @@ const DiscussProjects = () => {
                 <input
                   type="file"
                   name="file"
+                  accept="image/*,application/pdf"
                   onChange={handleFileChange}
                   className="mt-1 block w-full bg-transparent px-4 py-3 border border-black rounded-md dark:border-white/40"
                 />
+
+                {/* Accepted Formats */}
+                <p className="text-sm text-gray-500 mt-1 ml-1">
+                  Accepted formats: <span className="font-medium">JPG, PNG, GIF, PDF</span>.
+                  <br />
+                  <span className="text-red-600">Max file size: 20MB</span>
+                </p>
 
                 {/* File Preview */}
                 {selectedFile && (
@@ -252,11 +258,8 @@ const DiscussProjects = () => {
                     </button>
                   </div>
                 )}
-
-                <p className="text-sm text-gray-500 mt-1 ml-1">
-                  <span className="text-red-600">Max file size: 20MB.</span>
-                </p>
               </div>
+
 
               {/* Submit */}
               <motion.button

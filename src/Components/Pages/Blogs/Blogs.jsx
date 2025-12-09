@@ -7,7 +7,6 @@ import { Helmet } from "react-helmet";
 import { PuffLoader } from "react-spinners";
 
 const MEDIUM_USERNAME = import.meta.env.VITE_MEDIUM_USERNAME;
-console.log(MEDIUM_USERNAME);
 const extractImage = (html) => {
   const match = html?.match(/<img[^>]+src="([^">]+)"/);
   return match ? match[1] : null;
@@ -32,7 +31,6 @@ const Blogs = () => {
       })
       .catch(() => setLoading(false));
   }, []);
-  console.log(posts);
   return (
     <div className="min-h-screen py-12 px-6 md:px-8 lg:px-12 background overflow-hidden dark:bg-black dark:bg-none dark:text-white">
       <div className="shadow-lg flex flex-col items-center justify-center text-gray-900 dark:text-white">
