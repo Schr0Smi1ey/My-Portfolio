@@ -9,15 +9,21 @@ import UseCustomAxios from "../../../Hooks/UseCustomAxios";
 import { AuthContext } from "../../../Contexts/AuthContext/AuthProvider";
 import axios from "axios";
 import Lottie from "lottie-react";
-// import Sending from "../../../assets/Animation/Send-Message.json";
+import { IoCloseCircle } from "react-icons/io5";
+
 import Sending from "../../../assets/Animation/Send-Message-1.json";
 import SendSuccess from "../../../assets/Animation/Send-Success.json";
 import SendFailed from "../../../assets/Animation/Failed.json";
+
 const DiscussProjects = () => {
   const { Toast } = useContext(AuthContext);
+
   const [sendingMessage, setSendingMessage] = useState(false);
   const [sent, setSent] = useState(false);
   const [failed, setFailed] = useState(false);
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
   useEffect(() => {
     AOS.init({ duration: 500 });
     window.scrollTo(0, 0);
@@ -25,65 +31,82 @@ const DiscussProjects = () => {
 
   const CustomAxios = UseCustomAxios();
 
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    const form = new FormData(e.target);
-    const formData = {
-      name: form.get("name"),
-      email: form.get("email"),
-      projectDetails: form.get("projectDetails"),
-      file: form.get("file"),
-    };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    if (formData.file && formData.file.size > 20 * 1024 * 1024) {
+    if (file.size > 20 * 1024 * 1024) {
       Toast("File size should be less than 20MB", "error");
+      e.target.value = "";
+      setSelectedFile(null);
       return;
     }
 
+    setSelectedFile(file);
+  };
+
+  const removeFile = () => {
+    setSelectedFile(null);
+    document.querySelector('input[name="file"]').value = "";
+  };
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+
+    const form = new FormData(e.target);
+
+    const name = form.get("name");
+    const email = form.get("email");
+    const projectDetails = form.get("projectDetails");
+
     try {
+      setFailed(false);
+      setSent(false);
       setSendingMessage(true);
-      let fileUrl = null,
-        fileName = "DownloadedFile",
-        public_id = null;
-      if (formData.file.size > 0) {
+
+      let fileUrl = null;
+      let fileName = null;
+      let public_id = null;
+
+      // Upload file if exists
+      if (selectedFile) {
         const fileData = new FormData();
-        fileData.append("file", formData.file);
+        fileData.append("file", selectedFile);
         fileData.append(
           "upload_preset",
           import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET
         );
-        // fileData.append("use_filename", "true");
-        try {
-          const cloudinaryResponse = await axios.post(
-            `https://api.cloudinary.com/v1_1/${
-              import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
-            }/upload`,
-            fileData
-          );
-          fileUrl = cloudinaryResponse.data.secure_url;
-          fileName = cloudinaryResponse.data.original_filename;
-          public_id = cloudinaryResponse.data.public_id;
-        } catch (error) {
-          setFailed(true);
-        }
+
+        const cloudinaryResponse = await axios.post(
+          `https://api.cloudinary.com/v1_1/${
+            import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
+          }/upload`,
+          fileData
+        );
+
+        fileUrl = cloudinaryResponse.data.secure_url;
+        fileName = cloudinaryResponse.data.original_filename;
+        public_id = cloudinaryResponse.data.public_id;
       }
+
       const messageData = {
-        name: formData.name,
-        email: formData.email,
-        projectDetails: formData.projectDetails,
-        fileUrl: fileUrl,
+        name,
+        email,
+        projectDetails,
+        fileUrl,
         fileName,
         public_id,
         date: new Date().toISOString(),
       };
-
+      console.log(messageData);
       const res = await CustomAxios.post("/messages", messageData);
-
-      if (res.status === 200) {
+      console.log(res);
+      if (res.status === 200 || res.status === 201) {
         e.target.reset();
+        setSelectedFile(null);
         setSent(true);
       } else {
-        setFailed(true);
+        throw new Error("Message not sent");
       }
     } catch (error) {
       setFailed(true);
@@ -98,19 +121,20 @@ const DiscussProjects = () => {
         <Helmet>
           <title>Schr0Smi1ey | Discuss Projects</title>
         </Helmet>
+
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 70 }}
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto text-center"
         >
-          {/* Heading */}
           <h1
             className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white"
             data-aos="fade-up"
           >
             Let's Discuss Your Next Project!
           </h1>
+
           <p
             className="text-lg text-gray-600 dark:text-gray-400 mt-4"
             data-aos="fade-up"
@@ -131,6 +155,7 @@ const DiscussProjects = () => {
               <IoMail className="inline-block text-xl mr-2" />
               Email Me
             </motion.a>
+
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -140,109 +165,115 @@ const DiscussProjects = () => {
               className="px-3 py-1 flex items-center border-2 border-primary text-primary text-lg font-medium rounded-lg shadow-md hover:bg-primary hover:text-white transition"
               data-aos="fade-up"
             >
-              <FaLinkedin className="inline-block text-xl mr-2"></FaLinkedin>
+              <FaLinkedin className="inline-block text-xl mr-2" />
               LinkedIn
             </motion.a>
           </div>
 
-          {/* Contact Form */}
+          {/* Form */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className=" dark:bg-black dark:border-[1px] dark:border-white/40 p-8 sm:p-10 md:p-12 rounded-lg shadow-xl my-12 text-left max-w-4xl mx-auto"
+            className="dark:bg-black dark:border-[1px] dark:border-white/40 p-8 sm:p-10 md:p-12 rounded-lg shadow-xl my-12 text-left max-w-4xl mx-auto"
           >
             <form
               className="space-y-6"
               onSubmit={handleSendMessage}
               encType="multipart/form-data"
             >
-              {/* Name Input */}
+              {/* Name */}
               <div data-aos="fade-right">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                >
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                   Your Name
                 </label>
                 <input
                   type="text"
                   name="name"
+                  placeholder="Sarafat Karim"
                   required
-                  placeholder="John Doe"
-                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent text-black dark:bg-black dark:text-gray-300 px-4 py-3 border border-black dark:border-white/40 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black border-black dark:border-white/40 rounded-md"
                 />
               </div>
 
-              {/* Email Input */}
+              {/* Email */}
               <div data-aos="fade-left">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                >
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                   Your Email
                 </label>
                 <input
                   type="email"
                   name="email"
+                  placeholder="karim-example@gmail.com"
                   required
-                  placeholder="john.doe@example.com"
-                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent dark:bg-black dark:text-gray-300 px-4 py-3 border border-black rounded-md dark:border-white/40 shadow-sm focus:ring-primary focus:border-primary"
+                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black border-black dark:border-white/40 rounded-md"
                 />
               </div>
 
-              {/* Project Details Textarea */}
+              {/* Details */}
               <div data-aos="fade-up">
-                <label
-                  htmlFor="projectDetails"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-                >
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                   Project Details
                 </label>
                 <textarea
                   name="projectDetails"
                   rows="4"
+                  placeholder="about your project"
                   required
-                  placeholder="Tell me about your project..."
-                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent dark:bg-black dark:text-gray-300 px-4 py-3 border border-black rounded-md dark:border-white/40 shadow-sm focus:ring-primary focus:border-primary"
-                ></textarea>
+                  className="mt-1 block w-full bg-transparent px-4 py-3 border text-black border-black dark:border-white/40 rounded-md"
+                />
               </div>
 
-              {/* File Upload Input */}
+              {/* File Upload */}
               <div data-aos="fade-up">
-                <label
-                  htmlFor="file"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label className="block text-sm font-medium text-gray-700">
                   Upload File
                 </label>
+
                 <input
                   type="file"
                   name="file"
-                  className="mt-1 block w-full placeholder:text-gray-600 bg-transparent px-4 py-3 border border-black rounded-md dark:border-white/40 shadow-sm focus:ring-primary focus:border-primary"
+                  onChange={handleFileChange}
+                  className="mt-1 block w-full bg-transparent px-4 py-3 border border-black rounded-md dark:border-white/40"
                 />
+
+                {/* File Preview */}
+                {selectedFile && (
+                  <div className="flex items-center justify-between bg-primary/10 border border-primary/30 px-4 py-2 rounded-lg mt-3">
+                    <div className="text-sm text-gray-700 dark:text-gray-300 truncate">
+                      {selectedFile.name}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={removeFile}
+                      className="text-red-500 text-xl hover:scale-110 transition"
+                    >
+                      <IoCloseCircle />
+                    </button>
+                  </div>
+                )}
+
                 <p className="text-sm text-gray-500 mt-1 ml-1">
                   <span className="text-red-600">Max file size: 20MB.</span>
                 </p>
               </div>
 
-              {/* Submit Button */}
-              <div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="submit"
-                  className="w-full bg-primary/90 text-white px-6 py-3 rounded-md hover:bg-primary transition focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                  data-aos="fade-up"
-                  disabled={sendingMessage}
-                >
-                  {sendingMessage ? "Sending..." : "Send Message"}
-                </motion.button>
-              </div>
+              {/* Submit */}
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                type="submit"
+                disabled={sendingMessage}
+                className="w-full bg-primary/90 text-white px-6 py-3 rounded-md hover:bg-primary transition disabled:opacity-70"
+              >
+                {sendingMessage ? "Sending..." : "Send Message"}
+              </motion.button>
             </form>
           </motion.div>
+
+          {/* Status Overlay */}
           {(sendingMessage || sent || failed) && (
-            <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30">
               <div className="w-full h-full flex items-center justify-center">
                 {sendingMessage && (
                   <Lottie
@@ -251,6 +282,7 @@ const DiscussProjects = () => {
                     style={{ width: "50%", height: "50%" }}
                   />
                 )}
+
                 {sent && (
                   <Lottie
                     animationData={SendSuccess}
@@ -259,6 +291,7 @@ const DiscussProjects = () => {
                     onComplete={() => setSent(false)}
                   />
                 )}
+
                 {failed && (
                   <Lottie
                     animationData={SendFailed}
