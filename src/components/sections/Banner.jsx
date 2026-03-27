@@ -385,9 +385,10 @@ const Banner = () => {
               data-aos-delay="200"
               className="text-base text-gray-700 dark:text-gray-300 leading-relaxed max-w-lg"
             >
-              I build performant, scalable web applications with modern
-              technologies. Passionate about creating intuitive user experiences
-              and robust backend systems.
+              Full-stack developer specializing in the MERN stack with React,
+              Node.js, and MongoDB. Competitive programmer who turns complex
+              algorithms into elegant solutions, now exploring the frontiers of
+              AI/ML to build intelligent, scalable applications.
             </motion.p>
 
             {/* CTA buttons */}
@@ -487,7 +488,7 @@ const Banner = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
-              className="absolute -right-12 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 z-30"
+              className="absolute -right-16 top-1/3 -translate-y-1/2 flex flex-col items-center gap-4 z-30"
             >
               {/* Top line */}
               <div className="w-px h-12 bg-gradient-to-b from-transparent via-primary to-transparent" />

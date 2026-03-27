@@ -61,45 +61,54 @@ const problemSolvingPlatforms = [
 
 const CodingProfile = () => {
   useEffect(() => {
-    AOS.init({ 
+    AOS.init({
       duration: 800,
       once: true,
-      easing: 'ease-out-cubic'
+      easing: "ease-out-cubic",
     });
   }, []);
 
-  const totalProblems = problemSolvingPlatforms.reduce((acc, curr) => acc + curr.problemsSolved, 0);
-  const averageRating = Math.round(problemSolvingPlatforms.reduce((acc, curr) => acc + curr.rating, 0) / problemSolvingPlatforms.length);
+  const totalProblems = problemSolvingPlatforms.reduce(
+    (acc, curr) => acc + curr.problemsSolved,
+    0,
+  );
+  const averageRating = Math.round(
+    problemSolvingPlatforms.reduce((acc, curr) => acc + curr.rating, 0) /
+      problemSolvingPlatforms.length,
+  );
 
   return (
-    <section id="coding-profile" className="relative py-16 md:py-24 lg:py-28 overflow-hidden">
+    <section
+      id="coding-profile"
+      className="relative py-16 md:py-24 lg:py-28 overflow-hidden"
+    >
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div 
+        <div
           className="absolute inset-0 dark:hidden"
           style={{
             backgroundImage: `
               linear-gradient(to right, #94a3b815 1px, transparent 1px),
               linear-gradient(to bottom, #94a3b815 1px, transparent 1px)
             `,
-            backgroundSize: '40px 40px',
+            backgroundSize: "40px 40px",
           }}
         />
-        <div 
+        <div
           className="absolute inset-0 hidden dark:block"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(96, 165, 250, 0.08) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(96, 165, 250, 0.08) 1px, transparent 1px)
             `,
-            backgroundSize: '40px 40px',
+            backgroundSize: "40px 40px",
           }}
         >
-          <div 
+          <div
             className="absolute inset-0"
             style={{
               backgroundImage: `radial-gradient(circle at 20px 20px, rgba(96, 165, 250, 0.15) 1.5px, transparent 1.5px)`,
-              backgroundSize: '40px 40px',
+              backgroundSize: "40px 40px",
             }}
           />
         </div>
@@ -139,7 +148,8 @@ const CodingProfile = () => {
             data-aos-delay="100"
             className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            Passionate problem solver with {totalProblems}+ problems solved across platforms
+            Passionate problem solver with {totalProblems}+ problems solved
+            across platforms
           </p>
         </motion.div>
 
@@ -154,25 +164,33 @@ const CodingProfile = () => {
             <div className="text-3xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
               {totalProblems}+
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Total Problems</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Total Problems
+            </div>
           </div>
           <div className="p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
             <div className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">
               {averageRating}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Avg. Rating</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Avg. Rating
+            </div>
           </div>
           <div className="p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
             <div className="text-3xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">
               3
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Active Platforms</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Active Platforms
+            </div>
           </div>
           <div className="p-6 rounded-2xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50">
             <div className="text-3xl font-bold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">
               Pupil
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Highest Rank</div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              Highest Rank
+            </div>
           </div>
         </motion.div>
 
@@ -190,29 +208,41 @@ const CodingProfile = () => {
             >
               {/* Card Background with Gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-gray-900/5 to-transparent dark:from-white/5 rounded-3xl transform group-hover:scale-105 transition-transform duration-500" />
-              
+
               {/* Main Card */}
               <div className="relative p-8 rounded-3xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-primary/30 dark:hover:border-primary-400/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 dark:hover:shadow-primary/10">
-                
                 {/* Platform Icon & Header */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className={`p-3 rounded-2xl ${platform.bgColor} border ${platform.borderColor}`}>
+                  <div
+                    className={`p-3 rounded-2xl ${platform.bgColor} border ${platform.borderColor}`}
+                  >
                     <div className="text-3xl">
-                        <img 
-                          src={platform.img}
-                          alt={`${platform.name} icon`}
-                          className={`w-10 h-10 object-contain ${platform.filter || 'brightness-0 saturate-100'}`}
-                          style={platform.color ? { filter: `hue-rotate(${platform.hue || 0}deg) saturate(300%)` } : {}}
-                        />
-                      </div>
+                      <img
+                        src={platform.img}
+                        alt={`${platform.name} icon`}
+                        className={`w-10 h-10 object-contain ${platform.filter || "brightness-0 saturate-100"}`}
+                        style={
+                          platform.color
+                            ? {
+                                filter: `hue-rotate(${platform.hue || 0}deg) saturate(300%)`,
+                              }
+                            : {}
+                        }
+                      />
+                    </div>
                   </div>
-                  
+
                   {/* Rating Badge - Different for CodeChef */}
-                  <div className={`px-3 py-1.5 rounded-full ${platform.bgColor} border ${platform.borderColor}`}>
+                  <div
+                    className={`px-3 py-1.5 rounded-full ${platform.bgColor} border ${platform.borderColor}`}
+                  >
                     {platform.stars ? (
                       <div className="flex items-center gap-0.5">
                         {[...Array(platform.stars)].map((_, i) => (
-                          <FaStar key={i} className="w-3.5 h-3.5 text-yellow-400" />
+                          <FaStar
+                            key={i}
+                            className="w-3.5 h-3.5 text-yellow-400"
+                          />
                         ))}
                       </div>
                     ) : (
@@ -237,7 +267,9 @@ const CodingProfile = () => {
                 <div className="space-y-4 mb-8">
                   {/* Rating */}
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Rating</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      Rating
+                    </span>
                     <div className="flex items-center gap-2">
                       <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                         {platform.rating}
@@ -247,12 +279,14 @@ const CodingProfile = () => {
                       </span>
                     </div>
                   </div>
-                  
+
                   {/* Progress Bar */}
                   <div className="relative h-2 bg-gray-100 dark:bg-gray-700/50 rounded-full overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
-                      whileInView={{ width: `${(platform.rating / platform.maxRating) * 100}%` }}
+                      whileInView={{
+                        width: `${(platform.rating / platform.maxRating) * 100}%`,
+                      }}
                       transition={{ duration: 1, delay: 0.3 }}
                       className={`absolute h-full rounded-full bg-gradient-to-r ${platform.color}`}
                     />
@@ -260,7 +294,9 @@ const CodingProfile = () => {
 
                   {/* Problems Solved */}
                   <div className="flex justify-between items-center pt-2">
-                    <span className="text-sm text-gray-600 dark:text-gray-400">Problems Solved</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      Problems Solved
+                    </span>
                     <div className="flex items-center gap-1">
                       <FaCode className="w-4 h-4 text-primary" />
                       <span className="font-bold text-gray-900 dark:text-white">
@@ -282,7 +318,7 @@ const CodingProfile = () => {
                     whileTap={{ scale: 0.98 }}
                     className={`w-full py-3.5 rounded-xl font-medium text-center transition-all duration-300
                       bg-gradient-to-r ${platform.color} text-white shadow-lg hover:shadow-xl
-                      hover:shadow-${platform.color.split(' ')[1]}/30`}
+                      hover:shadow-${platform.color.split(" ")[1]}/30`}
                   >
                     View Profile
                   </motion.div>
@@ -293,7 +329,9 @@ const CodingProfile = () => {
               </div>
 
               {/* Glow Effect on Hover */}
-              <div className={`absolute inset-0 -z-10 bg-gradient-to-r ${platform.color} opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-700 rounded-3xl`} />
+              <div
+                className={`absolute inset-0 -z-10 bg-gradient-to-r ${platform.color} opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-700 rounded-3xl`}
+              />
             </motion.div>
           ))}
         </div>
@@ -312,9 +350,12 @@ const CodingProfile = () => {
                 <FaTrophy className="w-8 h-8 text-primary" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white">Consistent Performer</h4>
+                <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                  Consistent Performer
+                </h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Regularly participating in contests and improving problem-solving skills
+                  Regularly participating in contests and improving
+                  problem-solving skills
                 </p>
               </div>
             </div>
