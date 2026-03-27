@@ -5,6 +5,7 @@ import "aos/dist/aos.css";
 
 // ── Components ─────────────────────────────────────────────────────────────────
 import Background from "../../components/Background";
+import StatCard from "../ui/StatCard";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 import {
@@ -24,6 +25,10 @@ import "@fontsource/cormorant-garamond/600.css";
 import "@fontsource/dm-sans/400.css";
 import "@fontsource/dm-sans/500.css";
 import "@fontsource/dm-sans/700.css";
+
+// ── Icons for stats ──────────────────────────────────────────────────────────
+import { FaCode, FaChartLine, FaLaptopCode, FaGitAlt } from "react-icons/fa";
+import { FiCode, FiTrendingUp } from "react-icons/fi";
 
 // ── Hook ──────────────────────────────────────────────────────────────────────
 import { useTotalCommits } from "../../hooks/index";
@@ -54,7 +59,7 @@ const AboutMe = () => {
     AOS.init({ duration: 900, once: true, easing: "ease-out-cubic" });
   }, []);
 
-  // ── Stats — commits wired to live hook ────────────────────────────────────
+  // ── Stats data ─────────────────────────────────────────────────────────────
   const stats = [
     {
       label: "Projects",
@@ -309,92 +314,36 @@ const AboutMe = () => {
 
             {/* ── Right column ── */}
             <div className="relative">
-              {/* Stats grid */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                className="grid grid-cols-2 gap-5 mb-8"
-              >
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 + index * 0.1, duration: 0.6 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="group relative"
-                  >
-                    <div className="absolute -inset-1 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl blur-xl">
-                      <div
-                        className={`w-full h-full bg-gradient-to-r ${stat.color}`}
-                      />
-                    </div>
-
-                    <div className="relative p-8 rounded-3xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl shadow-gray-900/5 dark:shadow-black/30 overflow-hidden">
-                      <motion.div
-                        className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                        animate={{
-                          backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
-                        }}
-                        transition={{
-                          duration: 8,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        style={{ backgroundSize: "200% 200%" }}
-                      />
-
-                      <div className="relative space-y-2">
-                        <motion.div
-                          className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
-                          style={{ fontFamily: '"Playfair Display", serif' }}
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: index * 0.2,
-                          }}
-                        >
-                          {stat.isLive ? (
-                            <CommitValue
-                              formatted={commitFormatted}
-                              isLoading={commitLoading}
-                              isError={commitError}
-                            />
-                          ) : (
-                            stat.value
-                          )}
-                        </motion.div>
-
-                        <div
-                          className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider"
-                          style={{ fontFamily: '"DM Sans", sans-serif' }}
-                        >
-                          {stat.label}
-                        </div>
-                        <div
-                          className="text-xs text-gray-600 dark:text-gray-400"
-                          style={{ fontFamily: '"DM Sans", sans-serif' }}
-                        >
-                          {stat.description}
-                        </div>
-                      </div>
-
-                      <motion.div
-                        className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r ${stat.color} rounded-full`}
-                        initial={{ width: "0%" }}
-                        whileInView={{ width: "100%" }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 0.8 + index * 0.1,
-                          duration: 0.8,
-                        }}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
+              {/* Stats grid with StatCard */}
+              <div className="grid grid-cols-2 gap-5 mb-8">
+                {stats.map((stat, index) =>
+                  stat.isLive ? (
+                    <StatCard
+                      key={index}
+                      label={stat.label}
+                      value={
+                        <CommitValue
+                          formatted={commitFormatted}
+                          isLoading={commitLoading}
+                          isError={commitError}
+                        />
+                      }
+                      description={stat.description}
+                      color={stat.color}
+                      delay={index}
+                    />
+                  ) : (
+                    <StatCard
+                      key={index}
+                      label={stat.label}
+                      value={stat.value}
+                      description={stat.description}
+                      color={stat.color}
+                      delay={index}
+                    />
+                  ),
+                )}
+              </div>
 
               {/* Quote */}
               <motion.div

@@ -13,6 +13,7 @@ import "@fontsource/dm-sans/500.css";
 import "@fontsource/dm-sans/600.css";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
+import StatCard from "../ui/StatCard";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -69,22 +70,22 @@ const educationData = [
 
 const stats = [
   {
-    label: "Current CGPA",
+    description: "Current CGPA",
     value: "3.95",
     color: "from-violet-600 to-purple-600",
   },
   {
-    label: "HSC GPA",
+    description: "HSC GPA",
     value: "5.00",
     color: "from-blue-600 to-cyan-600",
   },
   {
-    label: "Achievements",
+    description: "Achievements",
     value: "8+",
     color: "from-emerald-600 to-teal-600",
   },
   {
-    label: "UNI. Enrolled",
+    description: "UNI. Enrolled",
     value: "2023",
     color: "from-orange-600 to-pink-600",
   },
@@ -374,28 +375,11 @@ const Education = () => (
           className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3"
         >
           {stats.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -3 }}
-              className="rounded-2xl border border-gray-200/80 dark:border-gray-700/50 bg-white dark:bg-gray-900 p-6 text-center hover:border-primary/25 transition-all duration-300"
-            >
-              <div
-                className={`text-4xl md:text-5xl bg-gradient-to-r ${s.color} bg-clip-text text-transparent font-bold text-gray-900 dark:text-white mb-1.5`}
-                style={{ fontFamily: '"Playfair Display", serif' }}
-              >
-                {s.value}
-              </div>
-              <div
-                className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500"
-                style={{ fontFamily: '"DM Sans", sans-serif' }}
-              >
-                {s.label}
-              </div>
-            </motion.div>
+            <StatCard
+              value={s.value}
+              description={s.description}
+              color={s.color}
+            ></StatCard>
           ))}
         </motion.div>
       </div>
