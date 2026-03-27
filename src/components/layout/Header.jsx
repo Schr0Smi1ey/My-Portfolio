@@ -34,13 +34,35 @@ const ThemeToggle = ({ theme, onToggle }) => (
 
 // ── Circular S logo ───────────────────────────────────────────────────────────
 const Logo = () => (
-  <Link to="/" className="flex items-center gap-2.5 shrink-0">
-    <div className="w-9 h-9 rounded-full bg-zinc-900 dark:bg-white flex items-center justify-center shadow-sm">
-      <span className="text-white dark:text-zinc-900 font-black text-lg leading-none select-none">
-        S
-      </span>
+  <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+    {/* Logo Container */}
+    <div className="relative w-9 h-9 shrink-0">
+      {/* Outer Ring - Subtle border */}
+      <div className="absolute inset-0 rounded-full ring-1 ring-black/10 dark:ring-white/10" />
+
+      {/* Inner Circle with 50% split */}
+      <div className="absolute inset-0 rounded-full overflow-hidden shadow-sm">
+        {/* Left half - Green */}
+        <div className="absolute top-0 left-0 w-1/2 h-full bg-primary" />
+        {/* Right half - Black */}
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-zinc-900 dark:bg-black" />
+      </div>
+
+      {/* Stylized "S" */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <span className="text-white font-black text-lg leading-none select-none tracking-tight group-hover:scale-105 transition-transform duration-300">
+          S
+        </span>
+      </div>
+
+      {/* Hover Glow Effect */}
+      <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+        <div className="absolute inset-0 rounded-full bg-primary/20 blur-md" />
+      </div>
     </div>
-    <span className="font-bold text-base text-zinc-900 dark:text-white tracking-tight hidden sm:block">
+
+    {/* Brand Name */}
+    <span className="font-bold text-base text-zinc-900 dark:text-white tracking-tight hidden sm:block group-hover:text-primary transition-colors duration-300">
       {OWNER.name}
     </span>
   </Link>

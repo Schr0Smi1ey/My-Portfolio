@@ -365,7 +365,7 @@ const Banner = () => {
             <div className="space-y-3">
               <motion.h1
                 data-aos="fade-up"
-                className="text-5xl lg:text-6xl font-black leading-none tracking-tight text-gray-900 dark:text-white"
+                className="text-5xl lg:text-7xl font-black leading-none tracking-tight text-gray-900 dark:text-white"
               >
                 SARAFAT KARIM
               </motion.h1>
@@ -470,7 +470,7 @@ const Banner = () => {
                 alt="Sarafat Karim"
                 animate={{ scale: isHovered ? 1.04 : 1 }}
                 transition={{ duration: 0.4 }}
-                className="relative z-10 w-full h-full object-cover object-top rounded-[40%_60%_60%_40%/50%_50%_50%_50%]"
+                className="relative z-10 w-full h-full object-cover object-center rounded-[40%_60%_60%_40%/50%_50%_50%_50%]"
               />
 
               {/* ── Squiggle over lower portion ──────────────────────────── */}
