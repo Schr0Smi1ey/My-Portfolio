@@ -1,26 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Geist+Mono:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 
+/* Editorial display font for the hero name */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Base ──────────────────────────────────────────────────────────────────── */
 body {
   font-family: "Fira Sans", sans-serif;
   cursor: none;
 }
 
+/* ─── Background ────────────────────────────────────────────────────────────── */
 .background {
-  /* background: linear-gradient(to right, #eff6ff, #f3e8ff); */
-  /* background: linear-gradient(to right, #d4b0e8, #b7a1ce); */
-  background: whitesmoke;
-  /* background: linear-gradient(to right, #8ba9d0, #6e87a7); */
+  background: #f5f3ef;
 }
 
+/* ─── Nav active underline ──────────────────────────────────────────────────── */
 a.active {
   text-decoration: none;
   position: relative;
 }
-
 a.active::after {
   content: "";
   position: absolute;
@@ -31,4 +33,164 @@ a.active::after {
   background-image: linear-gradient(to right, #198068, white);
   border-radius: 2px;
   font-weight: 700;
+}
+
+/* ─── Grain texture overlay ─────────────────────────────────────────────────── */
+.grain {
+  position: relative;
+}
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.032;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+/* ─── Pastel blob keyframes ─────────────────────────────────────────────────── */
+@keyframes blobFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(12px, -18px) scale(1.04);
+  }
+  66% {
+    transform: translate(-8px, 10px) scale(0.97);
+  }
+}
+@keyframes blobFloat2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-14px, 14px) scale(1.05);
+  }
+  66% {
+    transform: translate(10px, -8px) scale(0.96);
+  }
+}
+@keyframes blobFloat3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8px, 12px) scale(1.03);
+  }
+}
+
+.blob-pink {
+  animation: blobFloat 9s ease-in-out infinite;
+}
+.blob-lavender {
+  animation: blobFloat2 11s ease-in-out infinite;
+}
+.blob-green {
+  animation: blobFloat3 8s ease-in-out infinite;
+}
+
+/* ─── Editorial display font ────────────────────────────────────────────────── */
+.font-display {
+  font-family: "Barlow", "Bebas Neue", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+/* ─── Circular text path ────────────────────────────────────────────────────── */
+@keyframes rotateText {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.circular-text {
+  animation: rotateText 12s linear infinite;
+  transform-origin: center center;
+}
+
+/* ─── Squiggle draw-on ───────────────────────────────────────────────────────── */
+@keyframes drawSquiggle {
+  from {
+    stroke-dashoffset: 600;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.squiggle-path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawSquiggle 2s ease-out 0.6s forwards;
+}
+
+/* ─── Social rail fade-in ───────────────────────────────────────────────────── */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.social-rail > * {
+  opacity: 0;
+  animation: slideInLeft 0.5s ease-out forwards;
+}
+.social-rail > *:nth-child(1) {
+  animation-delay: 0.4s;
+}
+.social-rail > *:nth-child(2) {
+  animation-delay: 0.55s;
+}
+.social-rail > *:nth-child(3) {
+  animation-delay: 0.7s;
+}
+.social-rail > *:nth-child(4) {
+  animation-delay: 0.85s;
+}
+
+/* ─── Name stagger reveal ───────────────────────────────────────────────────── */
+@keyframes nameReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px) skewY(2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+  }
+}
+.name-reveal {
+  opacity: 0;
+  animation: nameReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.name-reveal-1 {
+  animation-delay: 0.1s;
+}
+.name-reveal-2 {
+  animation-delay: 0.22s;
+}
+
+/* ─── Dark mode blob adjustment ─────────────────────────────────────────────── */
+.dark .blob-pink,
+.dark .blob-lavender,
+.dark .blob-green {
+  opacity: 0.12;
+}
+
+/* ─── Circular text dark mode ───────────────────────────────────────────────── */
+.dark .circular-text-svg text {
+  fill: rgba(255, 255, 255, 0.7);
 }

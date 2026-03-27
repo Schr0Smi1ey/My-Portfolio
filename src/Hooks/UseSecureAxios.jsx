@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  // baseURL: "https://schr0smi1ey.vercel.app",
-  baseURL: "http://localhost:5000",
+  baseURL: "https://schr0smi1ey.vercel.app",
+  // baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 
