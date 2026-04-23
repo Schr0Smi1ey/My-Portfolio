@@ -10,6 +10,9 @@ export const publicApi = axios.create({
 export const secureApi = axios.create({
   baseURL: API_BASE_URL,
   withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 /**
@@ -26,7 +29,7 @@ export const attachSecureInterceptor = (onUnauthorized) => {
         onUnauthorized();
       }
       return Promise.reject(error);
-    }
+    },
   );
   return id;
 };

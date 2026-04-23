@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FaStar, FaCode } from "react-icons/fa";
@@ -12,9 +12,8 @@ import CodingProfileSkeleton from "../../components/CodingProfileSkeleton";
 import Background from "../Background";
 import StatCard from "../ui/StatCard";
 
-// ── Refresh button — three states: idle / spinning / done ────────────────────
 const RefreshButton = ({ onClick, lastUpdated }) => {
-  const [state, setState] = useState("idle"); // idle | spinning | done
+  const [state, setState] = useState("idle");
 
   const handleClick = async () => {
     if (state === "spinning") return;
@@ -53,14 +52,12 @@ const RefreshButton = ({ onClick, lastUpdated }) => {
         disabled={state === "spinning"}
         whileHover={{ scale: state === "spinning" ? 1 : 1.04 }}
         whileTap={{ scale: 0.96 }}
-        className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold transition-all duration-300 overflow-hidden
-          ${
-            state === "done"
-              ? "border-green-400/50 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400"
-              : "border-gray-200 dark:border-white/10 bg-white/80 dark:bg-zinc-800/80 text-gray-600 dark:text-gray-300 hover:border-primary/40 hover:text-primary"
-          }`}
+        className={`group relative flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-semibold transition-all duration-300 overflow-hidden ${
+          state === "done"
+            ? "border-green-400/50 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400"
+            : "border-gray-200 dark:border-white/10 bg-white/80 dark:bg-zinc-800/80 text-gray-600 dark:text-gray-300 hover:border-primary/40 hover:text-primary"
+        }`}
       >
-        {/* Shimmer sweep on hover */}
         <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" />
 
         <motion.span
@@ -91,106 +88,144 @@ const RefreshButton = ({ onClick, lastUpdated }) => {
   );
 };
 
-// ── Main component ────────────────────────────────────────────────────────────
+const buildPlatform = ({
+  id,
+  title,
+  img,
+  handle,
+  profileUrl,
+  color,
+  bgColor,
+  borderColor,
+  platform,
+}) => {
+  const available = platform?.status === "success";
+
+  return {
+    id,
+    title,
+    img,
+    handle,
+    profileUrl,
+    color,
+    bgColor,
+    borderColor,
+    available,
+    error: available ? null : platform?.error || "This platform is unavailable.",
+    rating: available ? platform.rating ?? 0 : null,
+    maxRating: available ? platform.maxRating ?? 0 : null,
+    rank: available ? platform.rank || "—" : "Unavailable",
+    stars: available ? platform.stars ?? null : null,
+    problemsSolved: available ? platform.problemsSolved ?? 0 : null,
+    contestsAttended: available ? platform.contestsAttended ?? 0 : null,
+  };
+};
+
 const CodingProfile = () => {
   const { stats, loading, error, refreshStats, lastUpdated } = useCodingStats();
-  const [totalProblems, setTotalProblems] = useState(0);
-  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true, easing: "ease-out-cubic" });
   }, []);
 
-  useEffect(() => {
-    if (!loading && stats) {
-      const total =
-        (stats.codeforces?.problemsSolved || 0) +
-        (stats.leetcode?.problemsSolved || 0) +
-        (stats.codechef?.problemsSolved || 0);
-      setTotalProblems(total);
+  const problemSolvingPlatforms = useMemo(
+    () => [
+      buildPlatform({
+        id: 1,
+        title: "Codeforces",
+        img: codeforces,
+        handle: "Schr0Smi1ey",
+        profileUrl: "https://codeforces.com/profile/Schr0Smi1ey",
+        color: "from-green-500 to-emerald-600",
+        bgColor: "bg-green-500/10",
+        borderColor: "border-green-500/30",
+        platform: stats.codeforces,
+      }),
+      buildPlatform({
+        id: 2,
+        title: "LeetCode",
+        img: leetcode,
+        handle: "Schr0Smi1ey",
+        profileUrl: "https://leetcode.com/u/Schr0Smi1ey/",
+        color: "from-yellow-500 to-amber-600",
+        bgColor: "bg-yellow-500/10",
+        borderColor: "border-yellow-500/30",
+        platform: stats.leetcode,
+      }),
+      buildPlatform({
+        id: 3,
+        title: "CodeChef",
+        img: codechef,
+        handle: "schrosmiley",
+        profileUrl: "https://www.codechef.com/users/schrosmiley",
+        color: "from-orange-500 to-red-600",
+        bgColor: "bg-orange-500/10",
+        borderColor: "border-orange-500/30",
+        platform: stats.codechef,
+      }),
+    ],
+    [stats],
+  );
 
-      const avg = Math.round(
-        ((stats.codeforces?.rating || 0) +
-          (stats.leetcode?.rating || 0) +
-          (stats.codechef?.rating || 0)) /
-          3,
-      );
-      setAverageRating(avg);
-    }
-  }, [stats, loading]);
+  const availablePlatforms = problemSolvingPlatforms.filter(
+    (platform) => platform.available,
+  );
 
-  const problemSolvingPlatforms = [
-    {
-      id: 1,
-      title: "Codeforces",
-      img: codeforces,
-      handle: "Schr0Smi1ey",
-      rating: stats.codeforces?.rating || 0,
-      maxRating: stats.codeforces?.maxRating || 0,
-      rank: stats.codeforces?.rank || "Pupil",
-      color: "from-green-500 to-emerald-600",
-      bgColor: "bg-green-500/10",
-      borderColor: "border-green-500/30",
-      problemsSolved: stats.codeforces?.problemsSolved || 0,
-      contestsAttended: stats.codeforces?.contestsAttended || 0,
-      profileUrl: "https://codeforces.com/profile/Schr0Smi1ey",
-    },
-    {
-      id: 2,
-      title: "LeetCode",
-      img: leetcode,
-      handle: "Schr0Smi1ey",
-      rating: stats.leetcode?.rating || 0,
-      maxRating: stats.leetcode?.maxRating || 0,
-      rank: stats.leetcode?.rank || "Knight",
-      color: "from-yellow-500 to-amber-600",
-      bgColor: "bg-yellow-500/10",
-      borderColor: "border-yellow-500/30",
-      problemsSolved: stats.leetcode?.problemsSolved || 0,
-      contestsAttended: stats.leetcode?.contestsAttended || 0,
-      profileUrl: "https://leetcode.com/u/Schr0Smi1ey/",
-    },
-    {
-      id: 3,
-      title: "CodeChef",
-      img: codechef,
-      handle: "schrosmiley",
-      rating: stats.codechef?.rating || 0,
-      maxRating: stats.codechef?.maxRating || 0,
-      stars: stats.codechef?.stars || 0,
-      color: "from-orange-500 to-red-600",
-      bgColor: "bg-orange-500/10",
-      borderColor: "border-orange-500/30",
-      problemsSolved: stats.codechef?.problemsSolved || 0,
-      contestsAttended: stats.codechef?.contestsAttended || 0,
-      profileUrl: "https://www.codechef.com/users/schrosmiley",
-    },
-  ];
+  const totalProblems = availablePlatforms.reduce(
+    (sum, platform) => sum + (platform.problemsSolved || 0),
+    0,
+  );
+
+  const averageRating =
+    availablePlatforms.length > 0
+      ? Math.round(
+          availablePlatforms.reduce(
+            (sum, platform) => sum + (platform.rating || 0),
+            0,
+          ) / availablePlatforms.length,
+        )
+      : null;
+
+  const totalContests = availablePlatforms.reduce(
+    (sum, platform) => sum + (platform.contestsAttended || 0),
+    0,
+  );
+
+  const highestRank = (() => {
+    const codeforcesRank = problemSolvingPlatforms[0];
+    const leetcodeRank = problemSolvingPlatforms[1];
+    const codechefRank = problemSolvingPlatforms[2];
+
+    if (codeforcesRank.available) return codeforcesRank.rank;
+    if (leetcodeRank.available) return leetcodeRank.rank;
+    if (codechefRank.available) return `${codechefRank.stars || 0}★`;
+    return "—";
+  })();
 
   const codingStats = [
     {
       label: "Total Problems",
-      value: `${totalProblems}+`,
+      value: availablePlatforms.length > 0 ? `${totalProblems}+` : "—",
       color: "from-primary to-purple-600",
       description: "Solved across platforms",
     },
     {
       label: "Average Rating",
-      value: averageRating,
+      value: averageRating ?? "—",
       color: "from-blue-500 to-indigo-600",
-      description: "Across all platforms",
+      description: "Across available platforms",
     },
     {
       label: "Contests",
-      value: `${(stats.codeforces?.contestsAttended || 0) + (stats.leetcode?.contestsAttended || 0) + (stats.codechef?.contestsAttended || 0)}+`,
+      value: availablePlatforms.length > 0 ? `${totalContests}+` : "—",
       color: "from-green-500 to-emerald-600",
       description: "Total participated",
     },
     {
       label: "Highest Rank",
-      value: "Pupil",
+      value: highestRank,
       color: "from-purple-500 to-pink-600",
-      description: "On Codeforces",
+      description: "Best available platform rank",
     },
   ];
 
@@ -210,7 +245,6 @@ const CodingProfile = () => {
         showOrbs
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* ── Section header ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -242,11 +276,11 @@ const CodingProfile = () => {
               data-aos-delay="100"
               className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
             >
-              Passionate problem solver with {totalProblems}+ problems solved
-              across platforms
+              {availablePlatforms.length > 0
+                ? `Passionate problem solver with ${totalProblems}+ problems solved across available platforms`
+                : "Competitive programming stats are currently unavailable."}
             </p>
 
-            {/* ── Refresh button (redesigned) ── */}
             <div className="flex items-center justify-center mt-5">
               <RefreshButton onClick={refreshStats} lastUpdated={lastUpdated} />
             </div>
@@ -259,7 +293,6 @@ const CodingProfile = () => {
             )}
           </motion.div>
 
-          {/* ── Stats overview ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -278,7 +311,6 @@ const CodingProfile = () => {
             ))}
           </motion.div>
 
-          {/* ── Platform cards (unchanged) ── */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             {problemSolvingPlatforms.map((platform, index) => (
               <motion.div
@@ -291,7 +323,6 @@ const CodingProfile = () => {
                 className="group relative"
               >
                 <div className="relative p-8 rounded-3xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
-                  {/* Header */}
                   <div className="flex items-center justify-between mb-6">
                     <div
                       className={`p-3 rounded-2xl ${platform.bgColor} border ${platform.borderColor}`}
@@ -305,7 +336,7 @@ const CodingProfile = () => {
                     <div
                       className={`px-3 py-1.5 rounded-full ${platform.bgColor} border ${platform.borderColor}`}
                     >
-                      {platform.stars ? (
+                      {platform.available && platform.stars ? (
                         <div className="flex items-center gap-0.5">
                           {[...Array(platform.stars)].map((_, i) => (
                             <FaStar
@@ -322,7 +353,6 @@ const CodingProfile = () => {
                     </div>
                   </div>
 
-                  {/* Info */}
                   <div className="mb-6">
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
                       {platform.title}
@@ -332,7 +362,6 @@ const CodingProfile = () => {
                     </p>
                   </div>
 
-                  {/* Stats */}
                   <div className="space-y-4 mb-8">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-gray-600 dark:text-gray-400">
@@ -340,23 +369,29 @@ const CodingProfile = () => {
                       </span>
                       <div className="flex items-center gap-2">
                         <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                          {platform.rating}
+                          {platform.available ? platform.rating : "—"}
                         </span>
-                        <span className="text-xs text-gray-500">
-                          / {platform.maxRating}
-                        </span>
+                        {platform.available && (
+                          <span className="text-xs text-gray-500">
+                            / {platform.maxRating}
+                          </span>
+                        )}
                       </div>
                     </div>
+
                     <div className="relative h-2 bg-gray-100 dark:bg-gray-700/50 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{
-                          width: `${(platform.rating / platform.maxRating) * 100}%`,
-                        }}
-                        transition={{ duration: 1, delay: 0.3 }}
-                        className={`absolute h-full rounded-full bg-gradient-to-r ${platform.color}`}
-                      />
+                      {platform.available && platform.maxRating > 0 && (
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{
+                            width: `${(platform.rating / platform.maxRating) * 100}%`,
+                          }}
+                          transition={{ duration: 1, delay: 0.3 }}
+                          className={`absolute h-full rounded-full bg-gradient-to-r ${platform.color}`}
+                        />
+                      )}
                     </div>
+
                     <div className="flex justify-between items-center pt-2">
                       <span className="text-sm text-gray-600 dark:text-gray-400">
                         Problems Solved
@@ -364,11 +399,12 @@ const CodingProfile = () => {
                       <div className="flex items-center gap-1">
                         <FaCode className="w-4 h-4 text-primary" />
                         <span className="font-bold text-gray-900 dark:text-white">
-                          {platform.problemsSolved}+
+                          {platform.available ? `${platform.problemsSolved}+` : "—"}
                         </span>
                       </div>
                     </div>
-                    {platform.contestsAttended > 0 && (
+
+                    {platform.available && platform.contestsAttended > 0 && (
                       <div className="flex justify-between items-center pt-1">
                         <span className="text-sm text-gray-600 dark:text-gray-400">
                           Contests
@@ -378,9 +414,14 @@ const CodingProfile = () => {
                         </span>
                       </div>
                     )}
+
+                    {!platform.available && (
+                      <p className="text-xs text-red-500 pt-2">
+                        {platform.error}
+                      </p>
+                    )}
                   </div>
 
-                  {/* CTA */}
                   <a
                     href={platform.profileUrl}
                     target="_blank"

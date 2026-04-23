@@ -10,9 +10,7 @@ export const useAdmin = () => {
   const { data: isAdmin = false, isLoading: isAdminLoading } = useQuery({
     queryKey: ["isAdmin", user?.email],
     queryFn: async () => {
-      const res = await secureApi.get("/isAdmin", {
-        params: { email: user?.email },
-      });
+      const res = await secureApi.get("/isAdmin");
       return res.data?.isAdmin ?? false;
     },
     enabled: !!user?.email && !loading,

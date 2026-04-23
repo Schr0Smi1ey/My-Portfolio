@@ -1,23 +1,27 @@
 import { motion } from "framer-motion";
-import { FiGithub, FiStar, FiUsers, FiGitBranch, FiBook } from "react-icons/fi";
+import {
+  FiGithub,
+  FiStar,
+  FiUsers,
+  FiGitBranch,
+  FiBook,
+} from "react-icons/fi";
 import { useGitHubStats } from "../../hooks";
 import { GITHUB_USERNAME, SOCIAL_LINKS } from "../../constants";
 
-// ── Language color map ────────────────────────────────────────────────────────
 const LANG_COLORS = {
   JavaScript: "#f7df1e",
   TypeScript: "#3178c6",
-  Python:     "#3776ab",
-  "C++":      "#00599c",
-  C:          "#555555",
-  HTML:       "#e34c26",
-  CSS:        "#563d7c",
-  Java:       "#b07219",
-  Go:         "#00add8",
-  Rust:       "#dea584",
+  Python: "#3776ab",
+  "C++": "#00599c",
+  C: "#555555",
+  HTML: "#e34c26",
+  CSS: "#563d7c",
+  Java: "#b07219",
+  Go: "#00add8",
+  Rust: "#dea584",
 };
 
-// ── Stat card ─────────────────────────────────────────────────────────────────
 const StatCard = ({ icon, label, value, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 16 }}
@@ -27,17 +31,18 @@ const StatCard = ({ icon, label, value, delay }) => (
     className="flex flex-col gap-1 p-5 bg-white dark:bg-zinc-900 border border-gray-100 dark:border-white/8 rounded-2xl"
   >
     <span className="text-primary">{icon}</span>
-    <span className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{value}</span>
+    <span className="text-2xl font-bold text-gray-900 dark:text-white mt-1">
+      {value}
+    </span>
     <span className="text-xs text-gray-500 dark:text-gray-400">{label}</span>
   </motion.div>
 );
 
-// ── Language bar ──────────────────────────────────────────────────────────────
 const LanguageBar = ({ topLanguages }) => {
-  const total = topLanguages.reduce((s, l) => s + l.count, 0);
+  const total = topLanguages.reduce((sum, language) => sum + language.count, 0);
+
   return (
     <div className="space-y-3">
-      {/* Stacked bar */}
       <div className="flex h-3 rounded-full overflow-hidden gap-0.5">
         {topLanguages.map(({ lang, count }) => (
           <motion.div
@@ -52,7 +57,6 @@ const LanguageBar = ({ topLanguages }) => {
         ))}
       </div>
 
-      {/* Legend */}
       <div className="flex flex-wrap gap-x-4 gap-y-2">
         {topLanguages.map(({ lang, count }) => (
           <div key={lang} className="flex items-center gap-1.5">
@@ -73,7 +77,6 @@ const LanguageBar = ({ topLanguages }) => {
   );
 };
 
-// ── Contribution graph (via GitHub chart.js API) ──────────────────────────────
 const ContributionGraph = () => (
   <div className="w-full overflow-x-auto">
     <img
@@ -85,9 +88,9 @@ const ContributionGraph = () => (
   </div>
 );
 
-// ── Main component ────────────────────────────────────────────────────────────
 const GitHubStats = () => {
-  const { profile, topLanguages, totalStars, isLoading } = useGitHubStats();
+  const { profile, topLanguages, totalStars, isLoading, error } =
+    useGitHubStats();
 
   if (isLoading) {
     return (
@@ -96,7 +99,10 @@ const GitHubStats = () => {
           <div className="h-8 bg-gray-200 dark:bg-zinc-800 rounded-lg w-48" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-24 bg-gray-200 dark:bg-zinc-800 rounded-2xl" />
+              <div
+                key={i}
+                className="h-24 bg-gray-200 dark:bg-zinc-800 rounded-2xl"
+              />
             ))}
           </div>
         </div>
@@ -104,19 +110,36 @@ const GitHubStats = () => {
     );
   }
 
-  if (!profile) return null;
-
   const stats = [
-    { icon: <FiBook className="w-4 h-4" />,   label: "Public repos",   value: profile.public_repos,  delay: 0 },
-    { icon: <FiStar className="w-4 h-4" />,   label: "Total stars",    value: totalStars,             delay: 0.06 },
-    { icon: <FiUsers className="w-4 h-4" />,  label: "Followers",      value: profile.followers,      delay: 0.12 },
-    { icon: <FiGitBranch className="w-4 h-4"/>,label: "Following",     value: profile.following,      delay: 0.18 },
+    {
+      icon: <FiBook className="w-4 h-4" />,
+      label: "Public repos",
+      value: profile?.public_repos ?? "—",
+      delay: 0,
+    },
+    {
+      icon: <FiStar className="w-4 h-4" />,
+      label: "Total stars",
+      value: totalStars ?? "—",
+      delay: 0.06,
+    },
+    {
+      icon: <FiUsers className="w-4 h-4" />,
+      label: "Followers",
+      value: profile?.followers ?? "—",
+      delay: 0.12,
+    },
+    {
+      icon: <FiGitBranch className="w-4 h-4" />,
+      label: "Following",
+      value: profile?.following ?? "—",
+      delay: 0.18,
+    },
   ];
 
   return (
     <section className="p-4 py-6 md:p-8 my-10 md:my-14 shadow-lg">
       <div className="container mx-auto">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -131,6 +154,9 @@ const GitHubStats = () => {
             <p className="text-gray-500 dark:text-gray-400 mt-1 text-sm">
               Live data from my GitHub profile
             </p>
+            {error && (
+              <p className="text-sm text-red-500 mt-2">{error}</p>
+            )}
           </div>
           <a
             href={SOCIAL_LINKS.github}
@@ -142,14 +168,12 @@ const GitHubStats = () => {
           </a>
         </motion.div>
 
-        {/* Stat cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          {stats.map((s) => (
-            <StatCard key={s.label} {...s} />
+          {stats.map((stat) => (
+            <StatCard key={stat.label} {...stat} />
           ))}
         </div>
 
-        {/* Languages */}
         {topLanguages.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -165,7 +189,6 @@ const GitHubStats = () => {
           </motion.div>
         )}
 
-        {/* Contribution graph */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -176,7 +199,13 @@ const GitHubStats = () => {
           <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
             Contribution activity
           </h3>
-          <ContributionGraph />
+          {profile ? (
+            <ContributionGraph />
+          ) : (
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Contribution data is currently unavailable.
+            </p>
+          )}
         </motion.div>
       </div>
     </section>

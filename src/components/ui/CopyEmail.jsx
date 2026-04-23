@@ -8,66 +8,93 @@ const CopyEmail = ({ email, className = "" }) => {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback for older browsers
       const el = document.createElement("textarea");
       el.value = email;
       document.body.appendChild(el);
       el.select();
       document.execCommand("copy");
       document.body.removeChild(el);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
     }
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
   };
 
   return (
-    <button
+    <motion.button
       onClick={handleCopy}
-      className={`group inline-flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors ${className}`}
       title="Copy email"
+      initial="rest"
+      whileHover="hover"
+      animate="rest"
+      className={`group relative overflow-hidden rounded-full 
+      inline-flex items-center justify-center gap-2
+      px-6 py-2 text-sm font-semibold
+      bg-white text-zinc-950
+      shadow-[0_0_28px_rgba(255,255,255,0.12)]
+      hover:shadow-[0_0_45px_rgba(239,68,68,0.45)]
+      transition-shadow duration-500
+      ${className}`}
     >
-      <span className="font-medium">{email}</span>
-      <span className="relative w-4 h-4">
+      {/* spreading red background */}
+      <motion.span
+        variants={{
+          rest: {
+            scale: 0,
+            opacity: 1,
+          },
+          hover: {
+            scale: 14,
+          },
+        }}
+        transition={{
+          duration: 0.55,
+          ease: [0.22, 1, 0.36, 1], // smoother than default
+        }}
+        className="
+          absolute
+          left-1/2 top-1/2
+          h-6 w-6
+          -translate-x-1/2 -translate-y-1/2
+          rounded-full
+          bg-red-600
+          z-0
+        "
+      />
+
+      {/* text */}
+      <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+        {email}
+      </span>
+
+      {/* icon only changes to tick after copy */}
+      <span className="relative z-10 flex items-center justify-center">
         <AnimatePresence mode="wait">
           {copied ? (
             <motion.span
               key="check"
-              initial={{ scale: 0.5, opacity: 0 }}
+              initial={{ scale: 0.4, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.5, opacity: 0 }}
-              className="absolute inset-0 flex items-center justify-center text-green-500"
+              exit={{ scale: 0.4, opacity: 0 }}
+              transition={{ duration: 0.18 }}
             >
-              <FiCheck className="w-3.5 h-3.5" />
+              <FiCheck className="w-4 h-4 text-white" />
             </motion.span>
           ) : (
             <motion.span
               key="copy"
-              initial={{ scale: 0.5, opacity: 0 }}
+              initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.5, opacity: 0 }}
-              className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+              exit={{ scale: 0.7, opacity: 0 }}
+              transition={{ duration: 0.18 }}
             >
-              <FiCopy className="w-3.5 h-3.5" />
+              <FiCopy className="w-4 h-4 transition-colors duration-300 group-hover:text-white" />
             </motion.span>
           )}
         </AnimatePresence>
       </span>
-      <AnimatePresence>
-        {copied && (
-          <motion.span
-            initial={{ opacity: 0, x: -4 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -4 }}
-            className="text-xs text-green-500 font-medium"
-          >
-            Copied!
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </button>
+    </motion.button>
   );
 };
 

@@ -19,8 +19,9 @@ const HomePage = () => {
     <div className="background dark:bg-black dark:bg-none dark:text-white relative overflow-hidden">
       <SEO />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 pt-5 pb-12 md:py-14">
-        <Banner />
+      <Banner />
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 pb-12 md:py-14">
         <AboutMe />
         <Education />
         <CodingProfile />

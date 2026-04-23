@@ -6,46 +6,53 @@ import Footer from "./Footer";
 import { useAuth } from "../../context/AuthContext";
 import { useAdmin } from "../../hooks";
 import { Spinner } from "../ui";
-import CustomCursor from "../CustomCursor";
-import ParticlesBackground from "../ParticlesBackground";
 
-// ─── Root layout ──────────────────────────────────────────────────────────────
+// ── Root layout ───────────────────────────────────────────────────────────────
 export const RootLayout = () => (
   <div className="overflow-x-hidden dark:bg-black dark:text-white">
-    <CustomCursor />
     <Header />
     <main>
       <Outlet />
     </main>
     <Footer />
     <ToastContainer />
-    <ParticlesBackground />
   </div>
 );
 
-// ─── Dashboard layout (no header/footer) ─────────────────────────────────────
-export const DashboardLayout = () => (
-  <div className="dark:bg-black dark:text-white">
-    <Outlet />
-  </div>
-);
-
-// ─── PrivateRoute ─────────────────────────────────────────────────────────────
+// ── PrivateRoute ──────────────────────────────────────────────────────────────
+// loading=true  → spinner (JWT cookie may not exist yet — do NOT redirect)
+// loading=false, no user → redirect to /login
+// loading=false, user exists → allow through
 export const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) return <Spinner fullPage />;
-  if (!user) return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+  }
+
   return children;
 };
 
-// ─── AdminRoute ───────────────────────────────────────────────────────────────
+// ── AdminRoute ────────────────────────────────────────────────────────────────
+// Wait for BOTH auth and admin checks before making any redirect decision.
+// If either is still loading — show spinner.
+// This prevents the 403 → interceptor → bounce chain when the cookie
+// isn't written yet.
 export const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const { isAdmin, isAdminLoading } = useAdmin();
+  const location = useLocation();
 
+  // Either check still in flight — wait
   if (loading || isAdminLoading) return <Spinner fullPage />;
-  if (!user || !isAdmin) return <Navigate to="/" replace />;
+
+  // Both resolved — make the access decision
+  if (!user || !isAdmin) {
+    return <Navigate to="/" state={{ from: location.pathname }} replace />;
+  }
+
   return children;
 };

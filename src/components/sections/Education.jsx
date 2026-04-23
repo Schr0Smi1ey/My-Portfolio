@@ -376,6 +376,7 @@ const Education = () => (
         >
           {stats.map((s, i) => (
             <StatCard
+              key={s.description}
               value={s.value}
               description={s.description}
               color={s.color}

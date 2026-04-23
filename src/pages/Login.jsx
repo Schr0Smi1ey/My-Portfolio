@@ -27,6 +27,10 @@ const LoginPage = () => {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // ── Email / password login ─────────────────────────────────────────────────
+  // Navigate AFTER signInUser resolves. By the time we navigate, onAuthStateChanged
+  // has already fired (it fires synchronously after signInWithEmailAndPassword
+  // resolves in Firebase SDK v9+), awaited /jwt, and set loading=false.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -36,11 +40,15 @@ const LoginPage = () => {
       navigate(from, { replace: true });
     } catch (err) {
       Toast(err.message, "error");
-    } finally {
-      setLoading(false);
+      setLoading(false); // only reset on error — on success we're navigating away
     }
   };
 
+  // ── Google sign-in ─────────────────────────────────────────────────────────
+  // Same pattern: await the popup, then navigate.
+  // onAuthStateChanged fires inside signInWithPopup resolution,
+  // awaits /jwt, sets loading=false — by the time navigate() runs
+  // the cookie is already in place.
   const handleGoogle = async () => {
     setLoading(true);
     try {
@@ -48,16 +56,25 @@ const LoginPage = () => {
       Toast("Signed in with Google!", "success");
       navigate(from, { replace: true });
     } catch (err) {
-      Toast(err.message, "error");
-    } finally {
-      setLoading(false);
+      let message = err.message;
+      if (err.code === "auth/popup-blocked")
+        message = "Popup blocked — please allow popups for this site.";
+      else if (err.code === "auth/popup-closed-by-user")
+        message = "Sign-in cancelled.";
+      else if (err.code === "auth/unauthorized-domain")
+        message = "This domain is not authorised. Contact support.";
+      else if (err.code === "auth/network-request-failed")
+        message = "Network error. Check your connection.";
+
+      Toast(message, "error");
+      setLoading(false); // only reset on error
     }
   };
 
   return (
     <div className="min-h-screen background dark:bg-black dark:bg-none flex items-center justify-center px-4 py-20">
       <Helmet>
-        <title>Login — Sarafat Karim</title>
+        <title>Login — {OWNER.name}</title>
       </Helmet>
 
       <motion.div
@@ -144,7 +161,11 @@ const LoginPage = () => {
                   onClick={() => setShowPass((v) => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                 >
-                  {showPass ? <FiEyeOff className="w-4 h-4" /> : <FiEye className="w-4 h-4" />}
+                  {showPass ? (
+                    <FiEyeOff className="w-4 h-4" />
+                  ) : (
+                    <FiEye className="w-4 h-4" />
+                  )}
                 </button>
               </div>
             </div>
@@ -161,7 +182,10 @@ const LoginPage = () => {
 
         <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-5">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-primary font-semibold hover:underline">
+          <Link
+            to="/signup"
+            className="text-primary font-semibold hover:underline"
+          >
             Sign up
           </Link>
         </p>

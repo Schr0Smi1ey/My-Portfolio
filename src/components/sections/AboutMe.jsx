@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  FaBug,
+  FaCode,
+  FaCodeBranch,
+  FaCube,
+  FaQuoteLeft,
+} from "react-icons/fa";
 
-// ── Components ─────────────────────────────────────────────────────────────────
-import Background from "../../components/Background";
-import StatCard from "../ui/StatCard";
-
-// ── Icons ─────────────────────────────────────────────────────────────────────
+import CopyEmail from "../ui/CopyEmail";
 import {
   CodeIcon,
   CricketIcon,
@@ -15,432 +15,461 @@ import {
   FilmIcon,
   GameIcon,
 } from "../../assets/Home/AboutMe/icons";
-
-// ── Fonts ─────────────────────────────────────────────────────────────────────
-import "@fontsource/playfair-display/700.css";
-import "@fontsource/playfair-display/900.css";
-import "@fontsource/cormorant-garamond/300.css";
-import "@fontsource/cormorant-garamond/400.css";
-import "@fontsource/cormorant-garamond/600.css";
-import "@fontsource/dm-sans/400.css";
-import "@fontsource/dm-sans/500.css";
-import "@fontsource/dm-sans/700.css";
-
-// ── Icons for stats ──────────────────────────────────────────────────────────
-import { FaCode, FaChartLine, FaLaptopCode, FaGitAlt } from "react-icons/fa";
-import { FiCode, FiTrendingUp } from "react-icons/fi";
-
-// ── Hook ──────────────────────────────────────────────────────────────────────
 import { useTotalCommits } from "../../hooks/index";
 
-// ── Commit value skeleton ─────────────────────────────────────────────────────
-const CommitValue = ({ formatted, isLoading, isError }) => {
-  if (isLoading) {
-    return (
-      <span className="inline-block w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse" />
-    );
-  }
-  if (isError || formatted == null) {
-    return <span>—</span>;
-  }
-  return <span>{formatted}</span>;
-};
+const email = "Sarafatkarim555@gmail.com";
 
-// ── Component ─────────────────────────────────────────────────────────────────
+const statCards = [
+  {
+    label: "Projects",
+    value: "8+",
+    detail: "Completed",
+    icon: FaCube,
+    tone: "text-red-400",
+  },
+  {
+    label: "Problems",
+    value: "1135+",
+    detail: "Solved",
+    icon: FaBug,
+    tone: "text-purple-400",
+  },
+  {
+    label: "Technologies",
+    value: "20+",
+    detail: "Mastered",
+    icon: FaCode,
+    tone: "text-emerald-400",
+  },
+];
+
+const interests = [
+  { label: "Cricket & Football", icon: CricketIcon, tone: "text-red-400" },
+  { label: "Tech Exploration", icon: SparklesIcon, tone: "text-purple-400" },
+  { label: "Movies & Series", icon: FilmIcon, tone: "text-emerald-400" },
+  { label: "Online Games", icon: GameIcon, tone: "text-orange-400" },
+  { label: "Competitive Programming", icon: CodeIcon, tone: "text-blue-400" },
+];
+
+const aboutParagraph = (
+  <>
+    I&apos;m a passionate{" "}
+    <span className="text-red-400">MERN Stack Developer</span> and competitive
+    programmer, currently pursuing B.Sc. in Computer Science at{" "}
+    <span className="text-red-400">Khulna University</span>. I build responsive,
+    scalable applications with MongoDB, Express.js, React, and Node.js, sharpen
+    my problem-solving through competitive programming, and keep exploring
+    AI/ML, cloud architecture, movies, sports, and games to stay curious beyond
+    code.
+  </>
+);
+
 const AboutMe = () => {
-  // ── Live commit count ──────────────────────────────────────────────────────
+  const shouldReduceMotion = useReducedMotion();
+
   const {
     formatted: commitFormatted,
     isLoading: commitLoading,
     isError: commitError,
   } = useTotalCommits();
 
-  useEffect(() => {
-    AOS.init({ duration: 900, once: true, easing: "ease-out-cubic" });
-  }, []);
-
-  // ── Stats data ─────────────────────────────────────────────────────────────
-  const stats = [
-    {
-      label: "Projects",
-      value: "8+",
-      description: "Completed",
-      color: "from-violet-600 to-purple-600",
-      isLive: false,
-    },
-    {
-      label: "Problems",
-      value: "1135+",
-      description: "Solved",
-      color: "from-blue-600 to-cyan-600",
-      isLive: false,
-    },
-    {
-      label: "Technologies",
-      value: "20+",
-      description: "Mastered",
-      color: "from-emerald-600 to-teal-600",
-      isLive: false,
-    },
+  const allStats = [
+    ...statCards,
     {
       label: "Commits",
-      value: null,
-      description: "Pushed",
-      color: "from-orange-600 to-pink-600",
-      isLive: true,
+      value: commitLoading || commitError ? "1k+" : commitFormatted,
+      detail: "Pushed",
+      icon: FaCodeBranch,
+      tone: "text-orange-400",
     },
   ];
 
-  const interests = [
-    {
-      icon: CricketIcon,
-      label: "Cricket & Football",
-      gradient: "from-blue-500 to-cyan-500",
+  const rowVariants = {
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 18,
+      scale: shouldReduceMotion ? 1 : 0.985,
     },
-    {
-      icon: SparklesIcon,
-      label: "Tech Exploration",
-      gradient: "from-emerald-500 to-teal-500",
-    },
-    {
-      icon: FilmIcon,
-      label: "Movies & Series",
-      gradient: "from-rose-500 to-pink-500",
-    },
-    {
-      icon: GameIcon,
-      label: "Online Games",
-      gradient: "from-amber-500 to-orange-500",
-    },
-    {
-      icon: CodeIcon,
-      label: "Competitive Programming",
-      gradient: "from-violet-500 to-purple-500",
-    },
-  ];
+    visible: (i = 0) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: shouldReduceMotion ? 0 : i * 0.06,
+        duration: shouldReduceMotion ? 0.01 : 0.55,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    }),
+  };
 
-  return (
-    <section id="about" className="relative py-24 md:py-28 lg:py-32">
-      <Background
-        mouseGlow={true}
-        showGrid={true}
-        showGridPattern={true}
-        showBottomFade={true}
-        showNoise={true}
-        showOrbs={true}
+  const floatingIcon = shouldReduceMotion
+    ? {}
+    : {
+        animate: {
+          y: [0, -4, 0],
+          transition: {
+            duration: 3.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          },
+        },
+      };
+
+  const BentoCard = ({ children, className = "" }) => (
+    <motion.div
+      initial={
+        shouldReduceMotion
+          ? false
+          : { opacity: 0, y: 20, filter: "blur(8px)" }
+      }
+      whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{
+        duration: shouldReduceMotion ? 0.01 : 0.6,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      className={`about-bento-card group relative overflow-hidden transition-[border-color,box-shadow,background-color] duration-300 ${className}`}
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 0%, rgba(239,68,68,0.14), transparent 45%)",
+        }}
+      />
+      {children}
+    </motion.div>
+  );
+
+  const InterestRow = ({ interest, index }) => {
+    const Icon = interest.icon;
+
+    return (
+      <motion.div
+        custom={index}
+        variants={rowVariants}
+        whileHover={
+          shouldReduceMotion
+            ? {}
+            : {
+                y: -4,
+                scale: 1.02,
+                transition: { duration: 0.22 },
+              }
+        }
+        className="group flex items-center gap-4 rounded-[1.65rem] border border-white/[0.08] bg-white/[0.035] px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] transition-colors duration-300 hover:border-white/[0.14] hover:bg-white/[0.055]"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-start">
-            {/* ── Left column ── */}
-            <div className="space-y-10">
-              {/* Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="inline-block"
-              >
-                <div className="group relative px-6 py-3 rounded-full bg-gradient-to-r from-white/80 to-white/60 dark:from-gray-800/80 dark:to-gray-800/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg shadow-gray-900/5 dark:shadow-black/20">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-violet-500/10 via-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <span
-                    className="relative text-sm font-medium bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 bg-clip-text text-transparent"
-                    style={{ fontFamily: '"DM Sans", sans-serif' }}
-                  >
-                    👋 Welcome to my world
-                  </span>
-                </div>
-              </motion.div>
+        <motion.div
+          className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border border-current/35 bg-current/10 ${interest.tone}`}
+          whileHover={shouldReduceMotion ? {} : { rotate: 6, scale: 1.08 }}
+          transition={{ duration: 0.22 }}
+        >
+          <Icon />
+        </motion.div>
 
-              {/* Title */}
-              <div className="space-y-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.7 }}
-                >
-                  <h2
-                    className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]"
-                    style={{ fontFamily: '"Playfair Display", serif' }}
-                  >
-                    <span className="block bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent">
-                      About Me
-                    </span>
-                  </h2>
-                </motion.div>
+        <span className="text-sm font-semibold text-zinc-100 transition-colors duration-300 group-hover:text-white">
+          {interest.label}
+        </span>
+      </motion.div>
+    );
+  };
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  className="flex items-center gap-3"
-                >
-                  <h3
-                    className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white"
-                    style={{ fontFamily: '"Cormorant Garamond", serif' }}
-                  >
-                    Sarafat Karim
-                  </h3>
-                  <motion.span
-                    className="text-4xl"
-                    animate={{
-                      rotate: [0, 10, -10, 10, 0],
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      repeatDelay: 3,
-                    }}
-                  >
-                    ⚡
-                  </motion.span>
-                </motion.div>
+  const StatTallItem = ({ stat, index }) => {
+    const Icon = stat.icon;
 
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: 0.4, duration: 0.8 }}
-                  className="h-[2px] w-24 bg-gradient-to-r from-violet-600 via-purple-600 to-transparent origin-left"
-                />
-              </div>
+    return (
+      <motion.div
+        custom={index}
+        variants={rowVariants}
+        whileHover={
+          shouldReduceMotion
+            ? {}
+            : {
+                y: -4,
+                scale: 1.015,
+                transition: { duration: 0.22 },
+              }
+        }
+        className="group flex items-center gap-4 rounded-[1.65rem] border border-white/[0.08] bg-white/[0.035] px-5 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] transition-all duration-300 hover:border-white/[0.14] hover:bg-white/[0.055]"
+      >
+        <motion.div
+          className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border border-current/35 bg-current/10 ${stat.tone}`}
+          whileHover={shouldReduceMotion ? {} : { scale: 1.08, rotate: -8 }}
+          transition={{ duration: 0.25 }}
+        >
+          <Icon className="h-4 w-4" />
+        </motion.div>
 
-              {/* Description cards */}
-              <div className="space-y-5">
-                {[
-                  {
-                    delay: 0.5,
-                    hoverGrad:
-                      "from-violet-500/5 via-purple-500/5 to-blue-500/5",
-                    borderHover:
-                      "hover:border-violet-200 dark:hover:border-violet-900/50",
-                    content: (
-                      <p
-                        className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
-                        style={{ fontFamily: '"Cormorant Garamond", serif' }}
-                      >
-                        A passionate{" "}
-                        <span className="relative inline-block group/highlight">
-                          <span className="relative z-10 font-semibold bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                            MERN Stack Developer
-                          </span>
-                          <motion.span
-                            className="absolute bottom-0 left-0 h-3 bg-gradient-to-r from-violet-500/20 via-purple-500/20 to-blue-500/20 rounded-full -z-0"
-                            initial={{ width: 0 }}
-                            animate={{ width: "100%" }}
-                            transition={{ delay: 0.7, duration: 0.8 }}
-                          />
-                        </span>{" "}
-                        and competitive programmer who transforms complex
-                        problems into elegant solutions. Currently pursuing
-                        B.Sc. in Computer Science at{" "}
-                        <span className="font-semibold text-gray-900 dark:text-white">
-                          Khulna University
-                        </span>
-                        , where I blend academic excellence with practical
-                        innovation.
-                      </p>
-                    ),
-                  },
-                  {
-                    delay: 0.6,
-                    hoverGrad:
-                      "from-blue-500/5 via-cyan-500/5 to-emerald-500/5",
-                    borderHover:
-                      "hover:border-blue-200 dark:hover:border-blue-900/50",
-                    content: (
-                      <p
-                        className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
-                        style={{ fontFamily: '"Cormorant Garamond", serif' }}
-                      >
-                        With expertise in the{" "}
-                        <span className="font-semibold text-gray-900 dark:text-white">
-                          MERN stack (MongoDB, Express.js, React, Node.js)
-                        </span>
-                        , I architect responsive, scalable web applications that
-                        deliver exceptional user experiences. My competitive
-                        programming journey has sharpened my algorithmic
-                        thinking, enabling me to write efficient, optimized code
-                        that scales. Alongside my technical pursuits, I have
-                        consistently demonstrated strong academic excellence,
-                        reflecting my dedication, discipline, and ability to
-                        grasp complex concepts effectively.
-                      </p>
-                    ),
-                  },
-                  {
-                    delay: 0.7,
-                    hoverGrad:
-                      "from-emerald-500/5 via-teal-500/5 to-cyan-500/5",
-                    borderHover:
-                      "hover:border-emerald-200 dark:hover:border-emerald-900/50",
-                    content: (
-                      <p
-                        className="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed"
-                        style={{ fontFamily: '"Cormorant Garamond", serif' }}
-                      >
-                        Beyond the screen, I'm an{" "}
-                        <span className="font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                          avid cricketer and football enthusiast
-                        </span>
-                        , finding joy in both team sports and strategic gaming.
-                        I love immersing myself in movies and series, and diving
-                        into online games for fun and relaxation. At the same
-                        time, I'm constantly exploring AI/ML, cloud
-                        architecture, and emerging technologies to stay ahead in
-                        the ever-evolving tech landscape.
-                      </p>
-                    ),
-                  },
-                ].map((card, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: card.delay, duration: 0.6 }}
-                    className="group relative"
-                  >
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r ${card.hoverGrad} rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                    />
-                    <div
-                      className={`relative p-8 rounded-3xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-xl shadow-gray-900/5 dark:shadow-black/20 ${card.borderHover} transition-all duration-500`}
-                    >
-                      {card.content}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* ── Right column ── */}
-            <div className="relative">
-              {/* Stats grid with StatCard */}
-              <div className="grid grid-cols-2 gap-5 mb-8">
-                {stats.map((stat, index) =>
-                  stat.isLive ? (
-                    <StatCard
-                      key={index}
-                      label={stat.label}
-                      value={
-                        <CommitValue
-                          formatted={commitFormatted}
-                          isLoading={commitLoading}
-                          isError={commitError}
-                        />
-                      }
-                      description={stat.description}
-                      color={stat.color}
-                      delay={index}
-                    />
-                  ) : (
-                    <StatCard
-                      key={index}
-                      label={stat.label}
-                      value={stat.value}
-                      description={stat.description}
-                      color={stat.color}
-                      delay={index}
-                    />
-                  ),
-                )}
-              </div>
-
-              {/* Quote */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.6 }}
-                className="group relative mb-8"
-              >
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-violet-500/20 via-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl" />
-
-                <div className="relative p-8 rounded-3xl bg-gradient-to-br from-white/90 via-white/80 to-white/90 dark:from-gray-800/90 dark:via-gray-800/80 dark:to-gray-800/90 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl shadow-gray-900/5 dark:shadow-black/30">
-                  <div className="absolute top-4 left-4 text-6xl font-serif text-violet-200 dark:text-violet-900/30 leading-none">
-                    "
-                  </div>
-
-                  <blockquote
-                    className="relative text-lg md:text-xl italic text-black dark:text-gray-300 text-center leading-relaxed pt-8"
-                    style={{ fontFamily: '"Cormorant Garamond", serif' }}
-                  >
-                    Debugging is like being the detective in a crime movie where
-                    you are also the murderer.
-                  </blockquote>
-
-                  <div className="absolute bottom-4 right-4 text-6xl font-serif text-violet-200 dark:text-violet-900/30 leading-none">
-                    "
-                  </div>
-
-                  <div className="flex justify-center mt-6">
-                    <div className="w-16 h-1 bg-gradient-to-r from-transparent via-violet-500 to-transparent rounded-full" />
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Interests Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.6 }}
-              >
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-px bg-gradient-to-r from-primary to-transparent" />
-                  <h4
-                    className="text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400"
-                    style={{ fontFamily: '"DM Sans", sans-serif' }}
-                  >
-                    Beyond Code
-                  </h4>
-                  <div className="flex-1 h-px bg-gradient-to-l from-gray-200 dark:from-gray-700 to-transparent" />
-                </div>
-
-                <div className="flex gap-3 flex-wrap">
-                  {interests.map((interest, index) => {
-                    const Icon = interest.icon;
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                          delay: 1 + index * 0.1,
-                          duration: 0.4,
-                        }}
-                        whileHover={{ x: 5 }}
-                        className="group relative"
-                      >
-                        <div className="relative flex items-center gap-4 p-4 rounded-2xl bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-primary/30 transition-all duration-300">
-                          <div
-                            className={`p-2 rounded-xl bg-gradient-to-br ${interest.gradient} bg-opacity-10 text-gray-700 dark:text-gray-300 group-hover:scale-110 transition-transform duration-300`}
-                          >
-                            <Icon />
-                          </div>
-                          <div className="flex-1">
-                            <h5
-                              className="text-sm font-semibold text-gray-900 dark:text-white"
-                              style={{ fontFamily: '"DM Sans", sans-serif' }}
-                            >
-                              {interest.label}
-                            </h5>
-                          </div>
-                          <motion.div
-                            className="w-1.5 h-1.5 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            animate={{ scale: [1, 1.5, 1] }}
-                            transition={{
-                              duration: 1,
-                              repeat: Infinity,
-                            }}
-                          />
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </motion.div>
+        <div className="flex min-w-0 items-center gap-8">
+          <div>
+            <motion.div
+              className={`font-serif text-3xl leading-none ${stat.tone}`}
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+              whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.1 + index * 0.05 }}
+            >
+              {stat.value}
+            </motion.div>
+            <div className="mt-1.5 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-zinc-200">
+              {stat.label}
             </div>
           </div>
+          <div className="mt-1 text-xs text-zinc-500 transition-colors duration-300 group-hover:text-zinc-400">
+            {stat.detail}
+          </div>
         </div>
-      </Background>
+      </motion.div>
+    );
+  };
+
+  return (
+    <section
+      id="about"
+      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 pb-20 pt-28 text-white md:px-8 md:pb-24 md:pt-32"
+    >
+      <motion.div
+        aria-hidden="true"
+        className="about-transition-veil"
+        animate={
+          shouldReduceMotion
+            ? {}
+            : {
+                opacity: [0.5, 0.72, 0.5],
+              }
+        }
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <div className="about-cosmic-starfield" aria-hidden="true" />
+      <div className="cosmic-noise" aria-hidden="true" />
+
+      <motion.div
+        className="cosmic-orb cosmic-orb-left"
+        aria-hidden="true"
+        animate={
+          shouldReduceMotion
+            ? {}
+            : { y: [0, -16, 0], x: [0, 8, 0], scale: [1, 1.04, 1] }
+        }
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="cosmic-orb cosmic-orb-right"
+        aria-hidden="true"
+        animate={
+          shouldReduceMotion
+            ? {}
+            : { y: [0, 18, 0], x: [0, -8, 0], scale: [1, 1.05, 1] }
+        }
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <div className="pointer-events-none absolute inset-x-[-2rem] bottom-[-7rem] h-64 overflow-hidden">
+        <motion.div
+          className="about-cosmic-surface"
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  opacity: [0.75, 1, 0.82],
+                  y: [0, -4, 0],
+                }
+          }
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto grid max-w-6xl gap-4 xl:grid-cols-[1.08fr_0.96fr_1.18fr]">
+        <BentoCard className="xl:col-span-2 p-5 lg:p-7">
+          <div className="flex h-full flex-col gap-10">
+            <div className="flex flex-col gap-8">
+              <motion.div
+                className="inline-flex w-fit items-center gap-4 pt-2 text-white"
+                {...floatingIcon}
+              >
+                <span className="h-4 w-4 rounded-full bg-red-500 shadow-[0_0_18px_rgba(239,68,68,0.55)]" />
+                <h2 className="text-3xl font-black tracking-tight lg:text-4xl">
+                  About Me
+                </h2>
+              </motion.div>
+            </div>
+
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
+              whileInView={shouldReduceMotion ? {} : { opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.15 }}
+              className="leading-[2.2rem] text-zinc-300 sm:text-sm lg:text-lg"
+            >
+              <p>{aboutParagraph}</p>
+            </motion.div>
+          </div>
+        </BentoCard>
+
+        <BentoCard className="xl:row-span-2 p-5 lg:p-7">
+          <div className="mb-5 flex items-center gap-4">
+            <motion.span
+              className="h-4 w-4 rounded-full bg-red-500 shadow-[0_0_18px_rgba(239,68,68,0.55)]"
+              {...floatingIcon}
+            />
+            <h3 className="text-3xl font-black tracking-tight lg:text-4xl">
+              Stats
+            </h3>
+          </div>
+
+          <p className="max-w-lg text-[0.95rem] leading-7 text-zinc-400">
+            A quick snapshot of output, problem-solving volume, tools, and code
+            pushed.
+          </p>
+
+          <div className="mt-7 space-y-5">
+            {allStats.map((stat, index) => (
+              <StatTallItem key={stat.label} stat={stat} index={index} />
+            ))}
+          </div>
+        </BentoCard>
+
+        <BentoCard className="p-5 lg:p-7">
+          <div className="flex h-full flex-col justify-center text-center">
+            <motion.div
+              initial={
+                shouldReduceMotion
+                  ? false
+                  : { opacity: 0, scale: 0.7, rotate: -12 }
+              }
+              whileInView={
+                shouldReduceMotion ? {} : { opacity: 1, scale: 1, rotate: 0 }
+              }
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <FaQuoteLeft className="mb-7 h-8 w-8 text-red-500" />
+            </motion.div>
+
+            <motion.blockquote
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+              whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.08 }}
+              className="mx-auto max-w-xl text-xl italic leading-[1.65] text-zinc-100"
+            >
+              Debugging is like being the detective in a crime movie where you
+              are also the murderer.
+            </motion.blockquote>
+
+            <motion.p
+              initial={
+                shouldReduceMotion
+                  ? false
+                  : { opacity: 0, letterSpacing: "0.5em" }
+              }
+              whileInView={
+                shouldReduceMotion
+                  ? {}
+                  : { opacity: 1, letterSpacing: "0.34em" }
+              }
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.18 }}
+              className="mt-7 text-xs font-mono uppercase tracking-[0.34em] text-zinc-500"
+            >
+              Personal Note
+            </motion.p>
+          </div>
+        </BentoCard>
+
+        <BentoCard className="p-5 lg:p-7">
+          <div className="flex h-full flex-col items-center justify-center text-center">
+            <motion.div
+              initial={
+                shouldReduceMotion ? false : { opacity: 0, scale: 0.8, y: 10 }
+              }
+              whileInView={
+                shouldReduceMotion ? {} : { opacity: 1, scale: 1, y: 0 }
+              }
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="font-display text-3xl normal-case tracking-normal text-red-500"
+            >
+              SK
+            </motion.div>
+
+            <motion.h3
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.08 }}
+              className="mt-5 text-xl font-bold text-white"
+            >
+              Let&apos;s innovate together
+            </motion.h3>
+
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+              whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.14 }}
+              className="mt-2 text-base text-zinc-500"
+            >
+              Ready to bring your vision to life?
+            </motion.p>
+
+            <motion.div
+              initial={
+                shouldReduceMotion ? false : { opacity: 0, y: 14, scale: 0.96 }
+              }
+              whileInView={
+                shouldReduceMotion ? {} : { opacity: 1, y: 0, scale: 1 }
+              }
+              viewport={{ once: true }}
+              transition={{ duration: 0.55, delay: 0.22 }}
+              className="mt-5 flex justify-center"
+            >
+              <CopyEmail email={email} />
+            </motion.div>
+
+            <motion.p
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
+              whileInView={shouldReduceMotion ? {} : { opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.3 }}
+              className="mt-3 text-sm text-zinc-600"
+            >
+              Get in touch via email
+            </motion.p>
+          </div>
+        </BentoCard>
+
+        <BentoCard className="xl:col-span-3 p-4 lg:p-6">
+          <div className="mb-5 flex items-center gap-4">
+            <span className="h-3 w-3 rounded-full bg-red-500 shadow-[0_0_16px_rgba(239,68,68,0.5)]" />
+            <h3 className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-zinc-500">
+              Beyond Code
+            </h3>
+            <motion.span
+              initial={shouldReduceMotion ? false : { scaleX: 0, opacity: 0 }}
+              whileInView={shouldReduceMotion ? {} : { scaleX: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="h-px flex-1 origin-left bg-white/[0.08]"
+            />
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-5">
+            {interests.map((interest, index) => (
+              <InterestRow
+                key={interest.label}
+                interest={interest}
+                index={index}
+              />
+            ))}
+          </div>
+        </BentoCard>
+      </div>
     </section>
   );
 };

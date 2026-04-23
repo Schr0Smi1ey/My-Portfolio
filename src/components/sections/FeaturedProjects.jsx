@@ -24,7 +24,6 @@ const FeaturedProjects = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("Error fetching projects:", error);
         setIsLoading(false);
       });
   }, []);
