@@ -1,15 +1,56 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Geist+Mono:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&family=Inter:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;600;700&family=Lato:wght@400;700;900&family=Manrope:wght@400;600;700;800&family=Montserrat:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&family=Open+Sans:wght@400;600;700;800&family=Oswald:wght@400;600;700&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Poppins:wght@400;600;700;800&family=Raleway:wght@400;600;700;800&family=Roboto:wght@400;700;900&family=Rubik:wght@400;600;700;800&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;600;700&family=Urbanist:wght@400;600;700;800&family=Work+Sans:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=IBM+Plex+Serif:wght@400;600;700&family=Lora:wght@400;600;700&family=Merriweather:wght@400;700;900&family=Playfair+Display:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inconsolata:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap");
 
 /* Editorial display font for the hero name */
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@900&display=swap");
+
+@font-face {
+  font-family: "Awesome Local";
+  src:
+    url("./assets/Fonts/Awesome.otf") format("opentype"),
+    url("./assets/Fonts/Awesome.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Perfecto Calligraphy";
+  src: url("./assets/Fonts/PerfectoCalligraphy.ttf") format("truetype");
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Runtime theme tokens ─────────────────────────────────────────────────── */
+:root {
+  --color-primary: #ef4444;
+  --color-primary-rgb: 239 68 68;
+}
+
 /* ─── Base ──────────────────────────────────────────────────────────────────── */
 body {
-  font-family: "Fira Sans", sans-serif;
+  font-family: var(--site-font-family, "Fira Sans", sans-serif);
+}
+
+/* .sk-mark {
+  font-family: "Perfecto Calligraphy", "Barlow", sans-serif;
+  font-weight: 400;
+  line-height: 0.82;
+  width: 1em;
+} */
+
+.sk-mark {
+  font-family: "Awesome Local", "Barlow", sans-serif;
+  font-weight: 400;
+  transform: translate(-0.05em, 0.3em);
+}
+
+.sk-mark > span {
+  display: block;
 }
 
 /* ─── Background ────────────────────────────────────────────────────────────── */
@@ -29,7 +70,7 @@ a.active::after {
   bottom: -4px;
   width: 100%;
   height: 2px;
-  background-image: linear-gradient(to right, #198068, white);
+  background-image: linear-gradient(to right, var(--color-primary), white);
   border-radius: 2px;
   font-weight: 700;
 }
@@ -210,8 +251,8 @@ a.active::after {
   width: 0.38rem;
   height: 0.38rem;
   border-radius: 999px;
-  background: rgb(239, 68, 68);
-  box-shadow: 0 0 18px rgba(239, 68, 68, 1);
+  background: rgb(var(--color-primary-rgb));
+  box-shadow: 0 0 18px rgb(var(--color-primary-rgb));
   transform: translate(-50%, -50%) rotate(0deg) translateX(1.38rem);
   animation: logoOrbit 3.6s cubic-bezier(0.16, 0.9, 0.18, 1) infinite;
 }
@@ -242,10 +283,14 @@ a.active::after {
   background:
     radial-gradient(
       circle at 18% 0%,
-      rgba(248, 113, 113, 0.12),
+      rgb(var(--color-primary-rgb) / 0.12),
       transparent 30%
     ),
-    radial-gradient(circle at 92% 88%, rgba(239, 68, 68, 0.08), transparent 38%);
+    radial-gradient(
+      circle at 92% 88%,
+      rgb(var(--color-primary-rgb) / 0.08),
+      transparent 38%
+    );
   opacity: 0;
   transition: opacity 450ms ease;
 }
@@ -259,7 +304,7 @@ a.active::after {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 28px 90px rgba(0, 0, 0, 0.32),
-    0 0 0 1px rgba(239, 68, 68, 0.08);
+    0 0 0 1px rgb(var(--color-primary-rgb) / 0.08);
 }
 
 .about-orbit-strip {
@@ -298,7 +343,7 @@ a.active::after {
     ),
     radial-gradient(
       ellipse at 50% 0%,
-      rgba(248, 113, 113, 0.34),
+      rgb(var(--color-primary-rgb) / 0.34),
       transparent 20%
     ),
     radial-gradient(
@@ -310,7 +355,7 @@ a.active::after {
     linear-gradient(180deg, rgba(40, 8, 11, 0.9), #020205 58%);
   box-shadow:
     0 -18px 65px rgba(255, 255, 255, 0.14),
-    0 -55px 150px rgba(239, 68, 68, 0.28);
+    0 -55px 150px rgb(var(--color-primary-rgb) / 0.28);
   mask-image: linear-gradient(180deg, #000 0%, #000 58%, transparent 100%);
 }
 
@@ -333,7 +378,7 @@ a.active::after {
     ),
     radial-gradient(
       ellipse at 50% -6%,
-      rgba(248, 113, 113, 0.3),
+      rgb(var(--color-primary-rgb) / 0.3),
       transparent 22%
     ),
     radial-gradient(
@@ -350,35 +395,35 @@ a.active::after {
   box-shadow:
     inset 0 28px 80px rgba(255, 255, 255, 0.04),
     0 -34px 95px rgba(255, 255, 255, 0.12),
-    0 -95px 190px rgba(239, 68, 68, 0.18),
+    0 -95px 190px rgb(var(--color-primary-rgb) / 0.18),
     0 -145px 260px rgba(249, 115, 22, 0.12);
 }
 
 html:not(.dark) .about-bento-card {
-  border-color: rgba(120, 53, 15, 0.12);
+  border-color: rgb(var(--color-primary-rgb) / 0.12);
   background:
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.76),
-      rgba(255, 245, 240, 0.64)
+      rgba(248, 250, 252, 0.64)
     ),
     linear-gradient(
       135deg,
-      rgba(248, 113, 113, 0.08),
-      rgba(249, 115, 22, 0.04) 42%,
+      rgb(var(--color-primary-rgb) / 0.08),
+      rgb(var(--color-primary-rgb) / 0.04) 42%,
       rgba(255, 255, 255, 0.74)
     );
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    0 24px 70px rgba(122, 36, 36, 0.08);
+    0 24px 70px rgb(var(--color-primary-rgb) / 0.08);
 }
 
 html:not(.dark) .about-bento-card:hover {
-  border-color: rgba(220, 38, 38, 0.2);
+  border-color: rgb(var(--color-primary-rgb) / 0.2);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 24px 70px rgba(122, 36, 36, 0.1),
-    0 0 0 1px rgba(248, 113, 113, 0.12);
+    0 24px 70px rgb(var(--color-primary-rgb) / 0.1),
+    0 0 0 1px rgb(var(--color-primary-rgb) / 0.12);
 }
 
 html:not(.dark) .about-bento-card h2,
@@ -417,20 +462,20 @@ html:not(.dark) .about-cosmic-starfield {
     ),
     radial-gradient(
       circle at 20% 68%,
-      rgba(220, 38, 38, 0.06),
+      rgb(var(--color-primary-rgb) / 0.06),
       transparent 22%
     ),
     radial-gradient(
       circle at 78% 24%,
-      rgba(249, 115, 22, 0.06),
+      rgb(var(--color-primary-rgb) / 0.06),
       transparent 24%
     ),
     radial-gradient(
       ellipse at 50% 0%,
-      rgba(248, 113, 113, 0.16),
+      rgb(var(--color-primary-rgb) / 0.16),
       transparent 34%
     ),
-    linear-gradient(180deg, rgba(248, 244, 239, 0) 0%, #f7f3ee 72%);
+    linear-gradient(180deg, rgba(248, 250, 252, 0) 0%, #f8fafc 72%);
 }
 
 html:not(.dark) .about-transition-veil {
@@ -442,32 +487,32 @@ html:not(.dark) .about-transition-veil {
     ),
     radial-gradient(
       ellipse at 50% -6%,
-      rgba(248, 113, 113, 0.3),
+      rgb(var(--color-primary-rgb) / 0.3),
       transparent 22%
     ),
     radial-gradient(
       ellipse at 50% 10%,
-      rgba(249, 115, 22, 0.18),
+      rgb(var(--color-primary-rgb) / 0.18),
       transparent 34%
     ),
     radial-gradient(
       ellipse at 50% 28%,
-      rgba(248, 113, 113, 0.12),
+      rgb(var(--color-primary-rgb) / 0.12),
       transparent 38%
     ),
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.16) 0%,
-      rgba(122, 36, 36, 0.18) 26%,
-      rgba(244, 184, 161, 0.14) 42%,
-      rgba(247, 243, 238, 0.82) 72%,
-      #f7f3ee 100%
+      rgb(var(--color-primary-rgb) / 0.12) 26%,
+      rgb(var(--color-primary-rgb) / 0.08) 42%,
+      rgba(248, 250, 252, 0.82) 72%,
+      #f8fafc 100%
     );
   box-shadow:
     inset 0 24px 70px rgba(255, 255, 255, 0.2),
     0 -34px 90px rgba(255, 255, 255, 0.24),
-    0 -95px 170px rgba(220, 38, 38, 0.12),
-    0 -145px 230px rgba(249, 115, 22, 0.08);
+    0 -95px 170px rgb(var(--color-primary-rgb) / 0.12),
+    0 -145px 230px rgb(var(--color-primary-rgb) / 0.08);
 }
 
 html:not(.dark) .about-cosmic-surface {
@@ -498,7 +543,7 @@ html:not(.dark) .about-cosmic-surface {
     90deg,
     transparent,
     rgba(255, 255, 255, 0.55),
-    rgba(248, 113, 113, 0.2),
+    rgb(var(--color-primary-rgb) / 0.2),
     transparent
   );
   filter: blur(0.2px);
@@ -514,11 +559,11 @@ html:not(.dark) .about-cosmic-surface {
   background: linear-gradient(
     180deg,
     transparent,
-    rgba(239, 68, 68, 0.9),
+    rgb(var(--color-primary-rgb) / 0.9),
     rgba(255, 255, 255, 0.5),
     transparent
   );
-  box-shadow: 0 0 24px rgba(239, 68, 68, 0.78);
+  box-shadow: 0 0 24px rgb(var(--color-primary-rgb) / 0.78);
 }
 
 .cosmic-noise {
@@ -544,12 +589,12 @@ html:not(.dark) .about-cosmic-surface {
     ),
     radial-gradient(
       circle at 18% 76%,
-      rgba(239, 68, 68, 0.06),
+      rgb(var(--color-primary-rgb) / 0.06),
       transparent 24%
     ),
     radial-gradient(
       ellipse at 50% 88%,
-      rgba(239, 68, 68, 0.16),
+      rgb(var(--color-primary-rgb) / 0.16),
       transparent 42%
     ),
     #05050a;
@@ -569,12 +614,12 @@ html:not(.dark) .about-cosmic-surface {
     ),
     radial-gradient(
       circle at 82% 24%,
-      rgba(239, 68, 68, 0.06),
+      rgb(var(--color-primary-rgb) / 0.06),
       transparent 24%
     ),
     radial-gradient(
       ellipse at 50% 12%,
-      rgba(239, 68, 68, 0.16),
+      rgb(var(--color-primary-rgb) / 0.16),
       transparent 42%
     ),
     #05050a;
@@ -607,7 +652,7 @@ html:not(.dark) .about-cosmic-surface {
     72vw 84vh 0 1px rgba(255, 255, 255, 0.45),
     88vw 74vh 0 0 rgba(255, 255, 255, 0.38),
     96vw 21vh 0 1px rgba(255, 255, 255, 0.48),
-    5vw 55vh 0 0 rgba(248, 113, 113, 0.4),
+    5vw 55vh 0 0 rgb(var(--color-primary-rgb) / 0.4),
     53vw 11vh 0 1px rgba(251, 146, 60, 0.42);
 }
 
@@ -627,7 +672,7 @@ html:not(.dark) .about-cosmic-surface {
     94vw 67vh 0 1px rgba(255, 255, 255, 0.46),
     3vw 91vh 0 0 rgba(255, 255, 255, 0.38),
     31vw 43vh 0 1px rgba(255, 255, 255, 0.52),
-    56vw 78vh 0 0 rgba(248, 113, 113, 0.38),
+    56vw 78vh 0 0 rgb(var(--color-primary-rgb) / 0.38),
     69vw 8vh 0 1px rgba(251, 146, 60, 0.4);
 }
 
@@ -645,7 +690,11 @@ html:not(.dark) .about-cosmic-surface {
 .cosmic-orb-left {
   left: -18rem;
   top: 15%;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.35), transparent 64%);
+  background: radial-gradient(
+    circle,
+    rgb(var(--color-primary-rgb) / 0.35),
+    transparent 64%
+  );
 }
 
 .cosmic-orb-right {
@@ -665,7 +714,7 @@ html:not(.dark) .about-cosmic-surface {
   background:
     radial-gradient(
       circle at 50% 46%,
-      rgba(239, 68, 68, 0.18),
+      rgb(var(--color-primary-rgb) / 0.18),
       transparent 48%
     ),
     radial-gradient(
@@ -673,11 +722,11 @@ html:not(.dark) .about-cosmic-surface {
       rgba(255, 255, 255, 0.04),
       transparent 62%
     );
-  border: 1px solid rgba(239, 68, 68, 0.24);
+  border: 1px solid rgb(var(--color-primary-rgb) / 0.24);
   box-shadow:
-    0 0 0 30px rgba(239, 68, 68, 0.032),
-    0 0 0 54px rgba(239, 68, 68, 0.016),
-    0 0 100px rgba(239, 68, 68, 0.18);
+    0 0 0 30px rgb(var(--color-primary-rgb) / 0.032),
+    0 0 0 54px rgb(var(--color-primary-rgb) / 0.016),
+    0 0 100px rgb(var(--color-primary-rgb) / 0.18);
 }
 
 .cosmic-photo-halo::before,
@@ -685,7 +734,7 @@ html:not(.dark) .about-cosmic-surface {
   content: "";
   position: absolute;
   border-radius: 999px;
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  border: 1px solid rgb(var(--color-primary-rgb) / 0.2);
 }
 
 .cosmic-photo-halo::before {
@@ -711,12 +760,12 @@ html:not(.dark) .about-cosmic-surface {
     ),
     radial-gradient(
       ellipse at 50% 0%,
-      rgba(248, 113, 113, 0.34),
+      rgb(var(--color-primary-rgb) / 0.34),
       transparent 19%
     ),
     radial-gradient(
       ellipse at 50% 14%,
-      rgba(249, 115, 22, 0.2),
+      rgb(var(--color-primary-rgb) / 0.2),
       transparent 34%
     ),
     linear-gradient(
@@ -727,8 +776,8 @@ html:not(.dark) .about-cosmic-surface {
     );
   box-shadow:
     0 -34px 95px rgba(255, 255, 255, 0.18),
-    0 -95px 190px rgba(239, 68, 68, 0.28),
-    0 -145px 260px rgba(249, 115, 22, 0.18),
+    0 -95px 190px rgb(var(--color-primary-rgb) / 0.28),
+    0 -145px 260px rgb(var(--color-primary-rgb) / 0.18),
     /* Glowing edge - adapts to theme via CSS variable */ 0 0 0 2px
       var(--glow-edge-color, rgba(255, 255, 255, 0.6)),
     0 0 20px 0 var(--glow-edge-color, rgba(255, 255, 255, 0.4)),
@@ -756,8 +805,8 @@ html:not(.dark) .about-cosmic-surface {
 .hero-social-arc {
   width: 38px;
   height: 62px;
-  border-right: 1px solid rgba(239, 68, 68, 0.72);
-  filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.85));
+  border-right: 1px solid rgb(var(--color-primary-rgb) / 0.72);
+  filter: drop-shadow(0 0 12px rgb(var(--color-primary-rgb) / 0.85));
 }
 
 .hero-social-arc-top {
@@ -784,7 +833,7 @@ html:not(.dark) .about-cosmic-surface {
 
 html:not(.dark) .cosmic-hero,
 html:not(.dark) .about-cosmic-section {
-  background: #f7f3ee;
+  background: #f8fafc;
   color: #18181b;
 }
 
@@ -793,15 +842,15 @@ html:not(.dark) .cosmic-starfield {
     radial-gradient(circle at 50% 18%, rgba(24, 24, 27, 0.04), transparent 22%),
     radial-gradient(
       circle at 18% 76%,
-      rgba(220, 38, 38, 0.08),
+      rgb(var(--color-primary-rgb) / 0.08),
       transparent 24%
     ),
     radial-gradient(
       ellipse at 50% 88%,
-      rgba(220, 38, 38, 0.16),
+      rgb(var(--color-primary-rgb) / 0.16),
       transparent 42%
     ),
-    linear-gradient(180deg, #f8f4ef 0%, #efe7df 100%);
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
 }
 
 html:not(.dark) .cosmic-noise {
@@ -814,7 +863,7 @@ html:not(.dark) .cosmic-hero::before {
     90deg,
     transparent,
     rgba(24, 24, 27, 0.22),
-    rgba(220, 38, 38, 0.24),
+    rgb(var(--color-primary-rgb) / 0.24),
     transparent
   );
   opacity: 0.55;
@@ -824,21 +873,25 @@ html:not(.dark) .cosmic-hero::after {
   background: linear-gradient(
     180deg,
     transparent,
-    rgba(220, 38, 38, 0.72),
+    rgb(var(--color-primary-rgb) / 0.72),
     rgba(24, 24, 27, 0.22),
     transparent
   );
-  box-shadow: 0 0 22px rgba(220, 38, 38, 0.42);
+  box-shadow: 0 0 22px rgb(var(--color-primary-rgb) / 0.42);
 }
 
 html:not(.dark) .cosmic-orb-left {
-  background: radial-gradient(circle, rgba(220, 38, 38, 0.16), transparent 64%);
+  background: radial-gradient(
+    circle,
+    rgb(var(--color-primary-rgb) / 0.16),
+    transparent 64%
+  );
 }
 
 html:not(.dark) .cosmic-orb-right {
   background: radial-gradient(
     circle,
-    rgba(249, 115, 22, 0.13),
+    rgb(var(--color-primary-rgb) / 0.1),
     transparent 66%
   );
 }
@@ -870,7 +923,7 @@ html:not(.dark) .cosmic-hero [class*="bg-black/"] {
 }
 
 html:not(.dark) .cosmic-hero [class*="bg-red-950/"] {
-  background-color: rgba(254, 226, 226, 0.45);
+  background-color: rgb(var(--color-primary-rgb) / 0.08);
 }
 
 html:not(.dark) .cosmic-hero .fill-zinc-300 {
@@ -890,39 +943,39 @@ html:not(.dark) .cosmic-planet {
     ),
     radial-gradient(
       ellipse at 50% 0%,
-      rgba(248, 113, 113, 0.34),
+      rgb(var(--color-primary-rgb) / 0.34),
       transparent 19%
     ),
     radial-gradient(
       ellipse at 50% 14%,
-      rgba(249, 115, 22, 0.18),
+      rgb(var(--color-primary-rgb) / 0.18),
       transparent 34%
     ),
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.3),
-      rgba(122, 36, 36, 0.2) 31%,
+      rgb(var(--color-primary-rgb) / 0.2) 31%,
       rgba(24, 24, 27, 0.92) 72%
     );
   box-shadow:
     0 -34px 90px rgba(255, 255, 255, 0.48),
-    0 -95px 170px rgba(220, 38, 38, 0.22),
-    0 -145px 230px rgba(249, 115, 22, 0.14),
+    0 -95px 170px rgb(var(--color-primary-rgb) / 0.22),
+    0 -145px 230px rgb(var(--color-primary-rgb) / 0.14),
     0 0 0 2px var(--glow-edge-color),
     0 0 20px 0 var(--glow-edge-color),
     inset 0 0 10px 0 var(--glow-edge-inset);
 }
 
 html:not(.dark) .cosmic-planet::before {
-  border-top-color: rgba(127, 29, 29, 0.62);
-  filter: drop-shadow(0 0 8px rgba(127, 29, 29, 0.22))
-    drop-shadow(0 0 24px rgba(220, 38, 38, 0.2))
+  border-top-color: rgb(var(--color-primary-rgb) / 0.62);
+  filter: drop-shadow(0 0 8px rgb(var(--color-primary-rgb) / 0.22))
+    drop-shadow(0 0 24px rgb(var(--color-primary-rgb) / 0.2))
     drop-shadow(0 0 50px rgba(24, 24, 27, 0.1));
 }
 
 html:not(.dark) .hero-social-arc {
-  border-right-color: rgba(220, 38, 38, 0.62);
-  filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.48));
+  border-right-color: rgb(var(--color-primary-rgb) / 0.62);
+  filter: drop-shadow(0 0 10px rgb(var(--color-primary-rgb) / 0.48));
 }
 
 html:not(.dark) .cosmic-nav,
@@ -951,20 +1004,20 @@ html:not(.dark) [aria-label="Toggle theme"] {
 }
 
 html:not(.dark) .header-contact-button {
-  border-color: rgba(220, 38, 38, 0.32);
-  background-color: rgba(254, 242, 242, 0.72);
-  color: #7f1d1d;
-  box-shadow: 0 0 34px rgba(220, 38, 38, 0.14);
+  border-color: rgb(var(--color-primary-rgb) / 0.32);
+  background-color: rgb(var(--color-primary-rgb) / 0.08);
+  color: var(--color-primary);
+  box-shadow: 0 0 34px rgb(var(--color-primary-rgb) / 0.14);
 }
 
 html:not(.dark) .header-contact-button:hover {
-  border-color: rgba(220, 38, 38, 0.58);
-  background-color: rgba(254, 226, 226, 0.82);
-  color: #450a0a;
+  border-color: rgb(var(--color-primary-rgb) / 0.58);
+  background-color: rgb(var(--color-primary-rgb) / 0.14);
+  color: var(--color-primary);
 }
 
 html:not(.dark) .header-contact-button svg {
-  color: #dc2626;
+  color: var(--color-primary);
 }
 
 @keyframes cosmicDrift {
@@ -993,8 +1046,8 @@ html:not(.dark) .header-contact-button svg {
   100% {
     box-shadow:
       0 -34px 95px rgba(255, 255, 255, 0.18),
-      0 -95px 190px rgba(239, 68, 68, 0.28),
-      0 -145px 260px rgba(249, 115, 22, 0.18),
+      0 -95px 190px rgb(var(--color-primary-rgb) / 0.28),
+      0 -145px 260px rgb(var(--color-primary-rgb) / 0.18),
       0 0 0 2px var(--glow-edge-color, rgba(255, 255, 255, 0.6)),
       0 0 20px 0 var(--glow-edge-color, rgba(255, 255, 255, 0.4)),
       inset 0 0 10px 0 var(--glow-edge-inset, rgba(255, 255, 255, 0.3));
@@ -1003,8 +1056,8 @@ html:not(.dark) .header-contact-button svg {
   50% {
     box-shadow:
       0 -34px 95px rgba(255, 255, 255, 0.35),
-      0 -95px 190px rgba(239, 68, 68, 0.45),
-      0 -145px 260px rgba(249, 115, 22, 0.35),
+      0 -95px 190px rgb(var(--color-primary-rgb) / 0.45),
+      0 -145px 260px rgb(var(--color-primary-rgb) / 0.35),
       0 0 0 4px var(--glow-edge-color-peak, rgba(255, 255, 255, 1)),
       0 0 40px 15px var(--glow-edge-color-peak, rgba(255, 255, 255, 0.8)),
       inset 0 0 20px 5px var(--glow-edge-inset-peak, rgba(255, 255, 255, 0.6));
@@ -1048,4 +1101,33 @@ html:not(.dark) .header-contact-button svg {
     width: 165vw;
     height: 82vw;
   }
+}
+
+/* ─── Swiper (Certifications) ────────────────────────────────────────────────── */
+.certification-swiper {
+  padding-bottom: 50px;
+}
+
+.certification-swiper .swiper-pagination-bullet {
+  background: rgb(var(--color-primary-rgb));
+  opacity: 0.5;
+}
+
+.certification-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: rgb(var(--color-primary-rgb));
+  width: 30px;
+  border-radius: 4px;
+}
+
+.certification-swiper .swiper-pagination-bullet-active-main {
+  transform: scale(1.2);
+}
+
+/* ─── User preferences ─────────────────────────────────────────────────────── */
+.glass-disabled .about-bento-card,
+.glass-disabled .cosmic-nav,
+.glass-disabled .cosmic-mobile-menu {
+  background-image: none;
+  backdrop-filter: none;
 }

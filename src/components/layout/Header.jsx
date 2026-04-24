@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Menu, Moon, Sun, X } from "lucide-react";
-import { ThemeAnimationType, useModeAnimation } from "react-theme-switch-animation";
+import {
+  ThemeAnimationType,
+  useModeAnimation,
+} from "react-theme-switch-animation";
 import { useAuth } from "../../context/AuthContext";
 import { useAdmin } from "../../hooks";
 import { THEMES } from "../../constants";
@@ -14,18 +17,27 @@ const navItems = [
   { label: "Discuss", path: "/discuss" },
 ];
 
+const SKMark = ({ className = "" }) => (
+  <span
+    className={`sk-mark inline-flex items-baseline justify-center tracking-tight ${className}`}
+  >
+    <span>S</span>
+    <span className="text-primary">K</span>
+  </span>
+);
+
 const Logo = () => (
   <Link
     to="/"
     aria-label="Go to home"
-    className="group fixed left-5 top-5 z-[60] flex items-center gap-3 text-white md:left-6 lg:left-8"
+    className="group fixed left-5 top-5 z-[60] flex items-center gap-3 text-zinc-950 dark:text-white md:left-6 lg:left-8"
   >
-    <span className="relative grid h-11 w-11 place-items-center rounded-full border border-white/12 bg-black/35 text-base font-black tracking-tight shadow-[0_0_40px_rgba(255,255,255,0.08)] backdrop-blur-2xl">
+    <span className="relative grid h-11 w-11 place-items-center rounded-full border border-zinc-300/80 bg-transparent text-base font-black tracking-tight shadow-[0_0_30px_rgb(var(--color-primary-rgb)/0.12)] backdrop-blur-2xl dark:border-white/15">
       <span className="logo-orbit-dot" aria-hidden="true" />
-      SK
+      <SKMark />
     </span>
     <span className="hidden font-mono text-xs font-bold tracking-tight sm:block">
-      Sarafat <span className="text-red-400">Karim</span>
+      Sarafat <span className="text-primary">Karim</span>
     </span>
   </Link>
 );
@@ -50,7 +62,7 @@ const ThemeToggleButton = ({ mobile = false }) => {
         type="button"
         onClick={toggleSwitchTheme}
         aria-label="Toggle theme"
-        className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-black/25 text-zinc-200 transition hover:border-red-400/40 hover:text-white"
+        className="grid h-10 w-10 place-items-center rounded-full border border-zinc-300/80 bg-transparent text-zinc-800 transition hover:border-primary/50 hover:text-primary dark:border-white/15 dark:text-zinc-200 dark:hover:text-white"
       >
         {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
       </button>
@@ -63,7 +75,7 @@ const ThemeToggleButton = ({ mobile = false }) => {
       type="button"
       onClick={toggleSwitchTheme}
       aria-label="Toggle theme"
-      className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-black/35 text-red-200 shadow-[0_0_32px_rgba(239,68,68,0.16)] backdrop-blur-2xl transition hover:border-red-400/50 hover:text-white"
+      className="grid h-9 w-9 place-items-center rounded-full border border-zinc-300/80 bg-transparent text-primary shadow-[0_0_32px_rgb(var(--color-primary-rgb)/0.12)] backdrop-blur-2xl transition hover:border-primary/50 dark:border-white/15 dark:hover:text-white"
     >
       {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
     </button>
@@ -102,8 +114,8 @@ const Header = () => {
                 className={({ isActive }) =>
                   `relative rounded-full px-5 py-2 font-mono text-[0.7rem] font-bold transition ${
                     isActive
-                      ? "text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1),0_0_30px_rgba(255,255,255,0.06)]"
-                      : "text-zinc-500 hover:text-zinc-200"
+                      ? "text-primary shadow-[inset_0_0_0_1px_rgb(var(--color-primary-rgb)/0.28),0_0_30px_rgb(var(--color-primary-rgb)/0.12)]"
+                      : "text-zinc-600 hover:text-primary dark:text-zinc-500 dark:hover:text-primary"
                   }`
                 }
               >
@@ -112,8 +124,12 @@ const Header = () => {
                     {isActive && (
                       <motion.span
                         layoutId="header-active-pill"
-                        className="absolute inset-0 rounded-full bg-white/[0.055]"
-                        transition={{ type: "spring", bounce: 0.18, duration: 0.55 }}
+                        className="absolute inset-0 rounded-full bg-primary/10"
+                        transition={{
+                          type: "spring",
+                          bounce: 0.18,
+                          duration: 0.55,
+                        }}
                       />
                     )}
                     <span className="relative z-10">{item.label}</span>
@@ -122,7 +138,6 @@ const Header = () => {
               </NavLink>
             ))}
           </div>
-
         </nav>
       </motion.header>
 
@@ -137,7 +152,7 @@ const Header = () => {
           onClick={() => setMenuOpen((value) => !value)}
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
-          className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-black/25 text-zinc-200 shadow-[0_0_32px_rgba(239,68,68,0.12)] backdrop-blur-2xl transition hover:border-red-400/40 hover:text-white"
+          className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-black/25 text-zinc-200 shadow-[0_0_32px_rgb(var(--color-primary-rgb)/0.12)] backdrop-blur-2xl transition hover:border-primary/40 hover:text-white"
         >
           {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -146,10 +161,10 @@ const Header = () => {
       <div className="fixed right-5 top-5 z-[60] hidden items-center gap-3.5 lg:flex">
         <a
           href="#contact"
-          className="header-contact-button group inline-flex items-center gap-2.5 rounded-full border border-red-500/25 bg-red-950/10 px-5 py-2.5 font-mono text-[0.72rem] font-bold text-zinc-100 shadow-[0_0_40px_rgba(239,68,68,0.16)] backdrop-blur-2xl transition hover:border-red-400/55 hover:bg-red-500/10"
+          className="header-contact-button group inline-flex items-center gap-2.5 rounded-full border border-primary/25 bg-primary/10 px-5 py-2.5 font-mono text-[0.72rem] font-bold text-primary shadow-[0_0_40px_rgb(var(--color-primary-rgb)/0.16)] backdrop-blur-2xl transition hover:border-primary/55 hover:bg-primary/10"
         >
           Contact Me
-          <ArrowRight className="h-4 w-4 text-red-300 transition group-hover:translate-x-1" />
+          <ArrowRight className="h-4 w-4 text-primary transition group-hover:translate-x-1" />
         </a>
 
         <ThemeToggleButton />
@@ -183,7 +198,7 @@ const Header = () => {
                     type="button"
                     onClick={() => setMenuOpen(false)}
                     aria-label="Close menu"
-                    className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-zinc-200 transition hover:border-red-400/40 hover:text-white"
+                    className="grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-zinc-200 transition hover:border-primary/40 hover:text-white"
                   >
                     <X className="h-5 w-5" />
                   </button>
@@ -200,8 +215,8 @@ const Header = () => {
                     className={({ isActive }) =>
                       `rounded-2xl px-4 py-3 font-mono text-xs font-bold transition ${
                         isActive
-                          ? "bg-white/[0.08] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
-                          : "text-zinc-300 hover:bg-white/[0.06] hover:text-white"
+                          ? "bg-primary/10 text-primary shadow-[inset_0_0_0_1px_rgb(var(--color-primary-rgb)/0.22)]"
+                          : "text-zinc-300 hover:bg-white/[0.06] hover:text-primary"
                       }`
                     }
                   >
@@ -214,7 +229,7 @@ const Header = () => {
                 <a
                   href="#contact"
                   onClick={() => setMenuOpen(false)}
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-red-600 px-4 py-3 font-mono text-xs font-bold text-white"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-2xl bg-primary px-4 py-3 font-mono text-xs font-bold text-white"
                 >
                   Contact Me
                   <ArrowRight className="h-4 w-4" />

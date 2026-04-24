@@ -13,39 +13,46 @@ import { NAV_ITEMS, SOCIAL_LINKS, OWNER } from "../../constants";
 import VisitorCounter from "../sections/VisitorCounter";
 
 const Footer = () => (
-  <footer className="background dark:bg-black dark:bg-none border-t border-gray-100 dark:border-white/5 py-12 px-4">
-    <div className="container max-w-6xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-        {/* Brand & Info - Align to start */}
+  <footer className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-t border-primary/10 bg-[#05050a] px-4 pb-10 !pt-10 !mt-0 text-zinc-950 dark:text-white">
+    <div className="about-cosmic-starfield" aria-hidden="true" />
+    <div className="cosmic-noise" aria-hidden="true" />
+
+    <div className="relative z-10 mx-auto max-w-6xl">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         <div className="space-y-3 md:self-start">
-          <h3 className="font-bold text-gray-900 dark:text-white text-lg">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-3 w-3 rounded-full bg-primary shadow-[0_0_18px_rgb(var(--color-primary-rgb)/0.7)]" />
+            <p className="font-mono text-[0.58rem] font-bold uppercase tracking-[0.26em] text-primary">
+              Portfolio
+            </p>
+          </div>
+
+          <h3 className="text-lg font-black text-zinc-950 dark:text-white">
             {OWNER.name}
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
             {OWNER.title}
           </p>
 
-          {/* Optional: Add location/email if available */}
           {OWNER.location && (
-            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-              <FiMapPin className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+              <FiMapPin className="h-4 w-4 text-primary" />
               <span>{OWNER.location}</span>
             </div>
           )}
           {OWNER.email && (
             <a
               href={`mailto:${OWNER.email}`}
-              className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-primary dark:text-zinc-400"
             >
-              <FiMail className="w-4 h-4" />
+              <FiMail className="h-4 w-4 text-primary" />
               <span>{OWNER.email}</span>
             </a>
           )}
         </div>
 
-        {/* Quick links - Align to center */}
         <div className="space-y-3 md:self-center md:justify-self-center">
-          <h4 className="text-xs font-semibold uppercase tracking-widest text-gray-400 text-center md:text-left">
+          <h4 className="text-center font-mono text-[0.58rem] font-bold uppercase tracking-[0.24em] text-primary md:text-left">
             Navigation
           </h4>
           <ul className="space-y-2 text-center md:text-left">
@@ -53,7 +60,7 @@ const Footer = () => (
               <li key={item.path}>
                 <Link
                   to={item.path}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                  className="text-sm text-zinc-600 transition-colors hover:text-primary dark:text-zinc-400"
                 >
                   {item.label}
                 </Link>
@@ -62,20 +69,19 @@ const Footer = () => (
           </ul>
         </div>
 
-        {/* Social - Align to end with Visitor Counter */}
         <div className="space-y-4 md:justify-self-end">
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-widest text-gray-400 text-right md:text-left">
+            <h4 className="text-center font-mono text-[0.58rem] font-bold uppercase tracking-[0.24em] text-primary md:text-left">
               Connect
             </h4>
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-3">
+            <div className="mt-3 flex flex-wrap justify-center gap-3 md:justify-start">
               {SOCIAL_LINKS.facebook && (
                 <a
                   href={SOCIAL_LINKS.facebook}
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Facebook"
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:text-primary hover:border-primary transition-all text-sm"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300/70 bg-white/45 text-sm text-zinc-600 transition-all hover:border-primary hover:text-primary dark:border-white/10 dark:bg-white/[0.035] dark:text-zinc-400"
                 >
                   <FaFacebook />
                 </a>
@@ -86,7 +92,7 @@ const Footer = () => (
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:text-primary hover:border-primary transition-all text-sm"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300/70 bg-white/45 text-sm text-zinc-600 transition-all hover:border-primary hover:text-primary dark:border-white/10 dark:bg-white/[0.035] dark:text-zinc-400"
                 >
                   <FiLinkedin />
                 </a>
@@ -97,7 +103,7 @@ const Footer = () => (
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub"
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:text-primary hover:border-primary transition-all text-sm"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300/70 bg-white/45 text-sm text-zinc-600 transition-all hover:border-primary hover:text-primary dark:border-white/10 dark:bg-white/[0.035] dark:text-zinc-400"
                 >
                   <FiGithub />
                 </a>
@@ -108,7 +114,7 @@ const Footer = () => (
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Twitter"
-                  className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:text-primary hover:border-primary transition-all text-sm"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-zinc-300/70 bg-white/45 text-sm text-zinc-600 transition-all hover:border-primary hover:text-primary dark:border-white/10 dark:bg-white/[0.035] dark:text-zinc-400"
                 >
                   <FaXTwitter />
                 </a>
@@ -116,21 +122,17 @@ const Footer = () => (
             </div>
           </div>
 
-          {/* Visitor Counter - Below social links */}
           <div className="flex justify-center md:justify-start">
             <VisitorCounter />
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar with Centered Elements */}
-      <div className="flex flex-col items-center gap-4 pt-6 border-t border-gray-100 dark:border-white/5">
-        {/* Copyright - Centered */}
-        <p className="text-xs text-gray-400 text-center">
+      <div className="mt-10 flex flex-col items-center gap-4 border-t border-zinc-300/70 pt-6 dark:border-white/[0.07]">
+        <p className="text-center text-xs text-zinc-500 dark:text-zinc-500">
           © {new Date().getFullYear()} {OWNER.name}. All rights reserved.
         </p>
 
-        {/* Back to top - Animated icon only, centered below copyright */}
         <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           whileHover={{ y: -4 }}
@@ -139,10 +141,10 @@ const Footer = () => (
             y: { duration: 1.5, repeat: Infinity, ease: "easeInOut" },
             hover: { duration: 0.2 },
           }}
-          className="flex my-5 items-center justify-center text-gray-400 hover:text-primary transition-colors"
+          className="my-2 grid h-10 w-10 place-items-center rounded-full border border-primary/25 bg-primary/10 text-primary transition-colors hover:border-primary/55 hover:bg-primary/15"
           aria-label="Back to top"
         >
-          <FiArrowUp className="w-5 h-5 md:w-10 md:h-10" />
+          <FiArrowUp className="h-5 w-5" />
         </motion.button>
       </div>
     </div>

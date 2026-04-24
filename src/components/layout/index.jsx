@@ -6,10 +6,12 @@ import Footer from "./Footer";
 import { useAuth } from "../../context/AuthContext";
 import { useAdmin } from "../../hooks";
 import { Spinner } from "../ui";
+import CustomCursor from "../CustomCursor";
 
 // ── Root layout ───────────────────────────────────────────────────────────────
 export const RootLayout = () => (
   <div className="overflow-x-hidden dark:bg-black dark:text-white">
+    <CustomCursor />
     <Header />
     <main>
       <Outlet />

@@ -42,7 +42,7 @@ const CircularTalk = () => (
       >
         <textPath href="#heroTalkCircle">COME ON LET&apos;S TALK • </textPath>
       </text>
-      <circle cx="60" cy="60" r="5" fill="#ef4444" />
+      <circle cx="60" cy="60" r="5" className="fill-primary" />
     </svg>
   </motion.div>
 );
@@ -50,7 +50,7 @@ const CircularTalk = () => (
 const Banner = () => (
   <section
     id="hero"
-    className="cosmic-hero relative left-1/2 min-h-screen w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 text-white sm:px-5"
+    className="cosmic-hero relative pb-8 left-1/2 min-h-screen w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 text-white sm:px-5"
   >
     <div className="cosmic-starfield" aria-hidden="true" />
     <div className="cosmic-noise" aria-hidden="true" />
@@ -95,7 +95,7 @@ const Banner = () => (
             <span key={role} className="inline-flex items-center gap-2.5">
               {role}
               {index < roles.length - 1 && (
-                <span className="h-1 w-1 rounded-full bg-red-500 shadow-[0_0_16px_rgba(239,68,68,0.9)]" />
+                <span className="h-1 w-1 rounded-full bg-primary shadow-[0_0_16px_rgb(var(--color-primary-rgb)/0.9)]" />
               )}
             </span>
           ))}
@@ -116,7 +116,7 @@ const Banner = () => (
         >
           <a
             href="#projects"
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-full border border-red-400/40 bg-red-600/80 px-5 py-2.5 font-mono text-[0.72rem] font-bold text-white shadow-[0_0_55px_rgba(239,68,68,0.32)] transition hover:-translate-y-0.5 hover:bg-red-500 hover:shadow-[0_0_75px_rgba(239,68,68,0.45)] sm:w-auto"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-full border border-primary/40 bg-primary/80 px-5 py-2.5 font-mono text-[0.72rem] font-bold text-white shadow-[0_0_55px_rgb(var(--color-primary-rgb)/0.32)] transition hover:-translate-y-0.5 hover:bg-primary hover:shadow-[0_0_75px_rgb(var(--color-primary-rgb)/0.45)] sm:w-auto"
           >
             View My Work
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
@@ -137,7 +137,7 @@ const Banner = () => (
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.28 }}
           className="mt-10 md:hidden"
         >
-          <div className="relative mx-auto h-[17.5rem] w-[17.5rem] max-w-full overflow-hidden rounded-full border border-red-500/20 bg-red-950/10 shadow-[0_0_90px_rgba(239,68,68,0.14)] sm:h-[21rem] sm:w-[21rem]">
+          <div className="relative mx-auto h-[17.5rem] w-[17.5rem] max-w-full overflow-hidden rounded-full border border-primary/20 bg-primary/10 shadow-[0_0_90px_rgb(var(--color-primary-rgb)/0.14)] sm:h-[21rem] sm:w-[21rem]">
             <img
               src={profile}
               alt={OWNER.name}
@@ -153,7 +153,7 @@ const Banner = () => (
                 target="_blank"
                 rel="noreferrer"
                 aria-label={item.label}
-                className="grid h-10 w-10 place-items-center rounded-full border border-red-500/20 bg-black/30 text-base text-zinc-200 shadow-[0_0_28px_rgba(239,68,68,0.16)] backdrop-blur-xl transition hover:border-red-400/60 hover:bg-red-500/10 hover:text-white"
+                className="grid h-10 w-10 place-items-center rounded-full border border-primary/20 bg-black/30 text-base text-zinc-200 shadow-[0_0_28px_rgb(var(--color-primary-rgb)/0.16)] backdrop-blur-xl transition hover:border-primary/60 hover:bg-primary/10 hover:text-white"
               >
                 {item.icon}
               </a>
@@ -169,7 +169,7 @@ const Banner = () => (
         className="relative mx-auto hidden w-full max-w-[420px] items-center justify-center md:flex lg:max-w-[560px]"
       >
         <CircularTalk />
-        <div className="relative z-20 h-[320px] w-[320px] overflow-hidden rounded-full border border-red-500/20 bg-red-950/10 shadow-[0_0_90px_rgba(239,68,68,0.14)] lg:h-[420px] lg:w-[420px] lg:shadow-[0_0_110px_rgba(239,68,68,0.14)]">
+        <div className="relative z-20 h-[320px] w-[320px] overflow-hidden rounded-full border border-primary/20 bg-primary/10 shadow-[0_0_90px_rgb(var(--color-primary-rgb)/0.14)] lg:h-[420px] lg:w-[420px] lg:shadow-[0_0_110px_rgb(var(--color-primary-rgb)/0.14)]">
           <img
             src={profile}
             alt={OWNER.name}
@@ -186,7 +186,7 @@ const Banner = () => (
               target="_blank"
               rel="noreferrer"
               aria-label={item.label}
-              className="grid h-8 w-8 place-items-center rounded-full border border-red-500/20 bg-black/30 text-sm text-zinc-200 shadow-[0_0_24px_rgba(239,68,68,0.16)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-red-400/60 hover:bg-red-500/10 hover:text-white lg:h-9 lg:w-9 lg:text-base lg:shadow-[0_0_28px_rgba(239,68,68,0.16)]"
+              className="grid h-8 w-8 place-items-center rounded-full border border-primary/20 bg-black/30 text-sm text-zinc-200 shadow-[0_0_24px_rgb(var(--color-primary-rgb)/0.16)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-primary/60 hover:bg-primary/10 hover:text-white lg:h-9 lg:w-9 lg:text-base lg:shadow-[0_0_28px_rgb(var(--color-primary-rgb)/0.16)]"
             >
               {item.icon}
             </a>

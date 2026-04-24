@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "FitForge - Forge Your Fitness Journey",
+    "name": "FitForge",
     "image": "https://i.ibb.co.com/tT5xpSkH/Fit-Forge.png",
     "description": "A fitness tracking website that enables users to log workouts, track progress, and stay motivated on their fitness journey.",
     "techStack": {
@@ -91,7 +91,7 @@
   },
   {
     "id": 2,
-    "name": "Artifact Hub - Explore Timeless Treasures",
+    "name": "Artifact Hub",
     "image": "https://i.ibb.co.com/svNqcr3X/Artifact-Hub.png",
     "description": "A digital platform for history enthusiasts to discover, learn, and share knowledge about historical artifacts from different eras.",
     "techStack": {
@@ -173,7 +173,7 @@
   },
   {
     "id": 3,
-    "name": "VisaEase - Hassle Free Visa Assistance",
+    "name": "VisaEase",
     "image": "https://i.ibb.co.com/KpmZq3XW/VisaEase.png",
     "description": "A seamless visa application platform designed to simplify the visa process with a modern UI and robust features.",
     "techStack": {

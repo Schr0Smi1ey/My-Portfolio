@@ -1,400 +1,230 @@
-import React, { useEffect } from "react";
-import { motion } from "framer-motion";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { motion, useReducedMotion } from "framer-motion";
 import {
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaNodeJs,
+  FaCode,
   FaDatabase,
   FaGitAlt,
   FaGithub,
-  FaTerminal,
-  FaCode,
-  FaWrench,
-  FaServer,
+  FaHtml5,
+  FaNodeJs,
   FaPaintBrush,
+  FaServer,
+  FaTerminal,
+  FaWrench,
 } from "react-icons/fa";
 import {
-  SiTailwindcss,
   SiExpress,
   SiFirebase,
+  SiJavascript,
   SiMongodb,
   SiMysql,
-  SiCplusplus,
-  SiC,
-  SiPython,
+  SiTailwindcss,
 } from "react-icons/si";
 import c from "../../assets/Home/Skills/C.png";
 import cpp from "../../assets/Home/Skills/C++.png";
 import python from "../../assets/Home/Skills/python.png";
-import Background from "../Background";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const skillRows = [
+  {
+    system: "Interface",
+    use: "Build UI",
+    icon: FaPaintBrush,
+    skills: [
+      { name: "HTML5", icon: <FaHtml5 className="text-orange-500" /> },
+      { name: "CSS3", icon: <FaCode className="text-blue-500" /> },
+      { name: "Tailwind", icon: <SiTailwindcss className="text-cyan-500" /> },
+      {
+        name: "JavaScript",
+        icon: <SiJavascript className="text-yellow-400" />,
+      },
+      { name: "React", icon: <FaCode className="text-sky-400" /> },
+    ],
+  },
+  {
+    system: "Backend",
+    use: "Serve APIs",
+    icon: FaServer,
+    skills: [
+      { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
+      { name: "Express", icon: <SiExpress className="text-zinc-500" /> },
+      { name: "Firebase", icon: <SiFirebase className="text-yellow-500" /> },
+    ],
+  },
+  {
+    system: "Database",
+    use: "Model Data",
+    icon: FaDatabase,
+    skills: [
+      { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
+      { name: "MySQL", icon: <SiMysql className="text-blue-600" /> },
+      { name: "Firebase", icon: <SiFirebase className="text-yellow-500" /> },
+    ],
+  },
+  {
+    system: "Languages",
+    use: "Solve Logic",
+    icon: FaCode,
+    skills: [
+      { name: "C", icon: <img src={c} alt="" className="h-4 w-4" /> },
+      { name: "C++", icon: <img src={cpp} alt="" className="h-4 w-4" /> },
+      { name: "Python", icon: <img src={python} alt="" className="h-4 w-4" /> },
+      { name: "DSA", icon: <FaCode className="text-primary" /> },
+      { name: "OOP", icon: <FaCode className="text-zinc-500" /> },
+    ],
+  },
+  {
+    system: "Tools",
+    use: "Ship Work",
+    icon: FaWrench,
+    skills: [
+      { name: "Git", icon: <FaGitAlt className="text-orange-600" /> },
+      {
+        name: "GitHub",
+        icon: <FaGithub className="text-zinc-700 dark:text-zinc-200" />,
+      },
+      { name: "Terminal", icon: <FaTerminal className="text-zinc-500" /> },
+      { name: "Postman", icon: <FaWrench className="text-orange-500" /> },
+      { name: "VS Code", icon: <FaCode className="text-blue-500" /> },
+    ],
+  },
+];
+
+const SkillChip = ({ skill }) => (
+  <span className="inline-flex min-w-0 items-center gap-2 rounded-full border border-zinc-300/80 bg-white/70 px-3 py-1.5 text-[0.7rem] font-semibold text-zinc-800 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)] dark:border-white/10 dark:bg-white/[0.035] dark:text-zinc-100 dark:shadow-none">
+    <span className="grid h-6 w-6 shrink-0 place-items-center text-[18px]">
+      {skill.icon}
+    </span>
+    <span className="truncate text-[14px] font-normal">{skill.name}</span>
+  </span>
+);
+
+const SkillRow = ({ row, index }) => {
+  const Icon = row.icon;
+
+  return (
+    <motion.div
+      variants={fadeUp}
+      className="grid gap-4 border-b border-zinc-300/70 px-4 py-5 last:border-b-0 dark:border-white/[0.07] md:grid-cols-[3rem_8rem_minmax(0,1fr)_7rem] md:items-center"
+    >
+      <span className="grid h-12 w-12 place-items-center rounded-xl border border-primary/25 bg-primary/10 text-primary">
+        <Icon className="h-5 w-5" />
+      </span>
+
+      <div>
+        <p className="font-mono text-[0.56rem] font-bold uppercase tracking-[0.18em] text-zinc-500">
+          0{index + 1}
+        </p>
+        <h3 className="mt-1 text-xl font-black uppercase tracking-tight text-zinc-950 dark:text-white">
+          {row.system}
+        </h3>
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        {row.skills.map((skill) => (
+          <SkillChip key={skill.name} skill={skill} />
+        ))}
+      </div>
+
+      <p className="font-mono text-[0.58rem] font-bold uppercase tracking-[0.18em] text-primary md:text-right">
+        {row.use}
+      </p>
+    </motion.div>
+  );
+};
 
 const Skills = () => {
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true,
-      easing: "ease-out-cubic",
-    });
-  }, []);
-
-  const skillCategories = [
-    {
-      title: "Frontend Development",
-      icon: <FaPaintBrush className="w-6 h-6 text-black" />,
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-500/10",
-      borderColor: "border-blue-500/30",
-      skills: [
-        {
-          name: "HTML5",
-          level: 95,
-          icon: <FaHtml5 className="text-orange-500 text-2xl" />,
-        },
-        {
-          name: "CSS3",
-          level: 90,
-          icon: <FaCss3Alt className="text-blue-500 text-2xl" />,
-        },
-        {
-          name: "Tailwind CSS",
-          level: 85,
-          icon: <SiTailwindcss className="text-cyan-500 text-2xl" />,
-        },
-        {
-          name: "JavaScript",
-          level: 85,
-          icon: <FaJs className="text-yellow-500 text-2xl" />,
-        },
-        {
-          name: "React.js",
-          level: 80,
-          icon: <FaReact className="text-blue-400 text-2xl" />,
-        },
-      ],
-    },
-    {
-      title: "Backend & Databases",
-      icon: <FaServer className="w-6 h-6 text-black" />,
-      color: "from-green-500 to-emerald-600",
-      bgColor: "bg-green-500/10",
-      borderColor: "border-green-500/30",
-      skills: [
-        {
-          name: "Node.js",
-          level: 75,
-          icon: <FaNodeJs className="text-green-500 text-2xl" />,
-        },
-        {
-          name: "MongoDB",
-          level: 70,
-          icon: <SiMongodb className="text-green-700 text-2xl" />,
-        },
-        {
-          name: "MySQL",
-          level: 70,
-          icon: <SiMysql className="text-blue-700 text-2xl" />,
-        },
-        {
-          name: "Express.js",
-          level: 75,
-          icon: (
-            <SiExpress className="text-gray-600 dark:text-gray-400 text-2xl" />
-          ),
-        },
-        {
-          name: "Firebase",
-          level: 70,
-          icon: <SiFirebase className="text-yellow-600 text-2xl" />,
-        },
-      ],
-    },
-    {
-      title: "Languages",
-      icon: <FaCode className="w-6 h-6 text-black" />,
-      color: "from-purple-500 to-pink-600",
-      bgColor: "bg-purple-500/10",
-      borderColor: "border-purple-500/30",
-      skills: [
-        {
-          name: "C",
-          level: 90,
-          icon: <img src={c} className="w-6 h-6" alt="C" />,
-        },
-        {
-          name: "C++",
-          level: 85,
-          icon: <img src={cpp} className="w-6 h-6" alt="C++" />,
-        },
-        {
-          name: "Python",
-          level: 80,
-          icon: <img src={python} className="w-6 h-6" alt="Python" />,
-        },
-      ],
-    },
-    {
-      title: "Tools & Version Control",
-      icon: <FaWrench className="w-6 h-6 text-black" />,
-      color: "from-orange-500 to-red-600",
-      bgColor: "bg-orange-500/10",
-      borderColor: "border-orange-500/30",
-      skills: [
-        {
-          name: "Git",
-          level: 85,
-          icon: <FaGitAlt className="text-orange-600 text-2xl" />,
-        },
-        {
-          name: "GitHub",
-          level: 90,
-          icon: <FaGithub className="text-gray-900 dark:text-white text-2xl" />,
-        },
-        {
-          name: "Terminal",
-          level: 80,
-          icon: (
-            <FaTerminal className="text-gray-500 dark:text-gray-400 text-2xl" />
-          ),
-        },
-      ],
-    },
-  ];
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
       id="skills"
-      className="relative py-16 md:py-24 lg:py-28 overflow-hidden"
+      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 py-20 mb-20 text-zinc-950 dark:text-white md:px-8 md:py-24"
     >
-      <Background
-        mouseGlow
-        showGrid
-        showGridPattern
-        showBottomFade
-        showNoise
-        showOrbs
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16 md:mb-20"
-          >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-block mb-6"
-            >
-              <span className="px-4 py-2 rounded-full text-sm font-medium bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-300 border border-primary/20 dark:border-primary/30 backdrop-blur-sm">
-                🚀 Technical Arsenal
-              </span>
-            </motion.div>
+      <div className="about-cosmic-starfield" aria-hidden="true" />
+      <div className="cosmic-noise" aria-hidden="true" />
+      <motion.div
+        className="cosmic-orb cosmic-orb-left"
+        aria-hidden="true"
+        animate={
+          shouldReduceMotion
+            ? {}
+            : { y: [0, -12, 0], x: [0, 8, 0], scale: [1, 1.04, 1] }
+        }
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="cosmic-orb cosmic-orb-right"
+        aria-hidden="true"
+        animate={
+          shouldReduceMotion
+            ? {}
+            : { y: [0, 14, 0], x: [0, -8, 0], scale: [1, 1.05, 1] }
+        }
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-            {/* Title */}
-            <h2
-              data-aos="fade-up"
-              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4"
+      <motion.div
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.07, delayChildren: 0.08 },
+          },
+        }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        className="relative z-10 mx-auto max-w-6xl"
+      >
+        <div className="mb-8 grid gap-8 lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+          <motion.div variants={fadeUp} className="p-2 lg:p-1">
+            <div className="mb-5 flex items-center gap-4">
+              <span className="h-4 w-4 rounded-full bg-primary shadow-[0_0_18px_rgb(var(--color-primary-rgb)/0.7)]" />
+              <p className="font-mono text-[0.62rem] font-bold uppercase tracking-[0.28em] text-zinc-600 dark:text-zinc-400">
+                Technical Systems
+              </p>
+            </div>
+            <motion.h2
+              variants={fadeUp}
+              className="font-display text-3xl leading-[0.82] tracking-tight text-zinc-950 dark:text-white sm:text-4xl lg:text-5xl"
             >
-              <span className="bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-                Skills & Expertise
+              Skills &{" "}
+              <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
+                Expertise
               </span>
-            </h2>
-            <p
-              data-aos="fade-up"
-              data-aos-delay="100"
-              className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-            >
-              Turning ideas into reality, one line of code at a time 💻✨
-            </p>
+            </motion.h2>
           </motion.div>
 
-          {/* Skills Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-10">
-            {skillCategories.map((category, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -4 }}
-                className="group relative"
-              >
-                {/* Card Background with Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/5 to-transparent dark:from-white/5 rounded-3xl transform group-hover:scale-[1.02] transition-transform duration-500" />
+          <motion.span
+            variants={fadeUp}
+            className="hidden h-16 w-px bg-primary/70 lg:block"
+            aria-hidden="true"
+          />
 
-                {/* Main Card */}
-                <div className="relative p-8 rounded-3xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 hover:border-primary/30 dark:hover:border-primary-400/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 dark:hover:shadow-primary/10">
-                  {/* Category Header */}
-                  <div className="flex items-center gap-4 mb-8">
-                    {/* Icon Container */}
-                    <div
-                      className={`p-4 rounded-2xl ${category.bgColor} border ${category.borderColor}`}
-                    >
-                      <div
-                        className={`text-2xl bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}
-                      >
-                        {category.icon}
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                        {category.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {category.skills.length} technologies
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Skills List */}
-                  <div className="space-y-5">
-                    {category.skills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skillIndex}
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: skillIndex * 0.1 }}
-                        viewport={{ once: true }}
-                        className="group/skill"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center gap-3">
-                            {/* Skill Icon */}
-                            <div className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700/50">
-                              {skill.icon}
-                            </div>
-                            <span className="font-medium text-gray-800 dark:text-gray-200">
-                              {skill.name}
-                            </span>
-                          </div>
-                          <span className="text-sm font-semibold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                            {skill.level}%
-                          </span>
-                        </div>
-
-                        {/* Progress Bar Container */}
-                        <div className="relative h-2.5 bg-gray-100 dark:bg-gray-700/50 rounded-full overflow-hidden">
-                          {/* Background Pattern */}
-                          <div
-                            className="absolute inset-0 opacity-10"
-                            style={{
-                              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(0,0,0,0.1) 6px, rgba(0,0,0,0.1) 12px)`,
-                            }}
-                          />
-
-                          {/* Animated Progress Bar */}
-                          <motion.div
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
-                            transition={{
-                              duration: 1.2,
-                              delay: 0.2,
-                              ease: "easeOut",
-                            }}
-                            className={`relative h-full rounded-full bg-gradient-to-r ${category.color}`}
-                          >
-                            {/* Shine Effect */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shine" />
-                          </motion.div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Decorative Elements */}
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl -z-10" />
-
-                  {/* Stats Footer */}
-                  <div className="mt-6 pt-6 border-t border-gray-200/50 dark:border-gray-700/50">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">
-                        Average Proficiency
-                      </span>
-                      <span className="font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                        {Math.round(
-                          category.skills.reduce(
-                            (acc, curr) => acc + curr.level,
-                            0,
-                          ) / category.skills.length,
-                        )}
-                        %
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Glow Effect on Hover */}
-                <div
-                  className={`absolute inset-0 -z-10 bg-gradient-to-r ${category.color} opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-700 rounded-3xl`}
-                />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Additional Skills Banner */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="mt-16 p-8 rounded-3xl bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-gray-800/50 dark:to-gray-900/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50"
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="flex items-center gap-4">
-                <div className="p-4 rounded-2xl bg-primary/10 dark:bg-primary/20">
-                  <FaCode className="w-8 h-8 text-primary" />
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold text-gray-900 dark:text-white">
-                    Continuous Learning
-                  </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Always exploring new technologies and best practices
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <span className="px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 text-sm font-medium">
-                  TypeScript
-                </span>
-                <span className="px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-600 dark:text-purple-400 text-sm font-medium">
-                  Next.js
-                </span>
-                <span className="px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30 text-green-600 dark:text-green-400 text-sm font-medium">
-                  Docker
-                </span>
-                <span className="px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-600 dark:text-orange-400 text-sm font-medium">
-                  AWS
-                </span>
-              </div>
-            </div>
+          <motion.div variants={fadeUp} className="p-2 lg:p-1">
+            <p className="max-w-md text-[0.82rem] leading-6 text-zinc-500">
+              A compact operating table for the stack I use to build interfaces,
+              connect services, model data, and solve implementation problems.
+            </p>
           </motion.div>
         </div>
 
-        <style>{`
-        @keyframes shine {
-          0% {
-            transform: translateX(-100%) skewX(-12deg);
-          }
-          50%, 100% {
-            transform: translateX(200%) skewX(-12deg);
-          }
-        }
-        .animate-shine {
-          animation: shine 3s infinite;
-        }
-      `}</style>
-      </Background>
+        <motion.div variants={fadeUp} className="about-bento-card">
+          <div className="hidden border-b border-zinc-300/70 px-4 py-3 font-mono text-[0.56rem] font-bold uppercase tracking-[0.18em] text-zinc-500 dark:border-white/[0.07] md:grid md:grid-cols-[3rem_8rem_minmax(0,1fr)_7rem] md:gap-4">
+            <span />
+            <span>System</span>
+            <span>Skills</span>
+            <span className="text-right">Use</span>
+          </div>
+
+          {skillRows.map((row, index) => (
+            <SkillRow key={row.system} row={row} index={index} />
+          ))}
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

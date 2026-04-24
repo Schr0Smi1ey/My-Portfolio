@@ -22,6 +22,62 @@ export const GITHUB_REPOS_URL = `https://api.github.com/users/${GITHUB_USERNAME}
 export const THEME_KEY = "portfolio-theme";
 export const THEMES = { LIGHT: "light", DARK: "dark" };
 
+// ─── Website preferences ─────────────────────────────────────────────────────
+export const PREFERENCES_KEY = "portfolio-preferences";
+export const PRIMARY_COLORS = [
+  { name: "Crimson", value: "#ef4444" },
+  { name: "Emerald", value: "#198068" },
+  { name: "Violet", value: "#8b5cf6" },
+  { name: "Cyan", value: "#06b6d4" },
+  { name: "Amber", value: "#f59e0b" },
+];
+export const FONT_OPTIONS = [
+  { name: "Fira Sans", value: '"Fira Sans", sans-serif' },
+  { name: "Awesome Local", value: '"Awesome Local", sans-serif' },
+  {
+    name: "Perfecto Calligraphy",
+    value: '"Perfecto Calligraphy", cursive',
+  },
+  { name: "Inter", value: '"Inter", sans-serif' },
+  { name: "DM Sans", value: '"DM Sans", sans-serif' },
+  { name: "Poppins", value: '"Poppins", sans-serif' },
+  { name: "Manrope", value: '"Manrope", sans-serif' },
+  { name: "Outfit", value: '"Outfit", sans-serif' },
+  { name: "Space Grotesk", value: '"Space Grotesk", sans-serif' },
+  { name: "Plus Jakarta Sans", value: '"Plus Jakarta Sans", sans-serif' },
+  { name: "Sora", value: '"Sora", sans-serif' },
+  { name: "Urbanist", value: '"Urbanist", sans-serif' },
+  { name: "Rubik", value: '"Rubik", sans-serif' },
+  { name: "Nunito Sans", value: '"Nunito Sans", sans-serif' },
+  { name: "Lato", value: '"Lato", sans-serif' },
+  { name: "Roboto", value: '"Roboto", sans-serif' },
+  { name: "Open Sans", value: '"Open Sans", sans-serif' },
+  { name: "Montserrat", value: '"Montserrat", sans-serif' },
+  { name: "Work Sans", value: '"Work Sans", sans-serif' },
+  { name: "Raleway", value: '"Raleway", sans-serif' },
+  { name: "Archivo", value: '"Archivo", sans-serif' },
+  { name: "IBM Plex Sans", value: '"IBM Plex Sans", sans-serif' },
+  { name: "Ubuntu", value: '"Ubuntu", sans-serif' },
+  { name: "Oswald", value: '"Oswald", sans-serif' },
+  { name: "Merriweather", value: '"Merriweather", serif' },
+  { name: "Lora", value: '"Lora", serif' },
+  { name: "Playfair Display", value: '"Playfair Display", serif' },
+  { name: "Cormorant Garamond", value: '"Cormorant Garamond", serif' },
+  { name: "IBM Plex Serif", value: '"IBM Plex Serif", serif' },
+  { name: "Geist Mono", value: '"Geist Mono", monospace' },
+  { name: "Source Code Pro", value: '"Source Code Pro", monospace' },
+  { name: "JetBrains Mono", value: '"JetBrains Mono", monospace' },
+  { name: "Fira Code", value: '"Fira Code", monospace' },
+  { name: "Inconsolata", value: '"Inconsolata", monospace' },
+];
+export const DEFAULT_PREFERENCES = {
+  primaryColor: PRIMARY_COLORS[0].value,
+  fontFamily: FONT_OPTIONS[0].value,
+  motion: "rich",
+  cursor: true,
+  glass: true,
+};
+
 // ─── Routes ───────────────────────────────────────────────────────────────────
 export const ROUTES = {
   HOME: "/",
@@ -36,6 +92,7 @@ export const ROUTES = {
   DASHBOARD_MESSAGES: "/dashboard/messages",
   DASHBOARD_ADD_PROJECT: "/dashboard/add-project",
   DASHBOARD_STATUS: "/dashboard/status",
+  DASHBOARD_PREFERENCES: "/dashboard/preferences",
 };
 
 // ─── Social links ─────────────────────────────────────────────────────────────

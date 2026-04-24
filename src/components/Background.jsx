@@ -32,9 +32,9 @@ const Background = ({
   showOrbs = true,
   mouseGlow = true,
   orbColors = {
-    primary: "rgba(139, 92, 246, 0.4), transparent",
-    secondary: "rgba(59, 130, 246, 0.4), transparent",
-    tertiary: "rgba(16, 185, 129, 0.3), transparent",
+    primary: "rgb(var(--color-primary-rgb) / 0.4), transparent",
+    secondary: "rgb(var(--color-primary-rgb) / 0.28), transparent",
+    tertiary: "rgb(var(--color-primary-rgb) / 0.18), transparent",
   },
 }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -114,8 +114,8 @@ const Background = ({
               className="absolute inset-0 dark:hidden"
               style={{
                 backgroundImage: `
-                  linear-gradient(to right, #94a3b815 1px, transparent 1px),
-                  linear-gradient(to bottom, #94a3b815 1px, transparent 1px)
+                  linear-gradient(to right, rgb(var(--color-primary-rgb) / 0.08) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgb(var(--color-primary-rgb) / 0.08) 1px, transparent 1px)
                 `,
                 backgroundSize: "40px 40px",
               }}
@@ -126,8 +126,8 @@ const Background = ({
               className="absolute inset-0 hidden dark:block"
               style={{
                 backgroundImage: `
-                  linear-gradient(to right, rgba(96, 165, 250, 0.08) 1px, transparent 1px),
-                  linear-gradient(to bottom, rgba(96, 165, 250, 0.08) 1px, transparent 1px)
+                  linear-gradient(to right, rgb(var(--color-primary-rgb) / 0.08) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgb(var(--color-primary-rgb) / 0.08) 1px, transparent 1px)
                 `,
                 backgroundSize: "40px 40px",
               }}
@@ -135,7 +135,7 @@ const Background = ({
               <div
                 className="absolute inset-0"
                 style={{
-                  backgroundImage: `radial-gradient(circle at 20px 20px, rgba(96, 165, 250, 0.15) 1.5px, transparent 1.5px)`,
+                  backgroundImage: `radial-gradient(circle at 20px 20px, rgb(var(--color-primary-rgb) / 0.15) 1.5px, transparent 1.5px)`,
                   backgroundSize: "40px 40px",
                 }}
               />
@@ -157,13 +157,15 @@ const Background = ({
       {/* Mouse-following glow effect */}
       {mouseGlow && (
         <motion.div
-          className="absolute w-80 h-80 bg-gradient-to-br from-violet-500/10 via-purple-500/10 to-blue-500/10 rounded-full blur-3xl pointer-events-none"
+          className="absolute w-80 h-80 rounded-full blur-3xl pointer-events-none"
           style={{
             x: mousePosition.x,
             y: mousePosition.y,
             left: "50%",
             top: "50%",
             transform: "translate(-50%, -50%)",
+            background:
+              "radial-gradient(circle, rgb(var(--color-primary-rgb) / 0.16), transparent 68%)",
           }}
           transition={{ type: "spring", stiffness: 50, damping: 20 }}
         />

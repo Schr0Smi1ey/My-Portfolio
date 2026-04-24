@@ -25,7 +25,7 @@ const statCards = [
     value: "8+",
     detail: "Completed",
     icon: FaCube,
-    tone: "text-red-400",
+    tone: "text-primary",
   },
   {
     label: "Problems",
@@ -44,7 +44,7 @@ const statCards = [
 ];
 
 const interests = [
-  { label: "Cricket & Football", icon: CricketIcon, tone: "text-red-400" },
+  { label: "Cricket & Football", icon: CricketIcon, tone: "text-primary" },
   { label: "Tech Exploration", icon: SparklesIcon, tone: "text-purple-400" },
   { label: "Movies & Series", icon: FilmIcon, tone: "text-emerald-400" },
   { label: "Online Games", icon: GameIcon, tone: "text-orange-400" },
@@ -54,14 +54,28 @@ const interests = [
 const aboutParagraph = (
   <>
     I&apos;m a passionate{" "}
-    <span className="text-red-400">MERN Stack Developer</span> and competitive
+    <span className="text-primary">MERN Stack Developer</span> and competitive
     programmer, currently pursuing B.Sc. in Computer Science at{" "}
-    <span className="text-red-400">Khulna University</span>. I build responsive,
+    <span className="text-primary">Khulna University</span>. I build responsive,
     scalable applications with MongoDB, Express.js, React, and Node.js, sharpen
     my problem-solving through competitive programming, and keep exploring
     AI/ML, cloud architecture, movies, sports, and games to stay curious beyond
     code.
   </>
+);
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const SKMark = ({ className = "" }) => (
+  <span
+    className={`sk-mark inline-flex items-baseline justify-center tracking-tight ${className}`}
+  >
+    <span>S</span>
+    <span className="text-primary">K</span>
+  </span>
 );
 
 const AboutMe = () => {
@@ -118,11 +132,11 @@ const AboutMe = () => {
   const BentoCard = ({ children, className = "" }) => (
     <motion.div
       initial={
-        shouldReduceMotion
-          ? false
-          : { opacity: 0, y: 20, filter: "blur(8px)" }
+        shouldReduceMotion ? false : { opacity: 0, y: 20, filter: "blur(8px)" }
       }
-      whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }}
+      whileInView={
+        shouldReduceMotion ? {} : { opacity: 1, y: 0, filter: "blur(0px)" }
+      }
       viewport={{ once: true, margin: "-60px" }}
       transition={{
         duration: shouldReduceMotion ? 0.01 : 0.6,
@@ -135,7 +149,7 @@ const AboutMe = () => {
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(circle at 50% 0%, rgba(239,68,68,0.14), transparent 45%)",
+            "radial-gradient(circle at 50% 0%, rgb(var(--color-primary-rgb) / 0.14), transparent 45%)",
         }}
       />
       {children}
@@ -227,7 +241,7 @@ const AboutMe = () => {
   return (
     <section
       id="about"
-      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 pb-20 pt-28 text-white md:px-8 md:pb-24 md:pt-32"
+      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] mb-20 px-4 py-24 text-zinc-950 dark:text-white md:px-8 md:py-28"
     >
       <motion.div
         aria-hidden="true"
@@ -289,13 +303,19 @@ const AboutMe = () => {
           <div className="flex h-full flex-col gap-10">
             <div className="flex flex-col gap-8">
               <motion.div
-                className="inline-flex w-fit items-center gap-4 pt-2 text-white"
+                className="inline-flex w-fit items-center gap-4 pt-2"
                 {...floatingIcon}
               >
-                <span className="h-4 w-4 rounded-full bg-red-500 shadow-[0_0_18px_rgba(239,68,68,0.55)]" />
-                <h2 className="text-3xl font-black tracking-tight lg:text-4xl">
-                  About Me
-                </h2>
+                <span className="h-4 w-4 rounded-full bg-primary shadow-[0_0_18px_rgb(var(--color-primary-rgb)/0.55)]" />
+                <motion.h2
+                  variants={fadeUp}
+                  className="font-display text-3xl leading-[0.82] tracking-tight text-zinc-900 dark:text-white sm:text-4xl lg:text-5xl"
+                >
+                  About{" "}
+                  <span className="bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent">
+                    Me
+                  </span>
+                </motion.h2>
               </motion.div>
             </div>
 
@@ -314,10 +334,10 @@ const AboutMe = () => {
         <BentoCard className="xl:row-span-2 p-5 lg:p-7">
           <div className="mb-5 flex items-center gap-4">
             <motion.span
-              className="h-4 w-4 rounded-full bg-red-500 shadow-[0_0_18px_rgba(239,68,68,0.55)]"
+              className="h-4 w-4 rounded-full bg-primary shadow-[0_0_18px_rgb(var(--color-primary-rgb)/0.55)]"
               {...floatingIcon}
             />
-            <h3 className="text-3xl font-black tracking-tight lg:text-4xl">
+            <h3 className="text-3xl font-black tracking-tight text-zinc-950 dark:text-white lg:text-4xl">
               Stats
             </h3>
           </div>
@@ -348,7 +368,7 @@ const AboutMe = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
-              <FaQuoteLeft className="mb-7 h-8 w-8 text-red-500" />
+              <FaQuoteLeft className="mb-7 h-8 w-8 text-primary" />
             </motion.div>
 
             <motion.blockquote
@@ -393,9 +413,9 @@ const AboutMe = () => {
               }
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="font-display text-3xl normal-case tracking-normal text-red-500"
+              className="text-4xl text-white"
             >
-              SK
+              <SKMark />
             </motion.div>
 
             <motion.h3
@@ -403,7 +423,7 @@ const AboutMe = () => {
               whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55, delay: 0.08 }}
-              className="mt-5 text-xl font-bold text-white"
+              className="mt-5 text-xl font-bold text-zinc-950 dark:text-white"
             >
               Let&apos;s innovate together
             </motion.h3>
@@ -446,7 +466,7 @@ const AboutMe = () => {
 
         <BentoCard className="xl:col-span-3 p-4 lg:p-6">
           <div className="mb-5 flex items-center gap-4">
-            <span className="h-3 w-3 rounded-full bg-red-500 shadow-[0_0_16px_rgba(239,68,68,0.5)]" />
+            <span className="h-3 w-3 rounded-full bg-primary shadow-[0_0_16px_rgb(var(--color-primary-rgb)/0.5)]" />
             <h3 className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-zinc-500">
               Beyond Code
             </h3>

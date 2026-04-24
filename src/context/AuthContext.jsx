@@ -24,12 +24,33 @@ import {
   attachSecureInterceptor,
   ejectSecureInterceptor,
 } from "../api";
-import { THEMES, THEME_KEY, TOAST_CONFIG } from "../constants";
+import {
+  DEFAULT_PREFERENCES,
+  PREFERENCES_KEY,
+  THEMES,
+  THEME_KEY,
+  TOAST_CONFIG,
+} from "../constants";
 
 export const AuthContext = createContext(null);
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
+
+const hexToRgb = (hex) => {
+  const normalized = hex.replace("#", "");
+  const value = parseInt(normalized, 16);
+  return `${(value >> 16) & 255} ${(value >> 8) & 255} ${value & 255}`;
+};
+
+const readPreferences = () => {
+  try {
+    const saved = JSON.parse(localStorage.getItem(PREFERENCES_KEY));
+    return { ...DEFAULT_PREFERENCES, ...(saved || {}) };
+  } catch {
+    return DEFAULT_PREFERENCES;
+  }
+};
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -37,6 +58,7 @@ const AuthProvider = ({ children }) => {
   const [theme, setTheme] = useState(
     () => localStorage.getItem(THEME_KEY) || THEMES.LIGHT,
   );
+  const [preferences, setPreferences] = useState(readPreferences);
   const interceptorRef = useRef(null);
 
   // ── Toast ──────────────────────────────────────────────────────────────────
@@ -62,6 +84,27 @@ const AuthProvider = ({ children }) => {
       : root.classList.remove("dark");
     localStorage.setItem(THEME_KEY, theme);
   }, [theme]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty("--color-primary", preferences.primaryColor);
+    root.style.setProperty(
+      "--color-primary-rgb",
+      hexToRgb(preferences.primaryColor),
+    );
+    root.style.setProperty("--site-font-family", preferences.fontFamily);
+    root.classList.toggle("reduce-site-motion", preferences.motion === "calm");
+    root.classList.toggle("glass-disabled", !preferences.glass);
+    localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
+  }, [preferences]);
+
+  const updatePreferences = useCallback((next) => {
+    setPreferences((prev) => ({ ...prev, ...next }));
+  }, []);
+
+  const resetPreferences = useCallback(() => {
+    setPreferences(DEFAULT_PREFERENCES);
+  }, []);
 
   // ── Secure interceptor (registered once) ──────────────────────────────────
   useEffect(() => {
@@ -163,6 +206,9 @@ const AuthProvider = ({ children }) => {
         theme,
         setTheme,
         toggleTheme,
+        preferences,
+        updatePreferences,
+        resetPreferences,
         Toast,
         createUser,
         signInUser,

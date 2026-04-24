@@ -3,7 +3,7 @@ import React from "react";
 const CodingProfileSkeleton = () => {
   return (
     <section className="relative py-16 md:py-24 lg:py-28 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header Skeleton */}
         <div className="text-center mb-16 md:mb-20">
           <div className="inline-block mb-6">

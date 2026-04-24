@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiHome, FiMessageSquare, FiPlusSquare, FiLogOut, FiX, FiGrid, FiRadio } from "react-icons/fi";
+import { FiHome, FiMessageSquare, FiPlusSquare, FiLogOut, FiX, FiGrid, FiRadio, FiSettings } from "react-icons/fi";
 import { FaProjectDiagram, FaBlog } from "react-icons/fa";
 import { Moon, Sun } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
@@ -9,6 +9,7 @@ const ADMIN_LINKS = [
   { label: "Messages",    path: "/dashboard/messages",     icon: <FiMessageSquare /> },
   { label: "Add project", path: "/dashboard/add-project",  icon: <FiPlusSquare /> },
   { label: "Status",      path: "/dashboard/status",       icon: <FiRadio /> },
+  { label: "Preferences", path: "/dashboard/preferences",  icon: <FiSettings /> },
 ];
 
 const SITE_LINKS = [
@@ -72,13 +73,20 @@ const DashboardSidebar = ({ open, onClose }) => {
       </div>
 
       <div className="mt-auto space-y-3 px-1">
-        <button
-          onClick={toggleTheme}
-          className="flex items-center gap-3 text-sm text-gray-400 hover:text-white transition-colors w-full"
-        >
-          {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          {theme === "dark" ? "Light mode" : "Dark mode"}
-        </button>
+        <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-2">
+          <span className="px-1 text-xs font-semibold uppercase tracking-[0.2em] text-gray-600">
+            Theme
+          </span>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={theme === "dark" ? "Light mode" : "Dark mode"}
+            className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-gray-300 transition hover:border-primary/40 hover:text-primary"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+        </div>
         <button
           onClick={handleSignOut}
           className="flex items-center gap-3 text-sm text-red-400 hover:text-red-300 transition-colors w-full"

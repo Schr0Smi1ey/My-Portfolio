@@ -33,11 +33,11 @@ const CopyEmail = ({ email, className = "" }) => {
       px-6 py-2 text-sm font-semibold
       bg-white text-zinc-950
       shadow-[0_0_28px_rgba(255,255,255,0.12)]
-      hover:shadow-[0_0_45px_rgba(239,68,68,0.45)]
+      hover:shadow-[0_0_45px_rgb(var(--color-primary-rgb)/0.45)]
       transition-shadow duration-500
       ${className}`}
     >
-      {/* spreading red background */}
+      {/* spreading primary background */}
       <motion.span
         variants={{
           rest: {
@@ -58,7 +58,7 @@ const CopyEmail = ({ email, className = "" }) => {
           h-6 w-6
           -translate-x-1/2 -translate-y-1/2
           rounded-full
-          bg-red-600
+          bg-primary
           z-0
         "
       />

@@ -21,6 +21,7 @@ const DashboardPage   = lazy(() => import("./pages/dashboard/Dashboard"));
 const MessagesPage    = lazy(() => import("./pages/dashboard/Messages"));
 const AddProjectPage  = lazy(() => import("./pages/dashboard/AddProject"));
 const StatusControl   = lazy(() => import("./pages/dashboard/StatusControl"));
+const PreferencesPage = lazy(() => import("./pages/dashboard/Preferences"));
 
 // ── Wrap every lazy page in Suspense + PageTransition ─────────────────────────
 const Page = ({ component: Component }) => (
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
       { path: "messages",      element: <Page component={MessagesPage} /> },
       { path: "add-project",   element: <Page component={AddProjectPage} /> },
       { path: "status",        element: <Page component={StatusControl} /> },
+      { path: "preferences",   element: <Page component={PreferencesPage} /> },
     ],
   },
   { path: "*", element: <Page component={ErrorPage} /> },
