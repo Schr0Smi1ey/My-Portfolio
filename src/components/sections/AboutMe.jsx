@@ -15,9 +15,8 @@ import {
   FilmIcon,
   GameIcon,
 } from "../../assets/Home/AboutMe/icons";
-import { useTotalCommits } from "../../hooks/index";
-
-const email = "Sarafatkarim555@gmail.com";
+import { useSiteContent, useTotalCommits } from "../../hooks/index";
+import AnimatedNumber from "../ui/AnimatedNumber";
 
 const statCards = [
   {
@@ -64,6 +63,17 @@ const aboutParagraph = (
   </>
 );
 
+const statIcons = [FaCube, FaBug, FaCode];
+const statTones = ["text-primary", "text-purple-400", "text-emerald-400"];
+const interestIcons = [CricketIcon, SparklesIcon, FilmIcon, GameIcon, CodeIcon];
+const interestTones = [
+  "text-primary",
+  "text-purple-400",
+  "text-emerald-400",
+  "text-orange-400",
+  "text-blue-400",
+];
+
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
@@ -80,6 +90,25 @@ const SKMark = ({ className = "" }) => (
 
 const AboutMe = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { content: aboutContent } = useSiteContent("about");
+  const email = aboutContent.contactEmail || "Sarafatkarim555@gmail.com";
+  const managedStats = Array.isArray(aboutContent.stats)
+    ? aboutContent.stats.map((stat, index) => ({
+        ...stat,
+        detail: stat.detail || "",
+        icon: statIcons[index] || FaCube,
+        tone: stat.tone?.startsWith?.("text-")
+          ? stat.tone
+          : statTones[index] || "text-primary",
+      }))
+    : statCards;
+  const managedInterests = Array.isArray(aboutContent.interests)
+    ? aboutContent.interests.map((interest, index) => ({
+        label: typeof interest === "string" ? interest : interest.label,
+        icon: interestIcons[index] || SparklesIcon,
+        tone: interestTones[index] || "text-primary",
+      }))
+    : interests;
 
   const {
     formatted: commitFormatted,
@@ -88,7 +117,7 @@ const AboutMe = () => {
   } = useTotalCommits();
 
   const allStats = [
-    ...statCards,
+    ...managedStats,
     {
       label: "Commits",
       value: commitLoading || commitError ? "1k+" : commitFormatted,
@@ -224,7 +253,7 @@ const AboutMe = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: 0.1 + index * 0.05 }}
             >
-              {stat.value}
+              <AnimatedNumber value={stat.value} delay={index * 0.06} />
             </motion.div>
             <div className="mt-1.5 font-mono text-[0.68rem] font-bold uppercase tracking-[0.22em] text-zinc-200">
               {stat.label}
@@ -326,7 +355,7 @@ const AboutMe = () => {
               transition={{ duration: 0.9, delay: 0.15 }}
               className="leading-[2.2rem] text-zinc-300 sm:text-sm lg:text-lg"
             >
-              <p>{aboutParagraph}</p>
+              <p>{aboutContent.paragraph || aboutParagraph}</p>
             </motion.div>
           </div>
         </BentoCard>
@@ -480,7 +509,7 @@ const AboutMe = () => {
           </div>
 
           <div className="grid gap-3 md:grid-cols-3 xl:grid-cols-5">
-            {interests.map((interest, index) => (
+            {managedInterests.map((interest, index) => (
               <InterestRow
                 key={interest.label}
                 interest={interest}

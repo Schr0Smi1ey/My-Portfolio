@@ -1,6 +1,10 @@
+import { resolveApiBaseUrl } from "./apiBaseUrl";
+
 // ─── API ─────────────────────────────────────────────────────────────────────
-export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+export const API_BASE_URL = resolveApiBaseUrl(
+  import.meta.env,
+  import.meta.env.PROD,
+);
 
 // ─── Cloudinary ───────────────────────────────────────────────────────────────
 export const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
@@ -76,6 +80,7 @@ export const DEFAULT_PREFERENCES = {
   motion: "rich",
   cursor: true,
   glass: true,
+  profileImage: "",
 };
 
 // ─── Routes ───────────────────────────────────────────────────────────────────

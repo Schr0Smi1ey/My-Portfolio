@@ -27,10 +27,6 @@ const LoginPage = () => {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // ── Email / password login ─────────────────────────────────────────────────
-  // Navigate AFTER signInUser resolves. By the time we navigate, onAuthStateChanged
-  // has already fired (it fires synchronously after signInWithEmailAndPassword
-  // resolves in Firebase SDK v9+), awaited /jwt, and set loading=false.
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -40,15 +36,10 @@ const LoginPage = () => {
       navigate(from, { replace: true });
     } catch (err) {
       Toast(err.message, "error");
-      setLoading(false); // only reset on error — on success we're navigating away
+      setLoading(false);
     }
   };
 
-  // ── Google sign-in ─────────────────────────────────────────────────────────
-  // Same pattern: await the popup, then navigate.
-  // onAuthStateChanged fires inside signInWithPopup resolution,
-  // awaits /jwt, sets loading=false — by the time navigate() runs
-  // the cookie is already in place.
   const handleGoogle = async () => {
     setLoading(true);
     try {
@@ -67,7 +58,7 @@ const LoginPage = () => {
         message = "Network error. Check your connection.";
 
       Toast(message, "error");
-      setLoading(false); // only reset on error
+      setLoading(false);
     }
   };
 
@@ -83,7 +74,6 @@ const LoginPage = () => {
         transition={{ duration: 0.4 }}
         className="w-full max-w-md"
       >
-        {/* Header */}
         <div className="text-center mb-8 space-y-2">
           <Link
             to="/"
@@ -99,9 +89,7 @@ const LoginPage = () => {
           </p>
         </div>
 
-        {/* Card */}
         <div className="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-white/8 rounded-2xl p-8 shadow-sm space-y-5">
-          {/* Google */}
           <button
             onClick={handleGoogle}
             disabled={loading}
@@ -112,9 +100,7 @@ const LoginPage = () => {
 
           <Divider label="or" />
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
                 Email
@@ -132,7 +118,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Password */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
                 <label className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">

@@ -8,7 +8,6 @@ import { useAdmin } from "../../hooks";
 import { Spinner } from "../ui";
 import CustomCursor from "../CustomCursor";
 
-// ── Root layout ───────────────────────────────────────────────────────────────
 export const RootLayout = () => (
   <div className="overflow-x-hidden dark:bg-black dark:text-white">
     <CustomCursor />
@@ -21,10 +20,6 @@ export const RootLayout = () => (
   </div>
 );
 
-// ── PrivateRoute ──────────────────────────────────────────────────────────────
-// loading=true  → spinner (JWT cookie may not exist yet — do NOT redirect)
-// loading=false, no user → redirect to /login
-// loading=false, user exists → allow through
 export const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const location = useLocation();
@@ -38,20 +33,13 @@ export const PrivateRoute = ({ children }) => {
   return children;
 };
 
-// ── AdminRoute ────────────────────────────────────────────────────────────────
-// Wait for BOTH auth and admin checks before making any redirect decision.
-// If either is still loading — show spinner.
-// This prevents the 403 → interceptor → bounce chain when the cookie
-// isn't written yet.
 export const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
   const { isAdmin, isAdminLoading } = useAdmin();
   const location = useLocation();
 
-  // Either check still in flight — wait
   if (loading || isAdminLoading) return <Spinner fullPage />;
 
-  // Both resolved — make the access decision
   if (!user || !isAdmin) {
     return <Navigate to="/" state={{ from: location.pathname }} replace />;
   }

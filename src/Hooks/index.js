@@ -3,6 +3,26 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { secureApi, publicApi } from "../api";
 import { GITHUB_API_URL, GITHUB_REPOS_URL, GITHUB_USERNAME } from "../constants";
+import {
+  codingFallbackDefaults,
+  githubFallbackDefaults,
+} from "../data/siteDefaults";
+import { fetchSiteContent } from "./useSiteContent";
+
+const VISITOR_ID_KEY = "portfolio-visitor-id";
+
+const getVisitorId = () => {
+  if (typeof window === "undefined") return null;
+
+  const existing = window.localStorage.getItem(VISITOR_ID_KEY);
+  if (existing) return existing;
+
+  const id =
+    window.crypto?.randomUUID?.() ||
+    `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
+  window.localStorage.setItem(VISITOR_ID_KEY, id);
+  return id;
+};
 
 export {
   useAdmin,
@@ -11,6 +31,7 @@ export {
   useMessages,
   useBlogs,
 } from "./existing";
+export { useSiteContent } from "./useSiteContent";
 
 const summarizeGitHubRepos = (repos) => {
   const languageMap = {};
@@ -56,6 +77,14 @@ const fetchPublicGitHubFallback = async () => {
   };
 };
 
+const fetchManagedFallback = async (key, fallback) => {
+  try {
+    return await fetchSiteContent(key);
+  } catch {
+    return fallback;
+  }
+};
+
 const githubStatsQuery = {
   queryKey: ["github-stats", GITHUB_USERNAME],
   queryFn: async () => {
@@ -65,7 +94,11 @@ const githubStatsQuery = {
       });
       return res.data;
     } catch {
-      return fetchPublicGitHubFallback();
+      try {
+        return await fetchPublicGitHubFallback();
+      } catch {
+        return fetchManagedFallback("githubFallbacks", githubFallbackDefaults);
+      }
     }
   },
   staleTime: 1000 * 60 * 30,
@@ -147,7 +180,9 @@ export const useVisitorCount = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["visitors"],
     queryFn: async () => {
-      const res = await publicApi.post("/visitors");
+      const res = await publicApi.post("/visitors", {
+        visitorId: getVisitorId(),
+      });
       return res.data;
     },
     staleTime: Infinity,
@@ -362,6 +397,10 @@ const fetchCodingFallback = async () => {
   const successCount = Object.values(platforms).filter(
     (platform) => platform.status === "success",
   ).length;
+
+  if (successCount === 0) {
+    return fetchManagedFallback("codingFallbacks", codingFallbackDefaults);
+  }
 
   return {
     success: successCount === 3,

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { FiCheck, FiCopy, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
+import { useSiteContent } from "../../hooks";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -48,7 +49,7 @@ const ContactCard = ({ icon: Icon, label, value, action, copyValue }) => {
           {label}
         </p>
 
-        <h3 className="mt-3 break-all text-[1rem] font-black leading-6 text-zinc-950 dark:text-white">
+        <h3 className="mt-3 break-all text-[0.8rem] font-black leading-6 text-zinc-950 dark:text-white">
           {value}
         </h3>
 
@@ -72,11 +73,13 @@ const ContactCard = ({ icon: Icon, label, value, action, copyValue }) => {
 
 const ContactSection = () => {
   const shouldReduceMotion = useReducedMotion();
+  const { content: owner } = useSiteContent("owner");
+  const phoneCopy = String(owner.phone || "").replace(/[^\d+]/g, "");
 
   return (
     <section
       id="contact"
-      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 !py-20 text-zinc-950 dark:text-white md:px-8"
+      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 !py-24 text-zinc-950 dark:text-white md:px-8"
     >
       <div className="about-cosmic-starfield" aria-hidden="true" />
       <div className="cosmic-noise" aria-hidden="true" />
@@ -184,32 +187,32 @@ const ContactSection = () => {
               <ContactCard
                 icon={FiMail}
                 label="Email"
-                value="Sarafatkarim555@gmail.com"
+                value={owner.email || "Sarafatkarim555@gmail.com"}
                 action="Copy Email"
               />
 
               <ContactCard
                 icon={FiPhone}
                 label="Phone"
-                value="+880 1719-430433"
+                value={owner.phone || "+880 1719-430433"}
                 action="Copy Number"
-                copyValue="+8801719430433"
+                copyValue={phoneCopy || "+8801719430433"}
               />
 
               <ContactCard
                 icon={FaWhatsapp}
                 label="WhatsApp"
-                value="+880 1719-430433"
+                value={owner.phone || "+880 1719-430433"}
                 action="Copy Link"
-                copyValue="https://wa.me/8801719430433"
+                copyValue={owner.whatsapp || "https://wa.me/8801719430433"}
               />
 
               <ContactCard
                 icon={FiMapPin}
                 label="Location"
-                value="Khulna, Bangladesh"
+                value={owner.location || "Dhaka, Bangladesh"}
                 action="Copy Location"
-                copyValue="Khulna, Bangladesh"
+                copyValue={owner.location || "Dhaka, Bangladesh"}
               />
             </div>
           </motion.div>

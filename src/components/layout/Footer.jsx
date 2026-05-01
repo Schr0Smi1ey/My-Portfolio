@@ -11,8 +11,13 @@ import { FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { NAV_ITEMS, SOCIAL_LINKS, OWNER } from "../../constants";
 import VisitorCounter from "../sections/VisitorCounter";
+import { useSiteContent } from "../../hooks";
 
-const Footer = () => (
+const Footer = () => {
+  const { content: owner } = useSiteContent("owner");
+  const links = owner.socialLinks || SOCIAL_LINKS;
+
+  return (
   <footer className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden border-t border-primary/10 bg-[#05050a] px-4 pb-10 !pt-10 !mt-0 text-zinc-950 dark:text-white">
     <div className="about-cosmic-starfield" aria-hidden="true" />
     <div className="cosmic-noise" aria-hidden="true" />
@@ -28,25 +33,25 @@ const Footer = () => (
           </div>
 
           <h3 className="text-lg font-black text-zinc-950 dark:text-white">
-            {OWNER.name}
+            {owner.name || OWNER.name}
           </h3>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            {OWNER.title}
+            {owner.title || OWNER.title}
           </p>
 
-          {OWNER.location && (
+          {owner.location && (
             <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
               <FiMapPin className="h-4 w-4 text-primary" />
-              <span>{OWNER.location}</span>
+              <span>{owner.location}</span>
             </div>
           )}
-          {OWNER.email && (
+          {(owner.email || OWNER.email) && (
             <a
-              href={`mailto:${OWNER.email}`}
+              href={`mailto:${owner.email || OWNER.email}`}
               className="flex items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-primary dark:text-zinc-400"
             >
               <FiMail className="h-4 w-4 text-primary" />
-              <span>{OWNER.email}</span>
+              <span>{owner.email || OWNER.email}</span>
             </a>
           )}
         </div>
@@ -75,9 +80,9 @@ const Footer = () => (
               Connect
             </h4>
             <div className="mt-3 flex flex-wrap justify-center gap-3 md:justify-start">
-              {SOCIAL_LINKS.facebook && (
+              {links.facebook && (
                 <a
-                  href={SOCIAL_LINKS.facebook}
+                  href={links.facebook}
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Facebook"
@@ -86,9 +91,9 @@ const Footer = () => (
                   <FaFacebook />
                 </a>
               )}
-              {SOCIAL_LINKS.linkedin && (
+              {links.linkedin && (
                 <a
-                  href={SOCIAL_LINKS.linkedin}
+                  href={links.linkedin}
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
@@ -97,9 +102,9 @@ const Footer = () => (
                   <FiLinkedin />
                 </a>
               )}
-              {SOCIAL_LINKS.github && (
+              {links.github && (
                 <a
-                  href={SOCIAL_LINKS.github}
+                  href={links.github}
                   target="_blank"
                   rel="noreferrer"
                   aria-label="GitHub"
@@ -108,9 +113,9 @@ const Footer = () => (
                   <FiGithub />
                 </a>
               )}
-              {SOCIAL_LINKS.twitter && (
+              {links.twitter && (
                 <a
-                  href={SOCIAL_LINKS.twitter}
+                  href={links.twitter}
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Twitter"
@@ -130,7 +135,7 @@ const Footer = () => (
 
       <div className="mt-10 flex flex-col items-center gap-4 border-t border-zinc-300/70 pt-6 dark:border-white/[0.07]">
         <p className="text-center text-xs text-zinc-500 dark:text-zinc-500">
-          © {new Date().getFullYear()} {OWNER.name}. All rights reserved.
+          © {new Date().getFullYear()} {owner.name || OWNER.name}. All rights reserved.
         </p>
 
         <motion.button
@@ -149,6 +154,7 @@ const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;

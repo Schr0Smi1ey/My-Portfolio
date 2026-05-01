@@ -21,7 +21,7 @@ const HomePage = () => {
 
       <Banner />
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 pb-12 md:py-14">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 md:pt-14">
         <AboutMe />
         <Education />
         <CodingProfile />

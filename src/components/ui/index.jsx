@@ -6,13 +6,13 @@ export const Spinner = ({ size = 40, fullPage = false }) => {
   if (fullPage) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <PuffLoader color="#198068" size={size} />
+        <PuffLoader color="rgb(var(--color-primary-rgb))" size={size} />
       </div>
     );
   }
   return (
     <div className="flex items-center justify-center py-20">
-      <PuffLoader color="#198068" size={size} />
+      <PuffLoader color="rgb(var(--color-primary-rgb))" size={size} />
     </div>
   );
 };
@@ -49,7 +49,7 @@ export const PageWrapper = ({ children, className = "" }) => (
     initial={{ opacity: 0, y: 16 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, ease: "easeOut" }}
-    className={`min-h-screen pt-28 pb-20 px-4 md:px-8 background dark:bg-black dark:bg-none dark:text-white overflow-hidden ${className}`}
+    className={` pt-28 pb-20 px-4 md:px-8 background dark:bg-black dark:bg-none dark:text-white overflow-hidden ${className}`}
   >
     {children}
   </motion.div>

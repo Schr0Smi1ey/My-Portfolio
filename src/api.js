@@ -1,12 +1,10 @@
 import axios from "axios";
 import { API_BASE_URL } from "./constants";
 
-// ─── Public instance (no credentials) ────────────────────────────────────────
 export const publicApi = axios.create({
   baseURL: API_BASE_URL,
 });
 
-// ─── Secure instance (JWT cookie) ────────────────────────────────────────────
 export const secureApi = axios.create({
   baseURL: API_BASE_URL,
   withCredentials: true,
@@ -15,11 +13,6 @@ export const secureApi = axios.create({
   },
 });
 
-/**
- * Attach the 401/403 response interceptor once.
- * Call this from AuthProvider after signOutUser is available.
- * Returns the interceptor ID so it can be ejected if needed.
- */
 export const attachSecureInterceptor = (onUnauthorized) => {
   const id = secureApi.interceptors.response.use(
     (res) => res,

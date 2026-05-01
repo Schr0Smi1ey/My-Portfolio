@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FiPlusSquare, FiPlus, FiX } from "react-icons/fi";
+import { FiImage, FiPlusSquare, FiPlus, FiUploadCloud, FiX } from "react-icons/fi";
 import { secureApi } from "../../api";
 import { useAuth } from "../../context/AuthContext";
+import ImageCropModal from "../../components/ui/ImageCropModal";
+import { uploadImageToImgBB } from "../../utils/imgbb";
 
 const inputCls =
-  "w-full px-4 py-2.5 text-sm bg-zinc-800 border border-white/10 rounded-lg text-white placeholder:text-gray-500 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all";
+  "w-full rounded-xl border border-zinc-300/70 bg-white/60 px-4 py-2.5 text-sm text-zinc-950 placeholder:text-zinc-400 transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-white/10 dark:bg-white/[0.035] dark:text-white dark:placeholder:text-zinc-600";
 
 const Field = ({ label, hint, children }) => (
   <div className="space-y-1.5">
     <div className="flex items-baseline gap-2">
-      <label className="text-xs font-semibold text-gray-400 uppercase tracking-wide">{label}</label>
-      {hint && <span className="text-xs text-gray-600">{hint}</span>}
+      <label className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">{label}</label>
+      {hint && <span className="text-xs text-zinc-500 dark:text-zinc-600">{hint}</span>}
     </div>
     {children}
   </div>
@@ -69,7 +71,7 @@ const FeatureList = ({ label, items, onChange }) => {
     <Field label={label}>
       <div className="space-y-3">
         {items.map((item, i) => (
-          <div key={i} className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 bg-zinc-800/50 border border-white/5 rounded-lg relative">
+          <div key={i} className="relative grid grid-cols-1 gap-2 rounded-xl border border-zinc-300/70 bg-white/45 p-3 dark:border-white/10 dark:bg-black/20 sm:grid-cols-2">
             <input
               value={item.title}
               onChange={(e) => update(i, "title", e.target.value)}
@@ -107,9 +109,38 @@ const AddProjectPage = () => {
   const { Toast } = useAuth();
   const [form, setForm] = useState(EMPTY_FORM);
   const [loading, setLoading] = useState(false);
+  const [cropSource, setCropSource] = useState(null);
+  const [cropFileName, setCropFileName] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const set = (key, val) => setForm((f) => ({ ...f, [key]: val }));
   const setTech = (cat, val) => setForm((f) => ({ ...f, techStack: { ...f.techStack, [cat]: val } }));
+
+  const handleImagePick = (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      Toast("Choose an image file.", "error");
+      return;
+    }
+    setCropFileName(file.name);
+    setCropSource(URL.createObjectURL(file));
+  };
+
+  const handleCroppedImage = async (file) => {
+    setCropSource(null);
+    setUploadingImage(true);
+    try {
+      const url = await uploadImageToImgBB(file);
+      set("image", url);
+      Toast("Project image uploaded.", "success");
+    } catch (error) {
+      Toast(error.message || "Image upload failed.", "error");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,21 +161,21 @@ const AddProjectPage = () => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="max-w-3xl space-y-8"
+      className="mx-auto max-w-4xl space-y-8"
     >
       {/* Header */}
       <div className="flex items-center gap-3">
         <FiPlusSquare className="text-primary w-5 h-5" />
         <div>
-          <h1 className="text-lg font-bold text-white">Add project</h1>
-          <p className="text-xs text-gray-500">Fill in the details to publish a new project</p>
+          <h1 className="text-xl font-black text-zinc-950 dark:text-white">Add project</h1>
+          <p className="text-xs text-zinc-500">Fill in the details to publish a new project</p>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-7">
         {/* Basic info */}
-        <section className="bg-zinc-900 border border-white/5 rounded-xl p-6 space-y-5">
-          <h2 className="text-sm font-semibold text-gray-300">Basic info</h2>
+        <section className="space-y-5 rounded-2xl border border-zinc-300/70 bg-white/60 p-6 shadow-[0_0_50px_rgb(var(--color-primary-rgb)/0.05)] backdrop-blur-xl dark:border-white/[0.07] dark:bg-white/[0.035]">
+          <h2 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">Basic info</h2>
 
           <Field label="Project name">
             <input value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="FitForge — Forge Your Fitness Journey" required className={inputCls} />
@@ -155,8 +186,26 @@ const AddProjectPage = () => {
           </Field>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label="Image URL">
-              <input value={form.image} onChange={(e) => set("image", e.target.value)} placeholder="https://…" className={inputCls} />
+            <Field label="Project image">
+              <div className="space-y-3">
+                <div className="flex gap-2">
+                  <input value={form.image} onChange={(e) => set("image", e.target.value)} placeholder="https://..." className={inputCls} />
+                  <label className="inline-flex cursor-pointer items-center justify-center rounded-xl border border-primary/25 bg-primary/10 px-3 text-primary transition hover:bg-primary hover:text-white">
+                    <FiUploadCloud className="h-4 w-4" />
+                    <input type="file" accept="image/*" onChange={handleImagePick} className="sr-only" />
+                  </label>
+                </div>
+                <div className="overflow-hidden rounded-xl border border-zinc-300/70 bg-white/45 dark:border-white/10 dark:bg-black/20">
+                  {form.image ? (
+                    <img src={form.image} alt="Project preview" className="aspect-square w-full object-cover sm:max-w-48" />
+                  ) : (
+                    <div className="flex aspect-square max-w-48 items-center justify-center text-zinc-400">
+                      <FiImage className="h-8 w-8" />
+                    </div>
+                  )}
+                </div>
+                {uploadingImage && <p className="text-xs text-zinc-500">Uploading image...</p>}
+              </div>
             </Field>
             <Field label="Status">
               <select value={form.status} onChange={(e) => set("status", e.target.value)} className={inputCls}>
@@ -182,16 +231,16 @@ const AddProjectPage = () => {
         </section>
 
         {/* Tech stack */}
-        <section className="bg-zinc-900 border border-white/5 rounded-xl p-6 space-y-5">
-          <h2 className="text-sm font-semibold text-gray-300">Tech stack</h2>
+        <section className="space-y-5 rounded-2xl border border-zinc-300/70 bg-white/60 p-6 shadow-[0_0_50px_rgb(var(--color-primary-rgb)/0.05)] backdrop-blur-xl dark:border-white/[0.07] dark:bg-white/[0.035]">
+          <h2 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">Tech stack</h2>
           {Object.keys(form.techStack).map((cat) => (
             <TagInput key={cat} label={cat.charAt(0).toUpperCase() + cat.slice(1)} tags={form.techStack[cat]} onChange={(v) => setTech(cat, v)} />
           ))}
         </section>
 
         {/* Details */}
-        <section className="bg-zinc-900 border border-white/5 rounded-xl p-6 space-y-6">
-          <h2 className="text-sm font-semibold text-gray-300">Details</h2>
+        <section className="space-y-6 rounded-2xl border border-zinc-300/70 bg-white/60 p-6 shadow-[0_0_50px_rgb(var(--color-primary-rgb)/0.05)] backdrop-blur-xl dark:border-white/[0.07] dark:bg-white/[0.035]">
+          <h2 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">Details</h2>
           <FeatureList label="Features" items={form.features} onChange={(v) => set("features", v)} />
           <FeatureList label="Challenges" items={form.challenges} onChange={(v) => set("challenges", v)} />
           <FeatureList label="Future plans" items={form.futurePlans} onChange={(v) => set("futurePlans", v)} />
@@ -205,6 +254,16 @@ const AddProjectPage = () => {
           {loading ? "Publishing…" : "Publish project"}
         </button>
       </form>
+      <ImageCropModal
+        isOpen={Boolean(cropSource)}
+        imageSrc={cropSource}
+        fileName={cropFileName}
+        title="Crop Project Image"
+        subtitle="Use a square crop so project cards stay consistent."
+        cropShape="rect"
+        onClose={() => setCropSource(null)}
+        onApply={handleCroppedImage}
+      />
     </motion.div>
   );
 };

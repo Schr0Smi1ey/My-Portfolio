@@ -16,6 +16,7 @@ import codeforces from "../../assets/Home/CodingProfile/Codeforces.svg";
 import codechef from "../../assets/Home/CodingProfile/CodeChef.png";
 import { useCodingStats } from "../../hooks/index";
 import CodingProfileSkeleton from "../../components/CodingProfileSkeleton";
+import AnimatedNumber from "../ui/AnimatedNumber";
 
 const RefreshButton = ({ onClick, lastUpdated }) => {
   const [state, setState] = useState("idle");
@@ -123,7 +124,7 @@ const SignalCard = ({ label, value, detail, icon: Icon }) => (
       <Icon className="h-4 w-4" />
     </span>
     <div className="font-display text-4xl leading-none text-zinc-950 dark:text-white">
-      {value}
+      <AnimatedNumber value={value} />
     </div>
     <div className="mt-2 font-mono text-[0.58rem] font-bold uppercase tracking-[0.18em] text-primary">
       {label}
@@ -132,13 +133,15 @@ const SignalCard = ({ label, value, detail, icon: Icon }) => (
   </motion.div>
 );
 
-const MetricBlock = ({ label, value, detail }) => (
+const MetricBlock = ({ label, value, detail, valueClassName = "" }) => (
   <div className="rounded-xl border border-zinc-300/70 bg-white/65 p-3 dark:border-white/[0.06] dark:bg-white/[0.025]">
     <p className="font-mono text-[0.54rem] font-bold uppercase tracking-[0.16em] text-zinc-500">
       {label}
     </p>
-    <div className="mt-2 min-h-7 font-display text-2xl leading-none text-white">
-      {value}
+    <div
+      className={`mt-2 min-h-7 font-display text-2xl leading-none text-white ${valueClassName}`}
+    >
+      <AnimatedNumber value={value} />
     </div>
     {detail && <p className="mt-1 text-[0.68rem] text-zinc-500">{detail}</p>}
   </div>
@@ -234,11 +237,8 @@ const PlatformRow = ({ platform, index }) => {
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-[0.75fr_0.75fr_0.75fr_0.75fr_1fr] xl:pr-4">
           <MetricBlock
             label="Rating"
-            value={
-              <span className="text-primary">
-                {platform.available ? platform.rating : "-"}
-              </span>
-            }
+            value={platform.available ? platform.rating : "-"}
+            valueClassName="text-primary"
           />
           <MetricBlock
             label="Max"

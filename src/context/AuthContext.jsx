@@ -21,6 +21,7 @@ import {
 import { auth } from "../firebase";
 import {
   publicApi,
+  secureApi,
   attachSecureInterceptor,
   ejectSecureInterceptor,
 } from "../api";
@@ -31,6 +32,7 @@ import {
   THEME_KEY,
   TOAST_CONFIG,
 } from "../constants";
+import { syncAuthSession } from "../utils/authSession";
 
 export const AuthContext = createContext(null);
 
@@ -41,6 +43,11 @@ const hexToRgb = (hex) => {
   const normalized = hex.replace("#", "");
   const value = parseInt(normalized, 16);
   return `${(value >> 16) & 255} ${(value >> 8) & 255} ${value & 255}`;
+};
+
+const createCursorIcon = (color) => {
+  const svg = `<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M8 4L24 18L15.5 19.2L12 28L8 4Z" fill="${color}" stroke="${color}" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}") 8 4`;
 };
 
 const readPreferences = () => {
@@ -60,8 +67,8 @@ const AuthProvider = ({ children }) => {
   );
   const [preferences, setPreferences] = useState(readPreferences);
   const interceptorRef = useRef(null);
+  const preferencesRef = useRef(preferences);
 
-  // ── Toast ──────────────────────────────────────────────────────────────────
   const Toast = useCallback((message, type = "info") => {
     const fn = toast[type] ?? toast.info;
     fn(message, {
@@ -72,7 +79,6 @@ const AuthProvider = ({ children }) => {
     });
   }, []);
 
-  // ── Theme ──────────────────────────────────────────────────────────────────
   const toggleTheme = useCallback(() => {
     setTheme((prev) => (prev === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK));
   }, []);
@@ -92,21 +98,52 @@ const AuthProvider = ({ children }) => {
       "--color-primary-rgb",
       hexToRgb(preferences.primaryColor),
     );
+    root.style.setProperty(
+      "--cursor-icon",
+      createCursorIcon(preferences.primaryColor),
+    );
     root.style.setProperty("--site-font-family", preferences.fontFamily);
     root.classList.toggle("reduce-site-motion", preferences.motion === "calm");
     root.classList.toggle("glass-disabled", !preferences.glass);
     localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
+    preferencesRef.current = preferences;
   }, [preferences]);
 
-  const updatePreferences = useCallback((next) => {
-    setPreferences((prev) => ({ ...prev, ...next }));
+  useEffect(() => {
+    let active = true;
+
+    publicApi
+      .get("/preferences")
+      .then(({ data }) => {
+        if (!active || !data?.preferences) return;
+        setPreferences({ ...DEFAULT_PREFERENCES, ...data.preferences });
+      })
+      .catch(() => {});
+
+    return () => {
+      active = false;
+    };
   }, []);
+
+  const savePreferences = useCallback((next) => {
+    secureApi.put("/preferences", next).catch(() => {
+      Toast("Failed to save preferences.", "error");
+    });
+  }, [Toast]);
+
+  const updatePreferences = useCallback((next) => {
+    const merged = { ...preferencesRef.current, ...next };
+    preferencesRef.current = merged;
+    setPreferences(merged);
+    savePreferences(merged);
+  }, [savePreferences]);
 
   const resetPreferences = useCallback(() => {
+    preferencesRef.current = DEFAULT_PREFERENCES;
     setPreferences(DEFAULT_PREFERENCES);
-  }, []);
+    savePreferences(DEFAULT_PREFERENCES);
+  }, [savePreferences]);
 
-  // ── Secure interceptor (registered once) ──────────────────────────────────
   useEffect(() => {
     const handleUnauthorized = () => {
       signOut(auth).catch(() => {});
@@ -121,51 +158,22 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  // ── Auth state listener ────────────────────────────────────────────────────
-  // THE FIX: await the /jwt call BEFORE calling setLoading(false).
-  //
-  // Previous code fired /jwt without awaiting it, then immediately called
-  // setLoading(false). PrivateRoute would evaluate, useAdmin would fire
-  // GET /isAdmin, but the cookie didn't exist yet → 401 → interceptor
-  // → window.location.replace("/login") → the "bounce" bug.
-  //
-  // Now the sequence is guaranteed:
-  //   1. setUser(firebaseUser)         — user state is correct
-  //   2. await POST /jwt               — cookie is written
-  //   3. setLoading(false)             — only NOW routes can evaluate
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
-      // Step 1 — sync user immediately so the rest of the app has it
-      setUser(firebaseUser ?? null);
+      setLoading(true);
 
-      // Step 2 — write / clear JWT cookie and WAIT for it
       try {
-        if (firebaseUser?.email) {
-          const idToken = await firebaseUser.getIdToken();
-          await publicApi.post(
-            "/jwt",
-            { idToken },
-            { withCredentials: true },
-          );
-        } else {
-          await publicApi.post("/logout", {}, { withCredentials: true });
-        }
+        await syncAuthSession(firebaseUser, publicApi);
+        setUser(firebaseUser ?? null);
       } catch {
-        // JWT failure is non-fatal for UX — cookie may already exist
-        // (e.g. page refresh with valid existing cookie)
+        setUser(null);
       }
 
-      // Step 3 — auth is fully resolved, routes may now evaluate
       setLoading(false);
     });
 
     return unsub;
   }, []);
-
-  // ── Auth methods ───────────────────────────────────────────────────────────
-  // IMPORTANT: none of these touch `loading`.
-  // loading is owned entirely by onAuthStateChanged above.
-  // The listener fires automatically after every sign-in / sign-out.
 
   const createUser = async (email, password) => {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
@@ -179,16 +187,35 @@ const AuthProvider = ({ children }) => {
       await signOut(auth);
       throw new Error("Please verify your email before logging in.");
     }
-    return cred;
+    setLoading(true);
+    try {
+      await syncAuthSession(cred.user, publicApi);
+      setUser(cred.user);
+      setLoading(false);
+      return cred;
+    } catch (error) {
+      setUser(null);
+      setLoading(false);
+      throw error;
+    }
   };
 
-  // No setTimeout, no browserPopupRedirectResolver hack, no redirect fallback.
-  // signInWithPopup resolves → onAuthStateChanged fires → JWT awaited → done.
-  const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+  const signInWithGoogle = async () => {
+    setLoading(true);
+    try {
+      const cred = await signInWithPopup(auth, googleProvider);
+      await syncAuthSession(cred.user, publicApi);
+      setUser(cred.user);
+      setLoading(false);
+      return cred;
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
+  };
 
   const signOutUser = async () => {
     await signOut(auth);
-    // onAuthStateChanged fires automatically and clears user + cookie
   };
 
   const resetPassword = (email) => sendPasswordResetEmail(auth, email);

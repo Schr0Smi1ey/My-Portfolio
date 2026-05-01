@@ -28,12 +28,12 @@ const StatusControlPage = () => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="max-w-xl space-y-6"
+      className="mx-auto max-w-2xl space-y-6 rounded-2xl border border-zinc-300/70 bg-white/60 p-6 shadow-[0_0_50px_rgb(var(--color-primary-rgb)/0.05)] backdrop-blur-xl dark:border-white/[0.07] dark:bg-white/[0.035]"
     >
       {/* Header */}
       <div>
-        <h1 className="text-lg font-bold text-white">Availability status</h1>
-        <p className="text-xs text-gray-500 mt-1">
+        <h1 className="text-xl font-black text-zinc-950 dark:text-white">Availability status</h1>
+        <p className="mt-1 text-xs text-zinc-500">
           Controls the badge visible on your homepage banner in real time.
         </p>
       </div>
@@ -50,7 +50,7 @@ const StatusControlPage = () => {
               className={`w-full flex items-center justify-between px-5 py-4 rounded-xl border-2 transition-all text-left ${
                 isActive
                   ? COLOR_CLASSES[opt.color]
-                  : "border-white/8 bg-zinc-900 text-gray-400 hover:border-white/20 hover:text-white"
+                  : "border-zinc-300/70 bg-white/50 text-zinc-600 hover:border-primary/35 hover:text-primary dark:border-white/10 dark:bg-black/20 dark:text-zinc-400 dark:hover:border-white/20 dark:hover:text-white"
               } disabled:opacity-50`}
             >
               <div className="flex items-center gap-3">
@@ -70,11 +70,11 @@ const StatusControlPage = () => {
       </div>
 
       {saving && (
-        <p className="text-xs text-gray-500 animate-pulse">Saving…</p>
+        <p className="animate-pulse text-xs text-zinc-500">Saving…</p>
       )}
 
-      <p className="text-xs text-gray-600">
-        Changes appear on your site immediately — no deploy needed.
+      <p className="text-xs text-zinc-500 dark:text-zinc-600">
+        Changes appear on your site immediately - no deploy needed.
       </p>
     </motion.div>
   );

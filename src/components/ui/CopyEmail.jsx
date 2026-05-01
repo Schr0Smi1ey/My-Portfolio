@@ -28,7 +28,7 @@ const CopyEmail = ({ email, className = "" }) => {
       initial="rest"
       whileHover="hover"
       animate="rest"
-      className={`group relative overflow-hidden rounded-full 
+      className={`group/email relative overflow-hidden rounded-full 
       inline-flex items-center justify-center gap-2
       px-6 py-2 text-sm font-semibold
       bg-white text-zinc-950
@@ -64,7 +64,7 @@ const CopyEmail = ({ email, className = "" }) => {
       />
 
       {/* text */}
-      <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+      <span className="relative z-10 transition-colors duration-300 group-hover/email:text-white">
         {email}
       </span>
 
@@ -79,7 +79,7 @@ const CopyEmail = ({ email, className = "" }) => {
               exit={{ scale: 0.4, opacity: 0 }}
               transition={{ duration: 0.18 }}
             >
-              <FiCheck className="w-4 h-4 text-white" />
+              <FiCheck className="w-4 h-4 group-hover/email:text-white" />
             </motion.span>
           ) : (
             <motion.span
@@ -89,7 +89,7 @@ const CopyEmail = ({ email, className = "" }) => {
               exit={{ scale: 0.7, opacity: 0 }}
               transition={{ duration: 0.18 }}
             >
-              <FiCopy className="w-4 h-4 transition-colors duration-300 group-hover:text-white" />
+              <FiCopy className="w-4 h-4 transition-colors duration-300 group-hover/email:text-white" />
             </motion.span>
           )}
         </AnimatePresence>

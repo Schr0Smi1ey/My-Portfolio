@@ -1,11 +1,17 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Geist+Mono:wght@100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&family=Inter:wght@400;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=IBM+Plex+Sans:wght@400;600;700&family=Lato:wght@400;700;900&family=Manrope:wght@400;600;700;800&family=Montserrat:wght@400;600;700;800&family=Nunito+Sans:wght@400;600;700;800&family=Open+Sans:wght@400;600;700;800&family=Oswald:wght@400;600;700&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Poppins:wght@400;600;700;800&family=Raleway:wght@400;600;700;800&family=Roboto:wght@400;700;900&family=Rubik:wght@400;600;700;800&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@400;600;700&family=Urbanist:wght@400;600;700;800&family=Work+Sans:wght@400;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=IBM+Plex+Serif:wght@400;600;700&family=Lora:wght@400;600;700&family=Merriweather:wght@400;700;900&family=Playfair+Display:wght@400;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inconsolata:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap");
-
-/* Editorial display font for the hero name */
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @font-face {
   font-family: "Awesome Local";
@@ -21,19 +27,34 @@
   font-display: swap;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* ─── Runtime theme tokens ─────────────────────────────────────────────────── */
 :root {
   --color-primary: #ef4444;
   --color-primary-rgb: 239 68 68;
+  --project-showcase-copy: #52525b;
+  --project-showcase-position: #71717a;
+  --project-showcase-button-bg: rgba(255, 255, 255, 0.62);
+}
+
+.dark {
+  --project-showcase-copy: #d4d4d8;
+  --project-showcase-position: #a1a1aa;
+  --project-showcase-button-bg: rgba(255, 255, 255, 0.04);
 }
 
 /* ─── Base ──────────────────────────────────────────────────────────────────── */
 body {
   font-family: var(--site-font-family, "Fira Sans", sans-serif);
+  cursor: var(--cursor-icon, url("./assets/cursor.svg") 8 4), auto;
+}
+
+* {
+  cursor: var(--cursor-icon, url("./assets/cursor.svg") 8 4), auto;
+}
+
+a,
+button {
+  cursor: var(--cursor-icon, url("./assets/cursor.svg") 8 4), pointer;
 }
 
 /* .sk-mark {
@@ -236,6 +257,35 @@ a.active::after {
 }
 
 /* ─── Premium space-tech hero ───────────────────────────────────────────────── */
+.site-header-backdrop {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  height: 5.75rem;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgb(var(--color-primary-rgb) / 0.14),
+      transparent 58%
+    ),
+    linear-gradient(180deg, #f5f3ef 0%, rgba(245, 243, 239, 0.92) 58%, transparent 100%);
+}
+
+.project-showcase-image-container:hover {
+  background-color: var(--hover-outline) !important;
+}
+
+.dark .site-header-backdrop {
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgb(var(--color-primary-rgb) / 0.16),
+      transparent 58%
+    ),
+    linear-gradient(180deg, #05050a 0%, rgba(5, 5, 10, 0.9) 58%, transparent 100%);
+}
+
 .cosmic-nav a.active::after {
   display: none;
 }
@@ -1130,4 +1180,549 @@ html:not(.dark) .header-contact-button svg {
 .glass-disabled .cosmic-mobile-menu {
   background-image: none;
   backdrop-filter: none;
+}
+
+/* ============================================================
+   BLOG PROSE — Premium Technical Publication
+   Companion to Tailwind prose-invert.
+   All Medium-specific quirks normalised here.
+   ============================================================ */
+
+/* ── Root rhythm ─────────────────────────────────────────── */
+.prose {
+  --prose-body: theme("colors.zinc.700");
+  --prose-lead: theme("colors.zinc.600");
+  --prose-headings: theme("colors.zinc.950");
+  --prose-links: rgb(var(--color-primary-rgb));
+  --prose-code: rgb(var(--color-primary-rgb));
+  --prose-pre-bg: theme("colors.zinc.950");
+  --prose-border: rgba(24, 24, 27, 0.12);
+  --prose-quote-border: rgb(var(--color-primary-rgb));
+  --prose-marker: rgb(var(--color-primary-rgb));
+  --prose-quote: theme("colors.zinc.700");
+  --prose-strong: theme("colors.zinc.950");
+  --prose-em: theme("colors.zinc.700");
+  --prose-table-cell: theme("colors.zinc.700");
+  --prose-subtle: theme("colors.zinc.600");
+  --prose-hr-bg: rgba(255, 255, 255, 0.75);
+  --prose-kbd-border: theme("colors.zinc.300");
+  --prose-kbd-bg: rgba(24, 24, 27, 0.04);
+
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: var(--prose-body);
+}
+
+.dark .prose {
+  --prose-body: theme("colors.zinc.400");
+  --prose-lead: theme("colors.zinc.300");
+  --prose-headings: #ffffff;
+  --prose-pre-bg: rgba(0, 0, 0, 0.55);
+  --prose-border: rgba(255, 255, 255, 0.07);
+  --prose-quote: theme("colors.zinc.300");
+  --prose-strong: #ffffff;
+  --prose-em: theme("colors.zinc.300");
+  --prose-table-cell: theme("colors.zinc.400");
+  --prose-subtle: theme("colors.zinc.600");
+  --prose-hr-bg: #05050a;
+  --prose-kbd-border: theme("colors.zinc.700");
+  --prose-kbd-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* ── Headings ─────────────────────────────────────────────── */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--prose-headings);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  scroll-margin-top: 5rem;
+}
+
+.prose h2 {
+  font-size: 1.65rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--prose-border);
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h4 {
+  font-size: 1rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: rgb(var(--color-primary-rgb));
+}
+
+/* ── Paragraphs ──────────────────────────────────────────── */
+.prose p {
+  margin: 1.35em 0;
+  color: var(--prose-body);
+  line-height: 1.85;
+}
+
+/* ── Links ───────────────────────────────────────────────── */
+.prose a {
+  color: var(--prose-links);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.35);
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+.prose a:hover {
+  border-color: rgb(var(--color-primary-rgb));
+  color: var(--prose-headings);
+}
+
+/* ── Lists — single consolidated rule set ────────────────── */
+.prose ul,
+.prose ol {
+  padding-left: 1.6rem;
+  margin: 1.4rem 0;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  display: list-item;
+  margin: 0.55rem 0;
+  padding-left: 0.25rem;
+  color: var(--prose-body);
+  line-height: 1.75;
+}
+
+/* Nested */
+.prose li > ul,
+.prose li > ol {
+  margin: 0.4rem 0;
+}
+
+/* Single marker override — no duplicates */
+.prose :where(li)::marker {
+  color: var(--prose-marker);
+  font-weight: 700;
+}
+
+/* Merge adjacent same-type lists produced by normalizeLists() */
+.prose ul + ul,
+.prose ol + ol {
+  margin-top: -1.15rem;
+}
+
+/* ── Blockquote ───────────────────────────────────────────── */
+.prose blockquote {
+  position: relative;
+  margin: 2.5rem 0;
+  padding: 1.25rem 1.5rem 1.25rem 2rem;
+  border-left: 3px solid rgb(var(--color-primary-rgb));
+  border-radius: 0 1rem 1rem 0;
+  background: rgba(var(--color-primary-rgb), 0.05);
+  color: var(--prose-quote);
+  font-style: italic;
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.prose blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.35rem;
+  left: 0.6rem;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: rgba(var(--color-primary-rgb), 0.35);
+  font-style: normal;
+  font-family: Georgia, serif;
+}
+
+.prose blockquote p {
+  margin: 0;
+  color: inherit;
+}
+
+.prose blockquote cite {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-family: monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(var(--color-primary-rgb), 0.8);
+}
+
+/* ── Pull quote (large callout) — add class="pull-quote" ─── */
+.prose .pull-quote {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--prose-strong);
+  text-align: center;
+  border: none;
+  border-top: 2px solid rgb(var(--color-primary-rgb));
+  border-bottom: 2px solid rgb(var(--color-primary-rgb));
+  border-radius: 0;
+  padding: 2rem 1rem;
+  margin: 3rem auto;
+  max-width: 36rem;
+  background: transparent;
+}
+
+.prose .pull-quote::before {
+  display: none;
+}
+
+/* ── Callout box — .callout, .callout-warn, .callout-tip ─── */
+.prose .callout,
+.prose .callout-warn,
+.prose .callout-tip {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.875rem;
+  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+  background: rgba(var(--color-primary-rgb), 0.07);
+  margin: 2rem 0;
+  font-size: 0.92rem;
+  color: var(--prose-quote);
+  line-height: 1.7;
+}
+
+.prose .callout::before {
+  content: "ℹ️";
+  flex-shrink: 0;
+}
+.prose .callout-warn::before {
+  content: "⚠️";
+  flex-shrink: 0;
+  border-color: rgba(250, 200, 0, 0.25);
+  background: rgba(250, 200, 0, 0.07);
+}
+.prose .callout-tip::before {
+  content: "💡";
+  flex-shrink: 0;
+  border-color: rgba(0, 220, 130, 0.25);
+  background: rgba(0, 220, 130, 0.07);
+}
+
+/* ── Code — inline ───────────────────────────────────────── */
+.prose :not(pre) > code {
+  color: var(--prose-code);
+  background: rgba(var(--color-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+  border-radius: 0.3rem;
+  padding: 0.1em 0.4em;
+  font-size: 0.88em;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+}
+
+/* ── Code — block ────────────────────────────────────────── */
+.prose pre {
+  position: relative;
+  background: var(--prose-pre-bg) !important;
+  border: 1px solid var(--prose-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 2rem 0;
+  backdrop-filter: blur(8px);
+}
+
+.prose pre code {
+  color: theme("colors.zinc.200");
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+/* Language label */
+.prose pre[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-family: monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(var(--color-primary-rgb), 0.7);
+}
+
+/* ── Tables ──────────────────────────────────────────────── */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+  border-radius: 0.875rem;
+  overflow: hidden;
+  border: 1px solid var(--prose-border);
+}
+
+.prose thead {
+  background: rgba(var(--color-primary-rgb), 0.08);
+}
+
+.prose th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-family: monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--color-primary-rgb));
+  border-bottom: 1px solid var(--prose-border);
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--prose-border);
+  color: var(--prose-table-cell);
+  vertical-align: top;
+}
+
+.prose tr:last-child td {
+  border-bottom: none;
+}
+.prose tr:hover td {
+  background: rgba(var(--color-primary-rgb), 0.04);
+}
+
+/* ── Figures & Images ────────────────────────────────────── */
+.prose figure {
+  margin: 2.5rem auto;
+  text-align: center;
+}
+
+.prose figure img,
+.prose img {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  border: 1px solid var(--prose-border);
+}
+
+.prose figcaption {
+  text-align: center;
+  font-size: 0.78rem;
+  font-family: monospace;
+  letter-spacing: 0.06em;
+  color: var(--prose-subtle);
+  margin-top: 0.75rem;
+}
+
+/* ── Iframes / Embeds ────────────────────────────────────── */
+.prose iframe {
+  display: block;
+  margin: 2rem auto;
+  width: 100%;
+  min-height: 450px;
+  border-radius: 1rem;
+  border: 1px solid var(--prose-border);
+}
+
+/* ── HR ──────────────────────────────────────────────────── */
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--prose-border);
+  margin: 3rem 0;
+  position: relative;
+}
+
+.prose hr::after {
+  content: "✦";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--prose-hr-bg);
+  padding: 0 0.75rem;
+  color: rgba(var(--color-primary-rgb), 0.5);
+  font-size: 0.7rem;
+}
+
+/* ── Strong / Em ─────────────────────────────────────────── */
+.prose strong {
+  color: var(--prose-strong);
+  font-weight: 700;
+}
+.prose em {
+  color: var(--prose-em);
+}
+
+/* ── Keyboard ─────────────────────────────────────────────── */
+.prose kbd {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1em 0.45em;
+  border: 1px solid var(--prose-kbd-border);
+  border-bottom-width: 2px;
+  border-radius: 0.3rem;
+  font-family: monospace;
+  font-size: 0.82em;
+  color: var(--prose-em);
+  background: var(--prose-kbd-bg);
+}
+
+/* ── Footnotes ───────────────────────────────────────────── */
+.prose .footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--prose-border);
+  font-size: 0.85rem;
+  color: theme("colors.zinc.500");
+}
+
+/* ── Reading progress bar ────────────────────────────────── */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--color-primary-rgb)),
+    rgba(var(--color-primary-rgb), 0.4)
+  );
+  z-index: 9999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(var(--color-primary-rgb), 0.8);
+}
+
+/* ── TOC sidebar ─────────────────────────────────────────── */
+.toc-link {
+  display: block;
+  font-size: 0.72rem;
+  font-family: monospace;
+  letter-spacing: 0.04em;
+  color: theme("colors.zinc.500");
+  padding: 0.3rem 0.6rem;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+  line-height: 1.5;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+  word-break: break-word;
+}
+
+.toc-link:hover,
+.toc-link.active {
+  color: rgb(var(--color-primary-rgb));
+  border-color: rgb(var(--color-primary-rgb));
+}
+
+.toc-link.h3 {
+  padding-left: 1.1rem;
+}
+.toc-link.h4 {
+  padding-left: 1.65rem;
+  font-size: 0.68rem;
+}
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: "Geist Variable", sans-serif;
+  }
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+  }
+  .dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }

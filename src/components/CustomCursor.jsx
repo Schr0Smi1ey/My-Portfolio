@@ -57,11 +57,11 @@ export const CustomCursor = () => {
       style={{
         x,
         y,
-        mixBlendMode: "screen",
+        mixBlendMode: "normal",
         boxShadow:
-          "0 0 22px rgb(var(--color-primary-rgb) / 0.35), inset 0 0 16px rgba(255,255,255,0.1)",
+          "0 0 24px rgb(var(--color-primary-rgb) / 0.38), 0 0 0 1px rgb(var(--color-primary-rgb) / 0.26), inset 0 0 16px rgb(var(--color-primary-rgb) / 0.18)",
         background:
-          "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35) 0 8%, rgb(var(--color-primary-rgb) / 0.26) 10% 34%, transparent 70%)",
+          "radial-gradient(circle at 50% 50%, rgb(var(--color-primary-rgb) / 0.5) 0 10%, rgb(var(--color-primary-rgb) / 0.24) 14% 42%, rgb(var(--color-primary-rgb) / 0.08) 62%, transparent 78%)",
       }}
     />
   );

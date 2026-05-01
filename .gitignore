@@ -12,6 +12,27 @@ dist
 dist-ssr
 *.local
 
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Generated deploy/test output
+.firebase/
+coverage/
+
+# Local planning and test-only files
+docs/superpowers/
+*.test.js
+*.test.jsx
+*.test.ts
+*.test.tsx
+*.spec.js
+*.spec.jsx
+*.spec.ts
+*.spec.tsx
+authSession.test.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

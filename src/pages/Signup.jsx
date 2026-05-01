@@ -70,10 +70,6 @@ const SignupPage = () => {
     }
   };
 
-  // ── Google: await popup THEN navigate ─────────────────────────────────────
-  // Do NOT call navigate() before the popup resolves — by the time
-  // signInWithGoogle() resolves, onAuthStateChanged has already fired,
-  // awaited /jwt, and set loading=false. The cookie exists.
   const handleGoogle = async () => {
     setLoading(true);
     try {

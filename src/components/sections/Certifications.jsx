@@ -216,7 +216,7 @@ const Certifications = () => {
   return (
     <section
       id="certifications"
-      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 mb-20 py-24 text-zinc-950 dark:text-white md:px-8"
+      className="about-cosmic-section relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-[#05050a] px-4 mb-20 !py-20 text-zinc-950 dark:text-white md:px-8"
     >
       {/* Cosmic Background Elements */}
       <motion.div
@@ -332,7 +332,7 @@ const Certifications = () => {
                   className={`ml-2 rounded-full px-2 py-0.5 text-[0.58rem] ${
                     activeFilter === category.id
                       ? "bg-primary/20 text-primary"
-                      : "bg-zinc-800 text-zinc-500"
+                      : "bg-transparent text-primary"
                   }`}
                 >
                   {category.count}

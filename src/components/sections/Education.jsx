@@ -77,12 +77,14 @@ const EducationRecord = ({ edu, index }) => (
     <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,3,7,0.98)_0%,rgba(3,3,7,0.92)_18%,rgba(3,3,7,0.7)_43%,rgba(3,3,7,0.22)_78%,rgba(3,3,7,0.08)_100%)]" />
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_50%,rgb(var(--color-primary-rgb)/0.14),transparent_34%)]" />
 
-    <div className="relative z-10 grid min-h-[20rem] gap-16 p-5 sm:p-6 md:min-h-[16rem] md:grid-cols-[8rem_1fr] lg:grid-cols-[10rem_1fr]">
-      <div className="pointer-events-none absolute left-4 top-16 z-0 font-display text-[6.5rem] leading-none text-primary/[0.13] sm:left-6 sm:text-[7.5rem] md:static md:self-center md:text-[8.5rem] lg:text-[9.5rem]">
+    <div className="relative z-10 flex min-h-[20rem] items-center justify-between p-5 sm:p-6 md:min-h-[16rem]">
+      {/* Number Section - Left */}
+      <div className="pointer-events-none flex font-display text-[6.5rem] leading-none text-primary/[0.13] sm:text-[7.5rem] md:text-[8.5rem] lg:text-[9.5rem]">
         {edu.number}
       </div>
 
-      <div className="relative z-10 ml-0 flex max-w-3xl flex-col justify-center md:-ml-5 lg:-ml-7">
+      {/* Content Section - Right */}
+      <div className="relative z-10 flex max-w-3xl flex-1 flex-col md:pl-8 lg:pl-12">
         <div className="mb-4 w-fit rounded-full border border-primary/45 bg-black/25 px-3 py-1 font-mono text-[0.58rem] font-bold uppercase tracking-[0.18em] text-primary backdrop-blur-xl">
           {edu.years}
         </div>
@@ -138,7 +140,8 @@ const Education = () => {
       <div className="about-cosmic-starfield" aria-hidden="true" />
       <div className="cosmic-noise" aria-hidden="true" />
       <motion.div
-        className="cosmic-orb cosmic-orb-left"
+        class
+        Name="cosmic-orb cosmic-orb-left"
         aria-hidden="true"
         animate={
           shouldReduceMotion

@@ -3,6 +3,7 @@ import { FiGithub, FiStar, FiUsers, FiGitBranch, FiBook } from "react-icons/fi";
 import { useGitHubStats } from "../../hooks";
 import { GITHUB_USERNAME, SOCIAL_LINKS } from "../../constants";
 import { useAuth } from "../../context/AuthContext";
+import AnimatedNumber from "../ui/AnimatedNumber";
 
 const LANG_COLORS = {
   JavaScript: "#f7df1e",
@@ -32,7 +33,7 @@ const StatCard = ({ icon, label, value, delay }) => (
   >
     <span className="text-primary">{icon}</span>
     <span className="mt-1 text-2xl font-bold text-zinc-950 dark:text-white">
-      {value}
+      <AnimatedNumber value={value} delay={delay} />
     </span>
     <span className="text-xs text-zinc-500 dark:text-zinc-400">{label}</span>
   </motion.div>
@@ -71,7 +72,10 @@ const LanguageBar = ({ topLanguages }) => {
             <span className="text-xs text-zinc-600 dark:text-zinc-400">
               {lang}
               <span className="ml-1 text-zinc-400 dark:text-zinc-500">
-                {((count / total) * 100).toFixed(0)}%
+                <AnimatedNumber
+                  value={`${((count / total) * 100).toFixed(0)}%`}
+                  separator=""
+                />
               </span>
             </span>
           </div>

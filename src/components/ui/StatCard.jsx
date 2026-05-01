@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import AnimatedNumber from "./AnimatedNumber";
 
 const StatCard = ({ label, value, description, color, icon, delay = 0 }) => {
   return (
@@ -54,7 +55,7 @@ const StatCard = ({ label, value, description, color, icon, delay = 0 }) => {
               delay: delay * 0.2,
             }}
           >
-            {value}
+            <AnimatedNumber value={value} delay={delay * 0.1} />
           </motion.div>
 
           {/* Label */}
